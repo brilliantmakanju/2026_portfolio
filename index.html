@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brilliant Makanju — Full-Stack AI & Systems Engineer</title>
-  <meta name="description" content="Full-Stack AI & Systems Engineer building causal AI engines, Rust Tokio microservices, GPU video pipelines, and multi-tenant SaaS architectures." />
+  <title>Brilliant Makanju - Full-Stack AI & Systems Engineer</title>
+  <meta name="description" content="Full-Stack AI Engineer with nearly 2 yrs of professional experience building LLM pipelines, Next.js / React frontends, Rust microservices, GPU video engines, and multi-tenant SaaS platforms." />
   <meta name="author" content="Brilliant Makanju" />
-  <meta property="og:title" content="Brilliant Makanju — Full-Stack AI & Systems Engineer" />
+  <meta property="og:title" content="Brilliant Makanju - Full-Stack AI & Systems Engineer" />
   <meta property="og:description" content="Explore code-grounded case studies: 7-stage causal AI DAGs, Rust polling microservices, GPU video infrastructure, and 98% Redis optimization." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,36 +18,863 @@
 </head>
 <body class="subtle-grid min-h-screen text-slate-200">
   <!-- NAV -->
-  <header id="nav" class="sticky top-0 z-50 bg-[#050505]/90 backdrop-blur-md border-b border-white/5 transition-all duration-200"></header>
+  <header id="nav" class="sticky top-0 z-50 bg-[#050505]/90 backdrop-blur-md border-b border-white/5 transition-all duration-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between font-mono text-xs">
+      <a href="#hero" class="flex items-center gap-2.5 group">
+        <div class="w-6 h-6 rounded bg-white text-black font-bold flex items-center justify-center text-xs">b</div>
+        <span class="text-slate-200 font-semibold tracking-tight group-hover:text-white">brilliant.systems</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-6 text-slate-400">
+        <a href="#metrics" class="nav-link">01. impact</a>
+        <a href="#case-studies" class="nav-link">02. playground</a>
+        <a href="#projects" class="nav-link">03. projects</a>
+        <a href="#skills" class="nav-link">04. stack</a>
+        <a href="#experience" class="nav-link">05. history</a>
+        <a href="#certifications" class="nav-link">06. certs</a>
+        <a href="#contact" class="nav-link">07. contact</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="mailto:brilliantmakanju10@gmail.com" class="hidden sm:inline-flex px-3 py-1 rounded bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:border-white/20 transition-all text-xs">
+          Get in touch
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden p-1.5 rounded bg-white/5 border border-white/10 text-slate-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 border-t border-white/5 bg-[#0a0a0c] font-mono text-xs space-y-2">
+      <a href="#metrics" class="block py-1.5 text-slate-400 hover:text-white">01. impact</a>
+      <a href="#case-studies" class="block py-1.5 text-slate-400 hover:text-white">02. playground</a>
+      <a href="#projects" class="block py-1.5 text-slate-400 hover:text-white">03. projects</a>
+      <a href="#skills" class="block py-1.5 text-slate-400 hover:text-white">04. stack</a>
+      <a href="#experience" class="block py-1.5 text-slate-400 hover:text-white">05. history</a>
+      <a href="#certifications" class="block py-1.5 text-slate-400 hover:text-white">06. certs</a>
+      <a href="#contact" class="block py-1.5 text-slate-400 hover:text-white">07. contact</a>
+    </div>
+  </header>
 
   <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-12">
     <!-- HERO -->
-    <section id="hero" class="pt-8 sm:pt-16"></section>
+    <section id="hero" class="pt-8 sm:pt-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-white/5 border border-white/10 font-mono text-xs text-slate-300">
+            <span class="text-emerald-400">~/</span> full-stack-ai-and-systems-engineer
+          </div>
 
-    <!-- METRICS & IMPACT -->
-    <section id="metrics"></section>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.1]">
+            Brilliant Makanju.
+          </h1>
 
-    <!-- INTERACTIVE CASE STUDIES & SIMULATORS -->
-    <section id="case-studies"></section>
+          <p class="text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
+            Full-Stack AI Engineer with professional experience in frontend and AI engineering. Built AI-powered features using Python and LLM integrations, multi-tenant SaaS platforms, REST APIs, real-time applications, and GPU-accelerated video pipelines.
+          </p>
 
-    <!-- SELECTED PROJECTS (4 CORE PROJECTS ONLY) -->
-    <section id="projects"></section>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-mono">
+            Strong across Python, TypeScript, React, Next.js, Django, PostgreSQL, Docker, and Rust.
+          </p>
 
-    <!-- TECH STACK MATRIX -->
-    <section id="skills"></section>
+          <div class="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs">
+            <a href="#case-studies" class="btn-mono w-full sm:w-auto justify-center">
+              <span>Explore Case Studies</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7M3 12h18"/></svg>
+            </a>
+            <a href="#projects" class="btn-mono-ghost w-full sm:w-auto justify-center">Selected Projects</a>
+            <a href="mailto:brilliantmakanju10@gmail.com" class="btn-mono-ghost w-full sm:w-auto justify-center">Contact Me</a>
+          </div>
+        </div>
 
-    <!-- CAREER COMMIT HISTORY -->
-    <section id="experience"></section>
+        <div class="lg:col-span-5">
+          <div class="card-mono p-4 sm:p-5 font-mono text-xs shadow-2xl overflow-x-auto">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-slate-500 text-[11px]">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+              </div>
+              <span>brilliant@node-01:~</span>
+            </div>
 
-    <!-- VERIFIED CERTIFICATIONS -->
-    <section id="certifications"></section>
+            <div class="space-y-2.5 text-slate-300">
+              <div>
+                <span class="text-emerald-400">$</span> <span class="text-white">brilliant --status</span>
+              </div>
+              <div class="text-slate-400 pl-3 space-y-1 text-[11px] sm:text-xs">
+                <div><span class="text-slate-500">primary_stack:</span> ["Python", "TypeScript", "React", "Next.js", "Rust"]</div>
+                <div><span class="text-slate-500">frontend_engine:</span> "Next.js 15, WebAssembly FFmpeg, Zustand"</div>
+                <div><span class="text-slate-500">ai_architecture:</span> "7-Stage Causal Do-Calculus DAGs"</div>
+                <div><span class="text-slate-500">gpu_pipeline:</span> "RTX 5090 / L4 NVENC H.264"</div>
+                <div><span class="text-slate-500">redis_savings:</span> "98.4% op reduction (500k -&gt; 84k/mo)"</div>
+              </div>
+              <div class="pt-2 flex items-center gap-1">
+                <span class="text-emerald-400">$</span> <span class="w-2 h-4 bg-white animate-pulse inline-block"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- CONTACT / DEPLOY YOURSELF -->
-    <section id="contact"></section>
+    <!-- METRICS -->
+    <section id="metrics">
+      <div class="border-t border-white/10 pt-12">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-xs font-mono text-slate-400 uppercase tracking-wider">// Measured Technical Outcomes</h2>
+          <span class="text-xs font-mono text-slate-500">Verified from production code</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="card-mono p-5 space-y-2">
+            <div class="text-3xl font-extrabold text-white font-mono">98.4%</div>
+            <div class="text-xs font-semibold text-slate-300">Redis Operation Reduction</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Cut Upstash Redis ops from 500,000+ to under 85,000 per month using in-memory Tokio caching and atomic batching.
+            </p>
+          </div>
+
+          <div class="card-mono p-5 space-y-2">
+            <div class="text-3xl font-extrabold text-white font-mono">RTX 5090</div>
+            <div class="text-xs font-semibold text-slate-300">GPU Hardware Pipeline</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Tuned NVENC H.264 encoding with CUDA Lanczos scaling and 128 decode surfaces on RunPod serverless instances.
+            </p>
+          </div>
+
+          <div class="card-mono p-5 space-y-2">
+            <div class="text-3xl font-extrabold text-white font-mono">7-Stage</div>
+            <div class="text-xs font-semibold text-slate-300">Causal AI Pipeline</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Chain-of-Thought pipeline executing Judea Pearl do-calculus, topological sort loop breaking, and temporal decay weighting.
+            </p>
+          </div>
+
+          <div class="card-mono p-5 space-y-2">
+            <div class="text-3xl font-extrabold text-white font-mono">4 Systems</div>
+            <div class="text-xs font-semibold text-slate-300">Production Codebases</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Full production architectures: ThreadChat (live), BranchForge, Playthrough, and Push to Draft.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="case-studies">
+      <div class="border-t border-white/10 pt-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <div class="text-xs font-mono text-slate-400 mb-1">// Interactive Architecture Playground</div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Deep Technical Case Studies</h2>
+          </div>
+          <div class="text-xs font-mono text-slate-500">Click tabs to switch live interactive simulators</div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-3 overflow-x-auto">
+          <button class="cs-tab active text-xs whitespace-nowrap" data-cs="branchforge">01. BranchForge (Causal AI DAGs)</button>
+          <button class="cs-tab text-xs whitespace-nowrap" data-cs="redis">02. Upstash Redis (98.4% Ops Reduction)</button>
+          <button class="cs-tab text-xs whitespace-nowrap" data-cs="gpu">03. Playthrough (Full-Stack & GPU Infra)</button>
+          <button class="cs-tab text-xs whitespace-nowrap" data-cs="saas">04. Multi-Tenant SaaS Engine</button>
+        </div>
+
+        <div id="cs-content">
+          <!-- PANEL 1: BranchForge -->
+          <div id="cs-branchforge" class="cs-panel">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div class="lg:col-span-7 space-y-6">
+                <div class="card-mono p-5 sm:p-6 space-y-4">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag-mono">Django / Python 3.13</span>
+                    <span class="tag-mono">Llama-3.3-70B</span>
+                    <span class="tag-mono">Do-Calculus</span>
+                    <span class="tag-mono">SHA-256 DAGs</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-white">Causal What-If Simulation Engine with Hallucination Safeguards</h3>
+                  <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Standard LLM scenario generation suffers from narrative drift and feedback loop hallucinations.
+                    BranchForge pairs Judea Pearl's Causal Do-Calculus with a 7-stage Chain-of-Thought pipeline to evaluate interventions on Directed Acyclic Graphs.
+                  </p>
+
+                  <div class="space-y-3 pt-2 font-mono text-xs">
+                    <div class="p-3 rounded bg-white/[0.02] border border-white/10 space-y-1">
+                      <div class="text-white font-semibold">1. Exponential Temporal Fact Decay</div>
+                      <div class="text-slate-400">weight(t) = initial_weight * (0.5 ^ (days_elapsed / half_life))</div>
+                      <div class="text-slate-500 text-[11px]">Prevents legacy news facts from skewing present-day counterfactual inferences.</div>
+                    </div>
+
+                    <div class="p-3 rounded bg-white/[0.02] border border-white/10 space-y-1">
+                      <div class="text-white font-semibold">2. Topological Sort Cycle Breaking</div>
+                      <div class="text-slate-400">detect_cycles(graph) -&gt; sever_feedback_edges()</div>
+                      <div class="text-slate-500 text-[11px]">Enforces strict acyclicity before downstream delta propagation.</div>
+                    </div>
+
+                    <div class="p-3 rounded bg-white/[0.02] border border-white/10 space-y-1">
+                      <div class="text-white font-semibold">3. SHA-256 World-Line Branch Hashing</div>
+                      <div class="text-slate-400">branch_hash = sha256(f"{parent_hash}-{intervention_id}-{created_at}")</div>
+                      <div class="text-slate-500 text-[11px]">Git-like immutable versioning for scenario tree lineage.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5">
+                <div class="card-mono-hi p-5 sm:p-6 flex flex-col justify-between h-full space-y-6">
+                  <div>
+                    <div class="flex items-center justify-between mb-4">
+                      <span class="text-xs font-mono text-slate-400">// LIVE PIPELINE TRACER</span>
+                      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Click stage to step</span>
+                    </div>
+
+                    <div class="flex justify-between items-center mb-6">
+                      <div class="stage-dot active" data-stage="1">1</div><div class="h-px bg-white/10 flex-1 mx-1"></div>
+                      <div class="stage-dot" data-stage="2">2</div><div class="h-px bg-white/10 flex-1 mx-1"></div>
+                      <div class="stage-dot" data-stage="3">3</div><div class="h-px bg-white/10 flex-1 mx-1"></div>
+                      <div class="stage-dot" data-stage="4">4</div><div class="h-px bg-white/10 flex-1 mx-1"></div>
+                      <div class="stage-dot" data-stage="5">5</div><div class="h-px bg-white/10 flex-1 mx-1"></div>
+                      <div class="stage-dot" data-stage="6">6</div><div class="h-px bg-white/10 flex-1 mx-1"></div>
+                      <div class="stage-dot" data-stage="7">7</div>
+                    </div>
+
+                    <div id="stage-detail-box" class="p-4 rounded bg-[#050505] border border-white/10 space-y-3 font-mono text-xs">
+                      <div>
+                        <div class="text-slate-500 text-[11px]" id="stage-num">STAGE 1 OF 7</div>
+                        <div class="text-white font-bold text-sm mt-0.5" id="stage-title">Load &amp; Inherit Base Reality</div>
+                      </div>
+                      <p class="text-slate-400 text-[11px] leading-relaxed" id="stage-desc">
+                        Validates grounded facts schema, recomputes temporal decay weights, and halts pipeline if fact confidence falls below 0.30 threshold.
+                      </p>
+                      <div class="pt-2 border-t border-white/5 text-[11px]">
+                        <div class="text-slate-500">payload_trace:</div>
+                        <div class="text-emerald-400" id="stage-val">Decay recomputed, Gating PASSED (0.87)</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-[11px] font-mono text-slate-500 border-t border-white/5 pt-3">
+                    Pipeline execution logged to append-only AuditEntry ledger.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL 2: Redis Optimization -->
+          <div id="cs-redis" class="cs-panel hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div class="lg:col-span-7 space-y-6">
+                <div class="card-mono p-5 sm:p-6 space-y-4">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag-mono">Upstash Redis</span>
+                    <span class="tag-mono">Rust / Axum</span>
+                    <span class="tag-mono">Tokio Channels</span>
+                    <span class="tag-mono">Distributed Lock Removal</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-white">Upstash Redis Optimization: 500k+ to &lt;85k Monthly Operations</h3>
+                  <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Initial thread polling logic exceeded Upstash free tier limits with a single active user due to unbatched status pings and redundant distributed lock polling.
+                  </p>
+
+                  <div class="space-y-3 text-xs">
+                    <div class="p-3.5 rounded bg-red-500/5 border border-red-500/20 space-y-1">
+                      <div class="font-bold text-red-400 font-mono">Unoptimized Bottleneck</div>
+                      <p class="text-slate-300">Every WebSocket connection polled Redis lock keys every 500ms, accumulating ~17,280 ops per user per day.</p>
+                    </div>
+                    <div class="p-3.5 rounded bg-emerald-500/5 border border-emerald-500/20 space-y-1">
+                      <div class="font-bold text-emerald-400 font-mono">Tokio Async Refactor Solution</div>
+                      <p class="text-slate-300">Replaced lock polling with in-memory Tokio broadcast channels and batched atomic syncs, cutting daily ops to &lt;2,800 across multi-user traffic.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5">
+                <div class="card-mono-hi p-5 sm:p-6 flex flex-col justify-between h-full space-y-6">
+                  <div>
+                    <div class="text-xs font-mono text-slate-400 mb-4">// OPS REDUCTION COMPARISON</div>
+
+                    <div class="space-y-5">
+                      <div>
+                        <div class="flex justify-between text-xs font-mono mb-1.5">
+                          <span class="text-slate-400">Unoptimized Lock Polling</span>
+                          <span class="text-red-400 font-bold">518,400 ops/mo</span>
+                        </div>
+                        <div class="h-3 rounded bg-white/5 overflow-hidden">
+                          <div class="h-full bg-red-500 rounded w-full"></div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div class="flex justify-between text-xs font-mono mb-1.5">
+                          <span class="text-slate-400">Tokio In-Memory Batching</span>
+                          <span class="text-emerald-400 font-bold">84,000 ops/mo</span>
+                        </div>
+                        <div class="h-3 rounded bg-white/5 overflow-hidden">
+                          <div class="h-full bg-emerald-500 rounded" style="width: 16%"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-4 rounded bg-[#050505] border border-white/10 text-center font-mono">
+                    <div class="text-[11px] text-slate-500">OPERATIONAL MARGIN GAINED</div>
+                    <div class="text-xl sm:text-2xl font-extrabold text-white my-1">434,400 Ops Saved</div>
+                    <div class="text-[11px] text-emerald-400">83.8% headroom kept for scaling</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL 3: Playthrough -->
+          <div id="cs-gpu" class="cs-panel hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div class="lg:col-span-7 space-y-6">
+                <div class="card-mono p-5 sm:p-6 space-y-4">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag-mono">Next.js 15 / React 19</span>
+                    <span class="tag-mono">@ffmpeg/ffmpeg WASM</span>
+                    <span class="tag-mono">Zustand &amp; TanStack</span>
+                    <span class="tag-mono">NVIDIA RTX 5090 / L4</span>
+                    <span class="tag-mono">h264_nvenc</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-white">Full-Stack Video Editing &amp; Serverless GPU Infrastructure</h3>
+                  <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    End-to-end video platform consisting of a Next.js 15 browser video editor with client-side WebAssembly FFmpeg previews and an ultra-fast serverless GPU rendering microservice running on RunPod (NVIDIA RTX 5090 / L4 32GB VRAM).
+                  </p>
+
+                  <div class="space-y-3 font-mono text-xs">
+                    <div class="p-3.5 rounded bg-white/[0.02] border border-white/10 space-y-1">
+                      <div class="text-white font-semibold">1. Client-Side WASM Video Editing (PlaythroughEditor)</div>
+                      <div class="text-slate-400">Next.js 15 · React 19 · Zustand · @ffmpeg/ffmpeg WASM</div>
+                      <div class="text-slate-500 text-[11px]">Instant client-side clip trimming, waveform visualizers, and live preview rendering without server roundtrips.</div>
+                    </div>
+
+                    <div class="p-3.5 rounded bg-white/[0.02] border border-white/10 space-y-1">
+                      <div class="text-white font-semibold">2. Serverless Hardware Acceleration (PlaythroughProcessor)</div>
+                      <div class="text-slate-400">h264_nvenc · h264_cuvid · CUDA Lanczos · RunPod RTX 5090</div>
+                      <div class="text-slate-500 text-[11px]">Serverless GPU rendering microservice processing parallel segment cuts, watermarking, and color grading.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5">
+                <div class="card-mono-hi p-5 sm:p-6 flex flex-col justify-between h-full space-y-4">
+                  <div>
+                    <div class="text-xs font-mono text-slate-400 mb-3">// GPU HARDWARE PRESET MATRIX</div>
+                    <div class="space-y-2.5 font-mono text-xs">
+                      <div class="p-3 rounded bg-[#050505] border border-white/10 flex justify-between items-center">
+                        <div>
+                          <div class="text-white font-bold">Ultra Quality</div>
+                          <div class="text-slate-500 text-[11px]">CQ 18 · Archival Master</div>
+                        </div>
+                        <span class="tag-mono">p7 preset</span>
+                      </div>
+                      <div class="p-3 rounded bg-[#050505] border border-white/10 flex justify-between items-center">
+                        <div>
+                          <div class="text-white font-bold">High Production</div>
+                          <div class="text-slate-500 text-[11px]">CQ 20 · Default Export</div>
+                        </div>
+                        <span class="tag-mono">p4 preset</span>
+                      </div>
+                      <div class="p-3 rounded bg-[#050505] border border-white/10 flex justify-between items-center">
+                        <div>
+                          <div class="text-white font-bold">Fast Preview</div>
+                          <div class="text-slate-500 text-[11px]">CQ 25 · Quick Render</div>
+                        </div>
+                        <span class="tag-mono">p2 preset</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-[11px] font-mono text-slate-500 border-t border-white/5 pt-3">
+                    Client WebAssembly handles local timeline edits; RunPod RTX 5090 handles heavy 4K exports.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL 4: Multi-Tenant SaaS -->
+          <div id="cs-saas" class="cs-panel hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div class="lg:col-span-7 space-y-6">
+                <div class="card-mono p-5 sm:p-6 space-y-4">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag-mono">django-tenants</span>
+                    <span class="tag-mono">PostgreSQL Schema Isolation</span>
+                    <span class="tag-mono">AES-256 OAuth Encryption</span>
+                    <span class="tag-mono">Downgrade Manager</span>
+                  </div>
+                  <h3 class="text-lg sm:text-xl font-bold text-white">Multi-Tenant SaaS Engine and Automated Downgrade Manager</h3>
+                  <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Architected Push to Draft backend with PostgreSQL schema-per-tenant isolation using <code class="text-white">django-tenants</code>, AES-256 token encryption for third-party social OAuth integrations, and automated subscription downgrade cascading.
+                  </p>
+
+                  <div class="p-4 rounded bg-[#050505] border border-white/10 space-y-2 font-mono text-xs">
+                    <div class="text-white font-bold">Automated Subscription Downgrade Manager</div>
+                    <p class="text-slate-400 text-[11px] leading-relaxed">
+                      When subscription payments lapse, the manager automatically pauses excess links and repository configs without deleting tenant data, keeping schema constraints intact.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-5">
+                <div class="card-mono-hi p-5 sm:p-6 flex flex-col justify-between h-full space-y-4">
+                  <div>
+                    <div class="text-xs font-mono text-slate-400 mb-3">// AES-256 TOKEN SECURITY</div>
+                    <div class="p-4 rounded bg-[#050505] border border-white/10 font-mono text-xs space-y-1 text-slate-400 overflow-x-auto">
+                      <div><span class="text-slate-500">encrypted_access_token:</span> "aes256:gAAAAAB..."</div>
+                      <div><span class="text-slate-500">encrypted_refresh_token:</span> "aes256:gAAAAAB..."</div>
+                      <div><span class="text-slate-500">external_id_hash:</span> "sha256:e3b0c442..."</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="border-t border-white/10 pt-16">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <div class="text-xs font-mono text-slate-400 mb-1">// Production Architectures</div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Selected Work</h2>
+          </div>
+          <span class="text-xs font-mono text-slate-500">4 Core Systems</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Project 1: ThreadChat -->
+          <div class="card-mono p-5 sm:p-6 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex justify-between items-start gap-2 flex-wrap">
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="tag-mono">Live SaaS</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white mt-1">ThreadChat</h3>
+                  <div class="text-xs text-slate-400 font-mono">YouTube Conversation Tracker</div>
+                </div>
+
+                <div class="flex items-center gap-2 flex-wrap">
+                  <a href="https://threadchat.jolexhive.com" target="_blank" rel="noopener" class="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-emerald-400 hover:text-white font-mono text-xs flex items-center gap-1" title="Live Site">
+                    <span>live site</span>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                  </a>
+                </div>
+              </div>
+
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Built a SaaS for following specific YouTube comment threads, with reply notifications and up to 30 days of edit and deletion history.</p>
+
+              <ul class="space-y-1.5 text-xs text-slate-400 font-mono">
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Integrated user authentication and Paddle payments for a paid Pro tier.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Built the Rust/Axum backend with a polling microservice on Tokio that fetches comment threads from the YouTube Data API.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Implemented real-time WebSocket messaging with reactions.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Learned Rust and SvelteKit from scratch; shipped an MVP in under 2 months.</span></li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Rust</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Axum</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Tokio</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">SvelteKit</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">TypeScript</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">WebSockets</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">PostgreSQL</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Supabase</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Redis</span>
+            </div>
+          </div>
+
+          <!-- Project 2: Push to Draft -->
+          <div class="card-mono p-5 sm:p-6 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex justify-between items-start gap-2 flex-wrap">
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="tag-mono">SaaS Engine</span>
+                    <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono text-[10px]">Decommissioned</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white mt-1">Push to Draft</h3>
+                  <div class="text-xs text-slate-400 font-mono">Multi-Tenant SaaS Engine</div>
+                </div>
+
+                <div class="flex items-center gap-2 flex-wrap">
+                  <a href="https://github.com/brilliantmakanju/pushtodraftbackend" target="_blank" rel="noopener" class="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-slate-300 hover:text-white font-mono text-xs flex items-center gap-1" title="Backend Repository">
+                    <span>backend code</span>
+                  </a>
+                  <a href="https://github.com/brilliantmakanju/commit-to-post-ui" target="_blank" rel="noopener" class="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-slate-300 hover:text-white font-mono text-xs flex items-center gap-1" title="Frontend Repository">
+                    <span>frontend code</span>
+                  </a>
+                </div>
+              </div>
+
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Built a multi-tenant Django SaaS starter kit, later used to build BranchForge, with schema-per-tenant PostgreSQL isolation.</p>
+
+              <ul class="space-y-1.5 text-xs text-slate-400 font-mono">
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Frontend &amp; App Integration: Built Next.js web application (commit-to-post-ui) with GitHub OAuth, repository selection UI, and post preview editors.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>GitHub App Webhooks: Configured webhook event listeners capturing git commit pushes, branch merges, and release events in real time.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Automated AI Engine: Built an AI pipeline converting captured commit messages into platform-tailored social media posts.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Security &amp; Billing: Secured third-party social integrations with AES-256 encrypted tokens, automatic token refresh, organization roles, and an automated plan-downgrade engine.</span></li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Python</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Django</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Django REST Framework</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">PostgreSQL</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">GitHub App Webhooks</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">OAuth</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">AES-256</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Next.js</span>
+            </div>
+          </div>
+
+          <!-- Project 3: BranchForge -->
+          <div class="card-mono p-5 sm:p-6 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex justify-between items-start gap-2 flex-wrap">
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="tag-mono">Causal AI Engine</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white mt-1">BranchForge</h3>
+                  <div class="text-xs text-slate-400 font-mono">Causal Simulation Engine</div>
+                </div>
+
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-slate-500 font-mono text-xs">closed source</span>
+                </div>
+              </div>
+
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Causal AI simulation framework using Judea Pearl's Causal Do-Calculus on Directed Acyclic Graphs (DAGs) to evaluate counterfactual scenario trees.</p>
+
+              <ul class="space-y-1.5 text-xs text-slate-400 font-mono">
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Built a 7-stage LLM pipeline that constructs directed acyclic graphs from curated facts.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Broke feedback loops with topological sort and propagated hypothetical interventions along typed causal edges.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Designed to limit hallucination with exponential time-decay fact weighting, a confidence gate that halts low-confidence runs, and schema validation of input facts and parsed JSON.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Implemented SHA-256 branch hashing for Git-style scenario versioning, with per-stage traces and an append-only audit log.</span></li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Python</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Django</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Django REST Framework</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">PostgreSQL</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">LLMs</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Do-Calculus</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">SHA-256</span>
+            </div>
+          </div>
+
+          <!-- Project 4: Playthrough -->
+          <div class="card-mono p-5 sm:p-6 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex justify-between items-start gap-2 flex-wrap">
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="tag-mono">Full-Stack Platform</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-white mt-1">Playthrough</h3>
+                  <div class="text-xs text-slate-400 font-mono">Full-Stack Editor &amp; GPU Video Microservice</div>
+                </div>
+
+                <div class="flex items-center gap-2 flex-wrap">
+                  <a href="https://github.com/brilliantmakanju/video_processor_gpu_infra" target="_blank" rel="noopener" class="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-slate-300 hover:text-white font-mono text-xs flex items-center gap-1" title="Backend Repository">
+                    <span>code repository</span>
+                  </a>
+                </div>
+              </div>
+
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Full-stack video platform featuring a Next.js 15 browser video editor with client-side WebAssembly FFmpeg previews and a serverless GPU rendering microservice.</p>
+
+              <ul class="space-y-1.5 text-xs text-slate-400 font-mono">
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Frontend Editor: Next.js 15, React 19, Zustand state store, and @ffmpeg/ffmpeg WASM for client-side clip trimming and waveform previews.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>GPU Microservice: Video microservice taking video &amp; JSON edit-map timelines, executing parallel segment cutting, GPU concatenation, watermarking, and color grading.</span></li>
+                <li class="flex items-start gap-2"><span class="text-slate-500 font-bold">&gt;</span><span>Hardware Acceleration: Tuned for RTX 5090 and L4 GPUs on RunPod with h264_nvenc encoding, h264_cuvid decoding, CUDA Lanczos scaling, and a worker cap preventing VRAM allocation failures.</span></li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/5 font-mono text-[10px] text-slate-400">
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Next.js 15</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">React 19</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Zustand</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">@ffmpeg/ffmpeg WASM</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Python</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">CUDA</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">NVENC/NVDEC</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">RunPod</span>
+              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">NVIDIA RTX 5090 / L4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="border-t border-white/10 pt-16">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <div class="text-xs font-mono text-slate-400 mb-1">// Domain Competencies</div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Technical Stack Matrix</h2>
+          </div>
+          <span class="text-xs font-mono text-slate-500">4 Core Domains</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="card-mono p-6 space-y-4">
+            <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// AI &amp; Causal Systems</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag-mono">Causal Do-Calculus</span>
+              <span class="tag-mono">LLM Chain-of-Thought</span>
+              <span class="tag-mono">Topological Sort</span>
+              <span class="tag-mono">Anti-Hallucination Grounding</span>
+              <span class="tag-mono">RAG &amp; Semantic Search</span>
+              <span class="tag-mono">JSON Schema Validation</span>
+            </div>
+          </div>
+
+          <div class="card-mono p-6 space-y-4">
+            <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// Systems &amp; Backend</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag-mono">Rust (Axum, Tokio)</span>
+              <span class="tag-mono">Python (Django, FastAPI)</span>
+              <span class="tag-mono">PostgreSQL Schema Isolation</span>
+              <span class="tag-mono">Upstash Redis Caching</span>
+              <span class="tag-mono">WebSocket Real-Time Messaging</span>
+              <span class="tag-mono">JWT &amp; OAuth Security</span>
+            </div>
+          </div>
+
+          <div class="card-mono p-6 space-y-4">
+            <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// GPU &amp; Infrastructure</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag-mono">NVIDIA NVENC/NVDEC</span>
+              <span class="tag-mono">CUDA Lanczos Scaling</span>
+              <span class="tag-mono">FFmpeg Pipeline Architecture</span>
+              <span class="tag-mono">RunPod Serverless GPU</span>
+              <span class="tag-mono">Docker Containerization</span>
+              <span class="tag-mono">GCP Cloud &amp; Vercel</span>
+            </div>
+          </div>
+
+          <div class="card-mono p-6 space-y-4">
+            <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// Frontend &amp; Full-Stack</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag-mono">TypeScript</span>
+              <span class="tag-mono">React &amp; Next.js</span>
+              <span class="tag-mono">SvelteKit</span>
+              <span class="tag-mono">Tailwind CSS v4</span>
+              <span class="tag-mono">Paddle &amp; Stripe Integration</span>
+              <span class="tag-mono">RESTful API Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="border-t border-white/10 pt-16">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <div class="text-xs font-mono text-slate-400 mb-1">// Career History</div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Work Experience</h2>
+          </div>
+          <span class="text-xs font-mono text-slate-500">2023 - 2025</span>
+        </div>
+
+        <div class="space-y-6">
+          <div class="card-mono p-5 sm:p-6 space-y-4">
+            <div class="flex flex-wrap justify-between items-start gap-2">
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-white">Frontend Developer</h3>
+                <div class="text-xs text-slate-400 font-mono">Stealth Startup</div>
+              </div>
+              <span class="tag-mono">Dec 2023 - Oct 2025</span>
+            </div>
+
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-300 font-mono">
+              <li class="flex items-start gap-2">
+                <span class="text-slate-500 font-bold">&gt;</span>
+                <span>Built UI.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-slate-500 font-bold">&gt;</span>
+                <span>Contributed to AI feature development.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-slate-500 font-bold">&gt;</span>
+                <span>Collaborated on API integration.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications">
+      <div class="border-t border-white/10 pt-16">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <div class="text-xs font-mono text-slate-400 mb-1">// Industry Credentials</div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Certifications</h2>
+          </div>
+          <span class="text-xs font-mono text-slate-500">Anthropic Verified</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="card-mono p-5 flex flex-col justify-between space-y-4 hover:border-white/20 transition-all">
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <div class="text-[11px] font-mono text-emerald-400">Anthropic Verified</div>
+                <span class="text-[10px] font-mono text-slate-500">Aug 2026</span>
+              </div>
+
+              <div class="space-y-1">
+                <h3 class="text-sm font-bold text-white leading-snug font-mono">AI Fluency: Framework &amp; Foundations</h3>
+              </div>
+
+              <p class="text-xs text-slate-400 leading-relaxed font-sans">Core AI frameworks, model evaluation, and foundational LLM alignment principles.</p>
+            </div>
+
+            <div class="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
+              <span>Issued by Anthropic</span>
+              <span class="text-white">Verified</span>
+            </div>
+          </div>
+
+          <div class="card-mono p-5 flex flex-col justify-between space-y-4 hover:border-white/20 transition-all">
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <div class="text-[11px] font-mono text-emerald-400">Anthropic Verified</div>
+                <span class="text-[10px] font-mono text-slate-500">Aug 2026</span>
+              </div>
+
+              <div class="space-y-1">
+                <h3 class="text-sm font-bold text-white leading-snug font-mono">Model Context Protocol: Introduction &amp; Advanced Topics</h3>
+              </div>
+
+              <p class="text-xs text-slate-400 leading-relaxed font-sans">Advanced MCP architecture, client-server protocol specifications, tool integration, and context management.</p>
+            </div>
+
+            <div class="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
+              <span>Issued by Anthropic</span>
+              <span class="text-white">Verified</span>
+            </div>
+          </div>
+
+          <div class="card-mono p-5 flex flex-col justify-between space-y-4 hover:border-white/20 transition-all">
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <div class="text-[11px] font-mono text-emerald-400">Anthropic Verified</div>
+                <span class="text-[10px] font-mono text-slate-500">Aug 2026</span>
+              </div>
+
+              <div class="space-y-1">
+                <h3 class="text-sm font-bold text-white leading-snug font-mono">Claude 101</h3>
+              </div>
+
+              <p class="text-xs text-slate-400 leading-relaxed font-sans">Prompt engineering optimization, context window utilization, and structured output generation.</p>
+            </div>
+
+            <div class="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
+              <span>Issued by Anthropic</span>
+              <span class="text-white">Verified</span>
+            </div>
+          </div>
+
+          <div class="card-mono p-5 flex flex-col justify-between space-y-4 hover:border-white/20 transition-all">
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <div class="text-[11px] font-mono text-emerald-400">Anthropic Verified</div>
+                <span class="text-[10px] font-mono text-slate-500">Aug 2026</span>
+              </div>
+
+              <div class="space-y-1">
+                <h3 class="text-sm font-bold text-white leading-snug font-mono">Claude Code 101</h3>
+              </div>
+
+              <p class="text-xs text-slate-400 leading-relaxed font-sans">Autonomous coding agent workflows, tool calling, and automated software engineering patterns.</p>
+            </div>
+
+            <div class="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
+              <span>Issued by Anthropic</span>
+              <span class="text-white">Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="border-t border-white/10 pt-16">
+        <div class="card-mono-hi p-8 sm:p-12 space-y-8">
+          <div class="space-y-3">
+            <div class="text-xs font-mono text-slate-400">// $ deploy yourself</div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Get in touch.
+            </h2>
+            <p class="text-sm text-slate-300 leading-relaxed max-w-xl">
+              Looking for someone to lead AI pipeline development, architect high-throughput backend microservices, or ship production systems end-to-end? Let's talk.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4 font-mono text-xs">
+            <a href="mailto:brilliantmakanju10@gmail.com" class="btn-mono">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              brilliantmakanju10@gmail.com
+            </a>
+            <button id="copy-email-btn" class="btn-mono-ghost">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              Copy Email
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 font-mono text-xs">
+            <div class="p-3.5 rounded bg-[#050505] border border-white/10 flex items-center justify-between">
+              <span class="text-slate-400">GitHub</span>
+              <a href="https://github.com/brilliantmakanju" target="_blank" rel="noopener" class="text-white hover:underline">github.com/brilliantmakanju &rarr;</a>
+            </div>
+            <div class="p-3.5 rounded bg-[#050505] border border-white/10 flex items-center justify-between">
+              <span class="text-slate-400">LinkedIn</span>
+              <a href="https://linkedin.com/in/brilliantmakanju" target="_blank" rel="noopener" class="text-white hover:underline">in/brilliantmakanju &rarr;</a>
+            </div>
+            <div class="p-3.5 rounded bg-[#050505] border border-white/10 flex items-center justify-between">
+              <span class="text-slate-400">Location</span>
+              <span class="text-white">Remote (Worldwide)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER -->
-  <footer id="footer" class="border-t border-white/5 py-12 mt-24"></footer>
+  <footer id="footer" class="border-t border-white/5 py-12 mt-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
+      <div>(c) 2026 Brilliant Makanju.</div>
+      <div class="flex items-center gap-4">
+        <span>Built with Vite, TS and Tailwind</span>
+        <span>*</span>
+        <a href="#hero" class="text-slate-400 hover:text-white transition-colors">Top ^</a>
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

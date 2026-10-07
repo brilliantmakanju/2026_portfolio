@@ -12,11 +12,11 @@ export function renderHero() {
       </h1>
 
       <p class="text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-        Full-Stack AI Engineer with nearly 2 yrs of professional experience, starting in frontend engineering and moving into AI engineering. Built AI-powered features using Python and LLM integrations. Experienced building multi-tenant SaaS platforms, REST APIs, real-time applications, LLM-powered systems, and GPU-accelerated video pipelines.
+        Full-Stack AI Engineer with professional experience in frontend and AI engineering. Built AI-powered features using Python and LLM integrations, multi-tenant SaaS platforms, REST APIs, real-time applications, and GPU-accelerated video pipelines.
       </p>
 
       <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-mono">
-        Strong across Python, TypeScript, React, Next.js, Django, PostgreSQL, AWS, Docker, and Rust.
+        Strong across Python, TypeScript, React, Next.js, Django, PostgreSQL, Docker, and Rust.
       </p>
 
       <div class="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs">

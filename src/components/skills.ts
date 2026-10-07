@@ -1,22 +1,3 @@
-const skillGroups = [
-  {
-    title: "AI & Causal Systems",
-    skills: ["Causal Do-Calculus", "LLM Chain-of-Thought", "Topological Sort", "Anti-Hallucination Grounding", "RAG & Semantic Search", "JSON Schema Validation"]
-  },
-  {
-    title: "Systems & Backend",
-    skills: ["Rust (Axum, Tokio)", "Python (Django, FastAPI)", "PostgreSQL Schema Isolation", "Upstash Redis Caching", "WebSocket Real-Time Messaging", "JWT & OAuth Security"]
-  },
-  {
-    title: "GPU & Infrastructure",
-    skills: ["NVIDIA NVENC/NVDEC", "CUDA Lanczos Scaling", "FFmpeg Pipeline Architecture", "RunPod Serverless GPU", "Docker Containerization", "AWS & GCP Cloud"]
-  },
-  {
-    title: "Frontend & Full-Stack",
-    skills: ["TypeScript", "React & Next.js", "SvelteKit", "Tailwind CSS v4", "Paddle & Stripe Integration", "RESTful API Design"]
-  }
-];
-
 export function renderSkills() {
   const el = document.getElementById("skills")!;
   el.innerHTML = `
@@ -30,13 +11,53 @@ export function renderSkills() {
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      ${skillGroups.map(g => `
       <div class="card-mono p-6 space-y-4">
-        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// ${g.title}</h3>
+        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// AI & Causal Systems</h3>
         <div class="flex flex-wrap gap-2">
-          ${g.skills.map(s => `<span class="tag-mono">${s}</span>`).join("")}
+          <span class="tag-mono">Causal Do-Calculus</span>
+          <span class="tag-mono">LLM Chain-of-Thought</span>
+          <span class="tag-mono">Topological Sort</span>
+          <span class="tag-mono">Anti-Hallucination Grounding</span>
+          <span class="tag-mono">RAG & Semantic Search</span>
+          <span class="tag-mono">JSON Schema Validation</span>
         </div>
-      </div>`).join("")}
+      </div>
+
+      <div class="card-mono p-6 space-y-4">
+        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// Systems & Backend</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag-mono">Rust (Axum, Tokio)</span>
+          <span class="tag-mono">Python (Django, FastAPI)</span>
+          <span class="tag-mono">PostgreSQL Schema Isolation</span>
+          <span class="tag-mono">Upstash Redis Caching</span>
+          <span class="tag-mono">WebSocket Real-Time Messaging</span>
+          <span class="tag-mono">JWT & OAuth Security</span>
+        </div>
+      </div>
+
+      <div class="card-mono p-6 space-y-4">
+        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// GPU & Infrastructure</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag-mono">NVIDIA NVENC/NVDEC</span>
+          <span class="tag-mono">CUDA Lanczos Scaling</span>
+          <span class="tag-mono">FFmpeg Pipeline Architecture</span>
+          <span class="tag-mono">RunPod Serverless GPU</span>
+          <span class="tag-mono">Docker Containerization</span>
+          <span class="tag-mono">GCP Cloud & Vercel</span>
+        </div>
+      </div>
+
+      <div class="card-mono p-6 space-y-4">
+        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">// Frontend & Full-Stack</h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag-mono">TypeScript</span>
+          <span class="tag-mono">React & Next.js</span>
+          <span class="tag-mono">SvelteKit</span>
+          <span class="tag-mono">Tailwind CSS v4</span>
+          <span class="tag-mono">Paddle & Stripe Integration</span>
+          <span class="tag-mono">RESTful API Design</span>
+        </div>
+      </div>
     </div>
   </div>`;
 }
