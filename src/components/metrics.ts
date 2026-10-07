@@ -34,7 +34,7 @@ export function renderMetrics() {
       <div class="card-mono p-5 space-y-2">
         <div class="text-3xl font-extrabold text-white font-mono">4 Systems</div>
         <p class="text-xs text-slate-400 leading-relaxed">
-          Full production architectures: ThreadChat (live), BranchForge, PlaythroughProcessor, and Push to Draft.
+          ThreadChat (live), BranchForge, PlaythroughProcessor, and Push to Draft.
         </p>
       </div>
     </div>
