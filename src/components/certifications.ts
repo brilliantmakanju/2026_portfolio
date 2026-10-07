@@ -34,7 +34,6 @@ export function renderCertifications() {
         <div class="text-xs font-mono text-slate-400 mb-1">// Industry Credentials</div>
         <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Anthropic Certifications</h2>
       </div>
-      <span class="text-xs font-mono text-slate-500">4 Verified Badges</span>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -42,7 +41,7 @@ export function renderCertifications() {
       <div class="card-mono p-5 flex flex-col justify-between space-y-4 hover:border-white/20 transition-all">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
-          <div class="text-[11px] font-mono text-emerald-400">Anthropic Verified</div>
+          <div class="text-[11px] font-mono text-emerald-400">Anthropic</div>
             <span class="text-[10px] font-mono text-slate-500">${c.date}</span>
           </div>
 
@@ -55,7 +54,6 @@ export function renderCertifications() {
 
         <div class="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
           <span>Issued by Anthropic</span>
-          <span class="text-white">Verified</span>
         </div>
       </div>`).join("")}
     </div>

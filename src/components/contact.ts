@@ -44,7 +44,7 @@ export function renderContact() {
   const footerEl = document.getElementById("footer")!;
   footerEl.innerHTML = `
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
-    <div>(c) ${new Date().getFullYear()} Brilliant Makanju. All engineering work strictly verified.</div>
+    <div>(c) ${new Date().getFullYear()} Brilliant Makanju.</div>
     <div class="flex items-center gap-4">
       <span>Built with Vite, TS and Tailwind</span>
       <span>*</span>
