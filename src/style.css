@@ -1319,14 +1319,6 @@ button:focus-visible {
   border-radius: 999px;
 }
 
-.skill-legend {
-  margin: 0.8rem 0 1.2rem;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.62rem;
-  line-height: 1.55;
-  color: #71717a;
-}
-
 .skill-list {
   display: flex;
   flex-direction: column;
@@ -1359,10 +1351,6 @@ button:focus-visible {
   line-height: 1.5;
   color: #86efac;
   overflow-wrap: anywhere;
-}
-
-.skill-projects.empty {
-  color: #52525b;
 }
 
 @media (max-width: 640px) {

@@ -8,7 +8,7 @@ export const heroData = {
   name: "Brilliant (Number-One) Makanju.",
   pill: "full-stack-engineer-applied-ai",
   /** Cycled by the typewriter in the hero (see initHeroTyper). */
-  roles: ["Full-Stack Developer", "Applied AI & LLM Integration"],
+  roles: ["Full-Stack Engineer", "Applied AI & LLM Integration"],
   intro: "I build multi-tenant SaaS backends and LLM pipelines for teams shipping applied AI products.",
   note: "Based in Nigeria (WAT, UTC+1), remote worldwide. Open to full-time remote roles with US/EU overlap. Self-taught, roughly two years of professional experience.",
   terminal: {
@@ -18,7 +18,7 @@ export const heroData = {
     status: [
       { key: "location", value: `"Nigeria · WAT (UTC+1)"` },
       { key: "availability", value: `"full-time remote · US/EU overlap"` },
-      { key: "stack", value: `["Python", "TypeScript", "Rust", "Django", "Axum", "FastAPI"]` },
+      { key: "stack", value: `["Python", "TypeScript", "Rust", "Django", "Axum"]` },
       { key: "ai", value: `"RAG · LLM pipelines · multi-tenant SaaS"` },
       { key: "gpu", value: `"RTX 5090 / L4 NVENC · RunPod serverless"` },
     ],

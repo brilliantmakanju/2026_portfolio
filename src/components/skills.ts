@@ -15,8 +15,6 @@ export function renderSkills() {
       </div>
     </header>
 
-    <p class="skill-legend">Projects are listed in green. A dash means no project tag yet.</p>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       ${skillGroups.map(groupToCard).join("\n")}
     </div>
@@ -38,11 +36,11 @@ function groupToCard(group: SkillGroup) {
 
 function skillRow(skill: Skill) {
   const name = typeof skill === "string" ? skill : skill.name;
-  const note = typeof skill === "string" ? "" : skill.note;
+  const note = typeof skill === "string" ? "Project tag pending" : skill.note ?? "Project tag pending";
   return `
           <div class="skill-row">
             <span class="skill-name">${name}</span>
-            <span class="skill-projects${note ? "" : " empty"}">${note || "—"}</span>
+            <span class="skill-projects">${note}</span>
           </div>`;
 }
 
