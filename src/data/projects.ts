@@ -49,12 +49,13 @@ export const threadchat: Project = {
   status: "Live",
   statusKind: "live",
   timeframe: "Jun 2026 - Jul 2026",
-  demo: {
-    src: "https://threadchat.jolexhive.com/demo.mp4",
-    label: "Watch the 20-second demo",
-    length: "20s",
-    caption: "A short look at the live inbox and threaded replies.",
-  },
+  // Temporarily hidden until the demo is ready to show again.
+  // demo: {
+  //   src: "https://threadchat.jolexhive.com/demo.mp4",
+  //   label: "Watch the 20-second demo",
+  //   length: "20s",
+  //   caption: "A short look at the live inbox and threaded replies.",
+  // },
   liveUrl: "https://threadchat.jolexhive.com",
   stack: ["Rust", "Axum", "Tokio", "SvelteKit", "Svelte 5", "TypeScript", "WebSockets", "PostgreSQL", "Redis", "Tailwind CSS 4"],
   scope: ["8-crate Rust workspace", "16 tables · 29 migrations · 76 sqlx-prepared queries", "28 route patterns (34 endpoints) · 4-tier rate limiting", "4-tier polling: 30s–6h Pro, 5m–12h free", "6 Redis pub/sub channel families", "100/500 daily write quota (trial/Pro)"],

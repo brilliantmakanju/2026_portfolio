@@ -1,7 +1,8 @@
 export type ExperienceEntry = {
   role: string;
-  company: string;
-  location: string;
+  /** Optional: independent entries have no company or location. */
+  company?: string;
+  location?: string;
   period: string;
   bullets: string[];
   /** Plain-English variant (mode toggle). */
@@ -10,6 +11,17 @@ export type ExperienceEntry = {
 };
 
 export const experienceData: ExperienceEntry[] = [
+  {
+    role: "Independent projects",
+    period: "Oct 2025 - Present",
+    plainPeriod: "Oct 2025 to Present",
+    bullets: [
+      "Self-directed work building and shipping ThreadChat, BranchForge and other products (see Selected Work).",
+    ],
+    plainBullets: [
+      "Self-directed work building and shipping ThreadChat, BranchForge and other products. See Selected Work.",
+    ],
+  },
   {
     role: "Frontend Developer",
     company: "Confidential VC-funded Startup (NDA)",

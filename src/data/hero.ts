@@ -11,12 +11,6 @@ export const heroData = {
   roles: ["Full-Stack Developer", "Applied AI & LLM Integration"],
   intro: "I build multi-tenant SaaS backends and LLM pipelines for teams shipping applied AI products.",
   note: "Based in Nigeria (WAT, UTC+1), remote worldwide. Open to full-time remote roles with US/EU overlap. Self-taught, roughly two years of professional experience.",
-  featured: {
-    kicker: "Featured AI project",
-    name: "BranchForge",
-    href: "#branchforge",
-    note: "A seven-stage LLM pipeline for causal scenarios, with confidence gates and branch hashing.",
-  },
   terminal: {
     prompt: "brilliant@arch:~",
     command: "brilliant --status",

@@ -240,84 +240,6 @@ body {
     0 30px 90px -30px rgba(255, 255, 255, 0.13);
 }
 
-.featured-project {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  max-width: 42rem;
-  padding: 0.8rem 0.95rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 2px solid rgba(134, 239, 172, 0.55);
-  border-radius: 0.45rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
-  text-decoration: none;
-  transition: border-color 160ms ease, background 160ms ease;
-}
-
-.featured-project:hover {
-  border-color: rgba(255, 255, 255, 0.22);
-  border-left-color: rgba(134, 239, 172, 0.85);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
-}
-
-.featured-kicker {
-  flex-shrink: 0;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #86efac;
-}
-
-.featured-main {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  min-width: 0;
-  flex: 1;
-}
-
-.featured-main strong {
-  color: #f4f4f5;
-  font-size: 0.86rem;
-  font-weight: 600;
-}
-
-.featured-main span {
-  color: #a1a1aa;
-  font-size: 0.76rem;
-  line-height: 1.45;
-}
-
-.featured-arrow {
-  flex-shrink: 0;
-  color: #71717a;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.9rem;
-  transition: transform 160ms ease, color 160ms ease;
-}
-
-.featured-project:hover .featured-arrow {
-  color: #f4f4f5;
-  transform: translateX(2px);
-}
-
-@media (max-width: 640px) {
-  .featured-project {
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.65rem;
-  }
-
-  .featured-kicker {
-    width: 100%;
-  }
-
-  .featured-arrow {
-    display: none;
-  }
-}
-
 /* ------------------------------------------------------------------ */
 /* Section headers (terminal command shell)                            */
 /* ------------------------------------------------------------------ */
@@ -1395,6 +1317,59 @@ button:focus-visible {
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0.1rem 0.45rem;
   border-radius: 999px;
+}
+
+.skill-legend {
+  margin: 0.8rem 0 1.2rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  line-height: 1.55;
+  color: #71717a;
+}
+
+.skill-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 1.4fr);
+  gap: 0.85rem;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.skill-row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.skill-name {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: #e4e4e7;
+  line-height: 1.45;
+}
+
+.skill-projects {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.64rem;
+  line-height: 1.5;
+  color: #86efac;
+  overflow-wrap: anywhere;
+}
+
+.skill-projects.empty {
+  color: #52525b;
+}
+
+@media (max-width: 640px) {
+  .skill-row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
 }
 
 /* Mode toggle (Plain English / Technical) ------------------------------ */

@@ -1,8 +1,31 @@
-import { certificationsData } from "../data/certifications";
+import { certificationsData, type Certification } from "../data/certifications";
 import { SECTIONS } from "../data/sections";
+
+type CertificationGroup = {
+  date: string;
+  issuer: string;
+  titles: string[];
+};
+
+function groupCertifications(certs: Certification[]): CertificationGroup[] {
+  const groups = new Map<string, CertificationGroup>();
+
+  for (const cert of certs) {
+    const key = `${cert.issuer}|${cert.date}`;
+    const existing = groups.get(key);
+    if (existing) {
+      existing.titles.push(cert.title);
+    } else {
+      groups.set(key, { date: cert.date, issuer: cert.issuer, titles: [cert.title] });
+    }
+  }
+
+  return Array.from(groups.values());
+}
 
 export function renderCertifications() {
   const el = document.getElementById("certifications")!;
+  const groups = groupCertifications(certificationsData);
 
   el.innerHTML = `
   <div class="border-t border-white/10 pt-16">
@@ -18,21 +41,20 @@ export function renderCertifications() {
       <div class="cert-row cert-head-row">
         <span>date</span>
         <span>issuer</span>
-        <span>credential</span>
+        <span>credentials</span>
       </div>
-      ${certificationsData.map(certToRow).join("\n")}
+      ${groups.map(certToRow).join("\n")}
     </div>
   </div>`;
 }
 
-function certToRow(cert: (typeof certificationsData)[number]) {
+function certToRow(group: CertificationGroup) {
   return `
       <div class="cert-row">
-        <span class="cr-date">${cert.date}</span>
-        <span class="cr-issuer">${cert.issuer}</span>
+        <span class="cr-date">${group.date}</span>
+        <span class="cr-issuer">${group.issuer}</span>
         <span class="cr-main">
-          <span class="cr-title">${cert.title}</span>
-          <span class="cr-desc">${cert.desc}</span>
+          <span class="cr-title">${group.titles.join(" · ")}</span>
         </span>
       </div>`;
 }

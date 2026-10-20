@@ -1,4 +1,4 @@
-import { skillGroups } from "../data/skills";
+import { skillGroups, type Skill, type SkillGroup } from "../data/skills";
 import { SECTIONS } from "../data/sections";
 
 export function renderSkills() {
@@ -15,23 +15,35 @@ export function renderSkills() {
       </div>
     </header>
 
+    <p class="skill-legend">Projects are listed in green. A dash means no project tag yet.</p>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       ${skillGroups.map(groupToCard).join("\n")}
     </div>
   </div>`;
 }
 
-function groupToCard(group: { title: string; skills: string[] }) {
+function groupToCard(group: SkillGroup) {
   return `
       <div class="card-mono p-6 space-y-4">
         <div class="skill-h">
           <span>// ${escapeAmps(group.title)}</span>
           <span class="skill-count">${group.skills.length}</span>
         </div>
-        <div class="flex flex-wrap gap-2">
-          ${group.skills.map((skill) => `<span class="tag-mono">${skill}</span>`).join("\n          ")}
+        <div class="skill-list">
+          ${group.skills.map(skillRow).join("\n          ")}
         </div>
       </div>`;
+}
+
+function skillRow(skill: Skill) {
+  const name = typeof skill === "string" ? skill : skill.name;
+  const note = typeof skill === "string" ? "" : skill.note;
+  return `
+          <div class="skill-row">
+            <span class="skill-name">${name}</span>
+            <span class="skill-projects${note ? "" : " empty"}">${note || "—"}</span>
+          </div>`;
 }
 
 function escapeAmps(text: string) {
