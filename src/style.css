@@ -71,10 +71,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: 0.55rem 1.1rem;
+  border-radius: 0.45rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
   background: #ffffff;
   color: #000000;
   transition: all 0.2s ease;
@@ -84,9 +84,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 0.45rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -166,8 +166,1193 @@ body {
   color: #ffffff;
 }
 
+.nav-link.active {
+  color: #ffffff;
+}
+
+.mermaid {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
 .subtle-grid {
   background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Atmosphere / hero                                                   */
+/* ------------------------------------------------------------------ */
+
+#hero {
+  position: relative;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: -25% -15% -5% -15%;
+  background:
+    radial-gradient(620px 320px at 18% 20%, rgba(255, 255, 255, 0.05), transparent 62%),
+    radial-gradient(520px 300px at 88% 55%, rgba(255, 255, 255, 0.038), transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+#hero h1 {
+  background: linear-gradient(180deg, #ffffff 52%, #9b9ba1 108%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#hero .card-mono {
+  position: relative;
+  background: linear-gradient(180deg, #101013, #0a0a0c);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.015),
+    0 30px 90px -30px rgba(255, 255, 255, 0.13);
+}
+
+/* ------------------------------------------------------------------ */
+/* Section headers (terminal command shell)                            */
+/* ------------------------------------------------------------------ */
+
+.section-shell {
+  margin-bottom: 2.75rem;
+}
+
+.sec-cmd {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: #5c5c63;
+  margin-bottom: 0.9rem;
+  letter-spacing: 0.01em;
+}
+
+.sec-cmd::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin-left: 0.35rem;
+}
+
+.sec-prompt {
+  color: #4ade80;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: clamp(1.65rem, 2.6vw, 2.15rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.section-count {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  color: #a1a1aa;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/* Project cards                                                       */
+/* ------------------------------------------------------------------ */
+
+.project-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.project-card {
+  padding: 1.5rem;
+  scroll-margin-top: 6rem;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .project-card {
+    padding: 2.25rem;
+  }
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  opacity: 0.6;
+}
+
+.project-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: none;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* Ghost index number in the card header */
+.project-index {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.13);
+  user-select: none;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.project-head {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.project-head-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Problem opening statement: slightly emphasized */
+.problem-block p {
+  color: #e4e4e7;
+  font-size: 0.98rem;
+  max-width: 72ch;
+}
+
+/* Mermaid diagram theming --------------------------------------------- */
+/* Mermaid 11.17's "neo" ER look inherits row fills from the svg root
+   (#ccc light grey); force them onto the site's dark palette. */
+.plain-body .mermaid,
+.mermaid svg {
+  max-width: 100%;
+}
+
+.mermaid svg .row-rect-odd {
+  fill: #0d0d11 !important;
+}
+
+.mermaid svg .row-rect-even {
+  fill: #16161b !important;
+}
+
+.mermaid svg .entityBox {
+  fill: #1c1c21 !important;
+}
+
+.mermaid svg .outer-path {
+  stroke: #46464f !important;
+}
+
+.mermaid svg .divider {
+  stroke: rgba(255, 255, 255, 0.14) !important;
+}
+
+.mermaid svg .relationshipLine {
+  stroke: #5f7086 !important;
+}
+
+/* Hide raw diagram text until Mermaid has processed it */
+.mermaid:not([data-processed]) {
+  color: transparent;
+  min-height: 96px;
+}
+
+/* Interactive static database diagrams (mermaid.live exports) */
+.diagram-static {
+  position: relative;
+  min-height: 140px;
+}
+
+.zoom-shell {
+  position: relative;
+  overflow: hidden;
+  max-height: min(64vh, 620px);
+  cursor: grab;
+  border-radius: 0.45rem;
+}
+
+.zoom-hint {
+  max-width: none;
+  margin-top: 0.45rem;
+  color: #8a8a93;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.zoom-shell:active {
+  cursor: grabbing;
+}
+
+.zoom-shell:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.zoom-lens {
+  width: 100%;
+  height: 100%;
+}
+
+.zoom-lens svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Keep connector strokes hairline-sharp at any zoom level */
+.zoom-lens svg path,
+.zoom-lens svg line,
+.zoom-lens svg rect,
+.zoom-lens svg polygon,
+.zoom-lens svg circle,
+.zoom-lens svg ellipse {
+  vector-effect: non-scaling-stroke;
+}
+
+.zoom-lens .diagram-load-fail {
+  padding: 1rem;
+  color: #a1a1aa;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+}
+
+.zoom-controls {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.4rem;
+  background: rgba(10, 10, 12, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(8px);
+}
+
+.zoom-btn {
+  min-width: 1.7rem;
+  padding: 0.22rem 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.4rem;
+  background: transparent;
+  color: #d4d4d8;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.zoom-btn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.zoom-level {
+  min-width: 2.8rem;
+  text-align: center;
+  color: #8a8a93;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  user-select: none;
+}
+
+/* On small screens the pill would cover the diagram, so it sits below it. */
+@media (max-width: 640px) {
+  .zoom-controls {
+    position: static;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .zoom-btn {
+    min-width: 2.1rem;
+    padding: 0.3rem 0.55rem;
+  }
+}
+
+/* Full-screen diagram mode (mainly useful on phones) */
+.diagram-static.zoom-expanded {
+  position: fixed;
+  inset: 0.75rem;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0.75rem;
+  background: #0a0a0c;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.7rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+.diagram-static.zoom-expanded .zoom-shell {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+}
+
+.diagram-static.zoom-expanded .zoom-controls {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .diagram-static.zoom-expanded {
+    inset: 0.4rem;
+    padding: 0.5rem;
+  }
+
+  .diagram-static.zoom-expanded .zoom-controls {
+    position: static;
+    margin-top: 0.45rem;
+  }
+}
+
+body.diagram-expanded {
+  overflow: hidden;
+}
+
+/* Diagram panels scroll horizontally instead of shrinking to unreadable */
+.diagram-body {
+  overflow-x: auto;
+}
+
+/* Mermaid diagram theming end ------------------------------------------ */
+
+/* Collapsible folder panels */
+.tree-shell {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.55rem;
+  background: #08080a;
+  overflow: hidden;
+}
+
+.tree-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: #a1a1aa;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.18s ease;
+  text-align: left;
+}
+
+.tree-toggle:hover {
+  color: #e4e4e7;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tree-toggle.open {
+  color: #f4f4f5;
+}
+
+.tree-toggle-icon {
+  color: #52525b;
+  display: inline-block;
+  width: 0.7rem;
+}
+
+.tree-panel {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tree-shell:has(.tree-panel:not(.hidden)) .tree-toggle {
+  color: #f4f4f5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Filename bar: work/<id>/ · status · links */
+.project-file-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.project-file {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  color: #71717a;
+  letter-spacing: 0.01em;
+}
+
+.project-file strong {
+  color: #d4d4d8;
+  font-weight: 600;
+}
+
+.project-title {
+  margin-top: 0.5rem;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.project-lead {
+  color: #a1a1aa;
+  max-width: 62ch;
+  line-height: 1.7;
+  font-size: 0.92rem;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.related {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: #71717a;
+}
+
+.related a {
+  color: #d4d4d8;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.related a:hover {
+  color: #ffffff;
+}
+
+/* Status pills ------------------------------------------------------ */
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.58rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  width: fit-content;
+}
+
+.status-live {
+  color: #86efac;
+  border-color: rgba(74, 222, 128, 0.3);
+  background: rgba(74, 222, 128, 0.08);
+}
+
+.status-live::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+  margin-right: 0.45rem;
+}
+
+.status-open {
+  color: #93c5fd;
+  border-color: rgba(147, 197, 253, 0.28);
+  background: rgba(147, 197, 253, 0.08);
+}
+
+.status-off {
+  color: #a1a1aa;
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Chips / tags ------------------------------------------------------ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  padding: 0.38rem 0.65rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #d4d4d8;
+  transition: all 0.18s ease;
+}
+
+.chip:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.chip-live {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.chip-sm {
+  font-size: 0.66rem;
+  padding: 0.22rem 0.5rem;
+  border-radius: 0.3rem;
+  color: #a1a1aa;
+}
+
+/* Meta grid --------------------------------------------------------- */
+
+.project-meta {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+@media (min-width: 800px) {
+  .project-meta {
+    grid-template-columns: 1.35fr 1fr;
+  }
+}
+
+.project-meta dt {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin-bottom: 0.55rem;
+}
+
+.project-meta dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.scope-list {
+  display: grid;
+  gap: 0.32rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: #a1a1aa;
+}
+
+.scope-list span::before {
+  content: "+ ";
+  color: #52525b;
+}
+
+/* Body blocks ------------------------------------------------------- */
+
+.project-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  padding-top: 1.8rem;
+}
+
+.block-title {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a8a93;
+  margin-bottom: 0.85rem;
+}
+
+.block-title::before {
+  content: "// ";
+  color: #3f3f46;
+}
+
+.block p:not(.diagram-caption):not(.zoom-hint) {
+  color: #a1a1aa;
+  line-height: 1.7;
+  font-size: 0.9rem;
+  max-width: 68ch;
+}
+
+.bullet-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.bullet-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  color: #a1a1aa;
+  font-size: 0.89rem;
+  line-height: 1.6;
+}
+
+.bullet-list li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: #52525b;
+}
+
+/* Usage / commands --------------------------------------------------- */
+
+.usage-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.usage-list li {
+  display: grid;
+  gap: 0.2rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.usage-list code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: #e4e4e7;
+  overflow-wrap: anywhere;
+}
+
+.usage-list span {
+  font-size: 0.72rem;
+  color: #8a8a93;
+}
+
+/* Design decisions -------------------------------------------------- */
+
+.decision-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 800px) {
+  .decision-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.decision {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(180deg, #0d0d10, #08080a);
+  transition: border-color 0.18s ease;
+}
+
+.decision:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  transition: border-color 0.18s ease;
+}
+
+.decision-num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  color: #52525b;
+}
+
+.decision p {
+  font-size: 0.81rem;
+  line-height: 1.6;
+  color: #d4d4d8;
+}
+
+/* Diagram tabs ------------------------------------------------------ */
+
+.diagram-shell {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.65rem;
+  background: radial-gradient(130% 100% at 50% 0%, #0d0d11 0%, #08080a 58%);
+  overflow: hidden;
+}
+
+.diagram-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.diagram-tab {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  padding: 0.42rem 0.72rem;
+  border-radius: 0.35rem;
+  color: #71717a;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.diagram-tab:hover {
+  color: #d4d4d8;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.diagram-tab.active {
+  color: #050505;
+  background: linear-gradient(180deg, #ffffff, #d4d4d8);
+  border-color: #e4e4e7;
+  box-shadow: 0 1px 6px rgba(255, 255, 255, 0.12);
+}
+
+.diagram-body {
+  padding: 0.9rem;
+}
+
+@media (min-width: 640px) {
+  .diagram-body {
+    padding: 1.25rem;
+  }
+}
+
+.diagram-panel.hidden {
+  display: none;
+}
+
+.diagram-caption {
+  margin-top: 0.9rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.66rem;
+  line-height: 1.6;
+  color: #8a8a93;
+  border-top: 1px dashed rgba(255, 255, 255, 0.06);
+  padding-top: 0.7rem;
+}
+
+/* Folder tree ------------------------------------------------------- */
+
+.tree {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.71rem;
+  line-height: 1.8;
+  color: #e4e4e7;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 2;
+  margin: 0;
+}
+
+.tree .t-glyph {
+  color: #3f3f46;
+}
+
+.tree .t-comment {
+  color: #6b7280;
+}
+
+/* Card footer ------------------------------------------------------- */
+
+.project-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-top: 1.25rem;
+  padding-left: 1.15rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  position: relative;
+}
+
+.project-foot::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.4rem;
+  bottom: 0.15rem;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), transparent);
+}
+
+.project-foot p {
+  color: #e9e9eb;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* Contain horizontal bleed (hero content can be wider than narrow panels) */
+main > section {
+  overflow-x: clip;
+}
+
+/* Accessibility ------------------------------------------------------ */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.4rem;
+  background: #0a0a0c;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #f4f4f5;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  transform: translateY(-300%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  svg .edge-animation-fast,
+  svg .edge-animation-slow,
+  svg [style*="animation"],
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+
+/* Timeline stream (work experience) ---------------------------------- */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.timeline-entry {
+  position: relative;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -1.55rem;
+  top: 1.4rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #0c0c0e;
+  border: 1px solid #52525b;
+}
+
+.timeline-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0.16rem;
+  border-radius: 50%;
+  background: #71717a;
+}
+
+/* Credentials registry ------------------------------------------------ */
+
+.cert-registry {
+  padding: 0.4rem 1.25rem;
+}
+
+.cert-row {
+  display: grid;
+  grid-template-columns: 5.5rem 8rem 1fr;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: start;
+}
+
+.cert-row:first-child {
+  border-top: none;
+}
+
+.cert-head-row {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #52525b;
+  padding: 0.65rem 0;
+}
+
+.cr-date,
+.cr-issuer {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  color: #a1a1aa;
+  padding-top: 0.15rem;
+}
+
+.cr-title {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #f4f4f5;
+  line-height: 1.45;
+}
+
+.cr-desc {
+  display: block;
+  font-size: 0.72rem;
+  color: #71717a;
+  margin-top: 0.2rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 640px) {
+  .cert-row {
+    grid-template-columns: 4.5rem 1fr;
+  }
+
+  .cr-issuer {
+    grid-column: 2;
+  }
+
+  .cr-main {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Skill group headers -------------------------------------------------- */
+
+.skill-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+}
+
+.skill-count {
+  font-size: 0.62rem;
+  font-weight: 400;
+  color: #52525b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+}
+
+/* Mode toggle (Plain English / Technical) ------------------------------ */
+
+/* Floating reading-mode switch (right edge overlay) --------------------- */
+
+.mode-float {
+  position: fixed;
+  right: 0;
+  top: 55%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3px;
+  padding: 0.55rem 0.45rem;
+  background: rgba(10, 10, 12, 0.94);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-right: none;
+  border-radius: 0.65rem 0 0 0.65rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  z-index: 70;
+}
+
+.mf-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #52525b;
+  text-align: center;
+  margin-bottom: 0.15rem;
+}
+
+.mode-float .mode-btn {
+  font-size: 0.62rem;
+  padding: 0.32rem 0.6rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .mode-float {
+    top: auto;
+    bottom: 1rem;
+    transform: none;
+  }
+
+  .mode-float .mode-btn {
+    font-size: 0.58rem;
+    padding: 0.28rem 0.5rem;
+  }
+}
+
+/* Plain-English content blocks ------------------------------------------ */
+
+
+
+/* Plain-English rendering ---------------------------------------------- */
+
+.plain-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+/* No rule between card header and "By the numbers" in plain mode */
+.project-card:has(.plain-body) .project-head {
+  border-bottom: none;
+}
+
+/* Content under each plain label sits one step to the right */
+.plain-body .block > p,
+.plain-body .block > .bullet-list,
+.plain-body .block > .plain-nums,
+.plain-body .block > .plain-decisions {
+  padding-left: 1.15rem;
+}
+
+.plain-hero-body {
+  margin: 0;
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+  padding-left: 1.15rem;
+  color: #b8b8c0;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  max-width: 62ch;
+}
+
+.plain-nums {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.75rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  color: #a1a1aa;
+}
+
+.plain-nums span + span::before {
+  content: "\00B7";
+  color: #3f3f46;
+  margin-right: 0.75rem;
+}
+
+.plain-decisions {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plain-decisions li {
+  color: #a1a1aa;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  max-width: 66ch;
+}
+
+.plain-decisions li strong {
+  display: block;
+  color: #e4e4e7;
+  font-weight: 600;
+}
+
+.plain-body .block p:not(.diagram-caption):not(.zoom-hint) {
+  color: #b8b8c0;
+  font-size: 0.93rem;
+  line-height: 1.7;
+  max-width: 68ch;
+}
+
+.plain-body .block-title {
+  margin-bottom: 0.75rem;
+}
+
+
+.name-note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #8a8a93;
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+  padding-left: 0.85rem;
+  line-height: 1.6;
+  max-width: 58ch;
 }

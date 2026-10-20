@@ -1,0 +1,9 @@
+graph TD
+    Job[RunPod Job] --> H[Serverless Handler]
+    H --> FP[FFmpeg Pipeline]
+    FP --> GPU[NVENC / NVDEC]
+    FP --> CPU[CPU Fallback Filters]
+    H --> GD[(Google Drive)]
+    H --> R2[(Cloudflare R2)]
+    H --> GF[(GoFile)]
+    H --> RES[Result JSON via RunPod]

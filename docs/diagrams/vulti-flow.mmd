@@ -1,0 +1,8 @@
+flowchart TD
+    A["vulti add tag --cmd"] --> B["Append tag to commands.db"]
+    B --> C["vulti run tag"]
+    C --> D{"Flags"}
+    D -->|sudo| E["Run with sudo"]
+    D -->|bg| F["Run in background"]
+    D -->|none| G["Run directly"]
+    H["vulti backup"] --> I["Zip ~/.vulti and ~/.config"]

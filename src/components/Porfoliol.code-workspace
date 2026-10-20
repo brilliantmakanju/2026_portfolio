@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../../Applications/Details"
+		},
+		{
+			"path": "../../../playthroughprocessor"
+		},
+		{
+			"path": "../../../jolexhive"
+		},
+		{
+			"path": "../../../playthrougheditor"
+		},
+		{
+			"path": "../../../side_items/vulti"
+		},
+		{
+			"path": "../../../pushtodraft/django_saas_starter_kit"
+		},
+		{
+			"path": "../../../shamewhip"
+		}
+	],
+	"settings": {}
+}

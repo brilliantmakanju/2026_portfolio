@@ -1,0 +1,12 @@
+graph LR
+    Req[Scenario Request] --> API[DRF API]
+    API --> S1[1 Load and Inherit]
+    S1 --> S2[2 Map Affected Nodes]
+    S2 --> S3[3 Propose Initial DAG]
+    S3 --> S4[4 Reflect and Augment]
+    S4 --> S5[5 Propagate and Simulate]
+    S5 --> S6[6 Critique and Verify]
+    S6 --> S7[7 Final Synthesis]
+    S7 --> Gate{Confidence >= 0.30}
+    Gate -->|Pass| DB[(PostgreSQL)]
+    Gate -->|Halt| DB

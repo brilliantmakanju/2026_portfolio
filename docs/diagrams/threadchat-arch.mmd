@@ -1,0 +1,9 @@
+graph TD
+    Client[SvelteKit Client] --> API[Axum REST API]
+    Client --> WS[Axum WebSocket Handler]
+    API --> DB[(PostgreSQL)]
+    WS --> DB
+    WS --> Redis[(Redis Pub/Sub)]
+    Redis -.-> WS
+    Worker[Tokio Polling Worker] --> YT[YouTube Data API]
+    Worker --> DB

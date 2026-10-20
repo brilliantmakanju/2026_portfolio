@@ -1,0 +1,7 @@
+graph TD
+    Req[HTTP Request] --> MW[Tenant Resolution Middleware]
+    MW --> TS[(Tenant Schema)]
+    MW --> SA[Shared Apps]
+    TS --> TDB[(PostgreSQL per Tenant)]
+    SA --> PDB[(Public Schema)]
+    SA --> AI[Commit to Post Pipeline]

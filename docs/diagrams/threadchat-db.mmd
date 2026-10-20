@@ -1,0 +1,91 @@
+erDiagram
+    direction LR
+    users ||--o{ user_threads : watches
+    threads ||--o{ user_threads : watched_by
+    threads ||--o{ comments : contains
+    comments ||--o{ comment_history : revisions
+    comments ||--o{ comment_reactions : reactions
+    threads ||--o{ thread_reactions : reactions
+    users ||--o| google_tokens : oauth
+    users ||--o| subscriptions : billing
+    users ||--o{ notifications : receives
+    users ||--o| user_settings : settings
+    users ||--o| youtube_channels : channel
+    users ||--o{ comments : posts
+    users {
+        uuid id PK
+        text google_id
+        text email
+        text role
+        text paddle_customer_id
+        text dodo_customer_id
+        int daily_write_count
+    }
+    threads {
+        uuid id PK
+        text youtube_video_id
+        text title
+        timestamptz next_poll_at
+        bool deleted_on_youtube
+    }
+    user_threads {
+        uuid user_id FK
+        uuid thread_id FK
+        timestamptz added_at
+        bool pinned
+        timestamptz archived_at
+    }
+    comments {
+        uuid id PK
+        text youtube_comment_id
+        uuid thread_id FK
+        uuid app_user_id FK
+        text text
+        bool is_deleted
+    }
+    comment_history {
+        uuid id PK
+        uuid comment_id FK
+        int version
+        text text
+        text change_type
+    }
+    comment_reactions {
+        uuid user_id FK
+        uuid comment_id FK
+        text emoji
+    }
+    thread_reactions {
+        uuid user_id FK
+        uuid thread_id FK
+        text emoji
+    }
+    google_tokens {
+        uuid user_id PK
+        text encrypted_data
+        text nonce
+    }
+    subscriptions {
+        uuid user_id PK
+        text plan
+        timestamptz expires_at
+    }
+    notifications {
+        uuid id PK
+        uuid user_id FK
+        uuid thread_id FK
+        uuid comment_id FK
+        text type
+        bool is_read
+    }
+    user_settings {
+        uuid user_id PK
+        bool notifications_enabled
+        bool watermark_enabled
+    }
+    youtube_channels {
+        uuid id PK
+        uuid user_id FK
+        text channel_id
+        text channel_name
+    }

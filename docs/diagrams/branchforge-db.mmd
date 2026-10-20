@@ -1,0 +1,64 @@
+erDiagram
+    direction LR
+    SCENARIO ||--o{ BRANCH_NODE : roots
+    SCENARIO }o--o{ GROUNDED_FACT : cites
+    INTERVENTION }o--o{ GROUNDED_FACT : grounded_in
+    INTERVENTION ||--o{ BRANCH_NODE : creates
+    BRANCH_NODE |o--o{ BRANCH_NODE : forks
+    BRANCH_NODE ||--o{ CAUSAL_LINK : has
+    BRANCH_NODE ||--o{ SIMULATION_STAGE : runs
+    BRANCH_NODE ||--o{ AUDIT_ENTRY : logs
+    BRANCH_NODE }o--o| SIMULATION_STAGE : origin_stage
+    SCENARIO {
+        uuid id PK
+        text title
+        text description
+    }
+    GROUNDED_FACT {
+        uuid id PK
+        text source_url
+        text summary
+        float confidence
+        int half_life_days
+    }
+    INTERVENTION {
+        uuid id PK
+        text name
+        text description
+    }
+    BRANCH_NODE {
+        uuid id PK
+        text branch_hash
+        uuid parent_id FK
+        uuid intervention_id FK
+        uuid scenario_id FK
+        uuid origin_stage_id FK
+        uuid origin_audit_entry_id FK
+        text status
+        float final_confidence
+        int depth
+    }
+    CAUSAL_LINK {
+        uuid id PK
+        uuid branch_id FK
+        text source_variable
+        text target_variable
+        text link_type
+        float strength
+        int temporal_lag_days
+    }
+    SIMULATION_STAGE {
+        uuid id PK
+        uuid branch_id FK
+        int stage_number
+        text stage_name
+        json output_json
+        int tokens_used
+    }
+    AUDIT_ENTRY {
+        uuid id PK
+        uuid branch_id FK
+        uuid user_id FK
+        text action
+        json details
+    }

@@ -1,0 +1,531 @@
+########## THREADCHAT ##########
+/home/jol3xd3v/Apps/threadchat
+├── extension
+│   ├── public
+│   ├── src
+│   ├── ARCHITECTURE.md
+│   ├── ARCHITECTURE.md spectacle:false,waitForPreviousTools:false} уничтожить:false} ...
+│   ├── manifest.json
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── pnpm-workspace.yaml
+│   ├── popup.html
+│   ├── sidepanel.html
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── extension_2
+│   ├── scripts
+│   ├── src
+│   ├── static
+│   ├── architecture.md
+│   ├── components.json
+│   ├── eslint.config.js
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── pnpm-workspace.yaml
+│   ├── README.md
+│   ├── svelte.config.js
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── frontend
+│   ├── scripts
+│   ├── src
+│   ├── static
+│   ├── components.json
+│   ├── eslint.config.js
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── pnpm-workspace.yaml
+│   ├── README.md
+│   ├── svelte.config.js
+│   ├── tsconfig.json
+│   ├── vite.config.ts
+│   └── wrangler.jsonc
+├── tw
+│   ├── crates
+│   ├── logs
+│   ├── scripts
+│   ├── Cargo.toml
+│   ├── docker-compose.yml
+│   ├── Dockerfile.twapi
+│   ├── Dockerfile.twpolling
+│   ├── lints.toml
+│   └── rustfmt.toml
+├── bsetup.sh
+├── Cargo.toml
+└── research.md
+
+16 directories, 39 files
+
+/home/jol3xd3v/Apps/threadchat/tw
+├── crates
+│   ├── tw-api
+│   ├── tw-core
+│   ├── tw-domain
+│   ├── tw-infrastructure
+│   ├── tw-jobs
+│   ├── tw-macros
+│   ├── tw-polling
+│   └── tw-telemetry
+├── logs
+│   ├── app.log.2026-06-16
+│   ├── app.log.2026-06-18
+│   ├── app.log.2026-06-19
+│   ├── app.log.2026-06-20
+│   ├── app.log.2026-06-21
+│   ├── app.log.2026-06-22
+│   ├── app.log.2026-06-23
+│   ├── app.log.2026-06-24
+│   ├── app.log.2026-06-25
+│   ├── app.log.2026-06-26
+│   ├── app.log.2026-06-27
+│   ├── app.log.2026-06-28
+│   ├── app.log.2026-06-29
+│   ├── app.log.2026-06-30
+│   ├── app.log.2026-07-01
+│   ├── app.log.2026-07-02
+│   ├── app.log.2026-07-03
+│   ├── app.log.2026-07-07
+│   ├── app.log.2026-07-08
+│   ├── app.log.2026-07-09
+│   ├── app.log.2026-07-18
+│   ├── app.log.2026-07-19
+│   ├── app.log.2026-07-21
+│   ├── app.log.2026-08-11
+│   ├── app.log.2026-08-16
+│   ├── app.log.2026-08-17
+│   ├── app.log.2026-08-18
+│   └── app.log.2026-08-19
+├── scripts
+│   └── dev.sh
+├── Cargo.toml
+├── docker-compose.yml
+├── Dockerfile.twapi
+├── Dockerfile.twpolling
+├── lints.toml
+└── rustfmt.toml
+
+12 directories, 35 files
+
+########## PUSH TO DRAFT (jolexhive backend) ##########
+/home/jol3xd3v/Apps/jolexhive/backend
+├── alerts
+│   ├── admin
+│   ├── models
+│   ├── serializers
+│   ├── services
+│   ├── tests
+│   ├── views
+│   ├── apps.py
+│   ├── __init__.py
+│   └── urls.py
+├── authentication
+│   ├── admin
+│   ├── helpers
+│   ├── management
+│   ├── middleware
+│   ├── models
+│   ├── permissions
+│   ├── serializers
+│   ├── services
+│   ├── urls
+│   ├── utils
+│   ├── views
+│   ├── adapters.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── plan_config.py
+│   └── tests.py
+├── branchforge
+│   ├── admin
+│   ├── management
+│   ├── middleware
+│   ├── models
+│   ├── permissions
+│   ├── prompts
+│   ├── serializers
+│   ├── services
+│   ├── utils
+│   ├── views
+│   ├── apps.py
+│   ├── __init__.py
+│   └── urls.py
+├── communication
+│   ├── admin
+│   ├── jobs
+│   ├── models
+│   ├── serializers
+│   ├── services
+│   ├── templates
+│   ├── views
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── tests.py
+│   └── urls.py
+├── config
+│   ├── settings
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── urls.py
+│   └── wsgi.py
+├── core
+│   ├── admin
+│   ├── management
+│   ├── middleware
+│   ├── models
+│   ├── serializers
+│   ├── services
+│   ├── templates
+│   ├── tests
+│   ├── utils
+
+########## BRANCHFORGE (app) ##########
+/home/jol3xd3v/Apps/jolexhive/backend/branchforge
+├── admin
+│   ├── __init__.py
+│   └── models_admin.py
+├── management
+│   ├── commands
+│   └── __init__.py
+├── middleware
+│   └── __init__.py
+├── models
+│   ├── audit_entry.py
+│   ├── branch_node.py
+│   ├── causal_link.py
+│   ├── __init__.py
+│   ├── intervention.py
+│   └── simulation_stage.py
+├── permissions
+│   └── __init__.py
+├── prompts
+│   ├── v1
+│   └── prompt_original.md
+├── serializers
+│   ├── branch_node.py
+│   └── __init__.py
+├── services
+│   ├── __init__.py
+│   └── simulation.py
+├── utils
+│   ├── ai
+│   └── __init__.py
+├── views
+│   ├── branch_node.py
+│   └── __init__.py
+├── apps.py
+├── __init__.py
+└── urls.py
+
+14 directories, 22 files
+
+########## PUSH TO DRAFT PUBLIC ##########
+/home/jol3xd3v/Apps/pushtodraft/django_saas_starter_kit
+├── accounts
+│   ├── helpers
+│   ├── management
+│   ├── services
+│   ├── templates
+│   ├── utlis
+│   ├── admin.py
+│   ├── apps.py
+│   ├── authentication.py
+│   ├── credit_events.py
+│   ├── emailExtension.py
+│   ├── __init__.py
+│   ├── middleware.py
+│   ├── models.py
+│   ├── payment_events.py
+│   ├── permissions.py
+│   ├── plan_config.py
+│   ├── serializers.py
+│   ├── social_service.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── audit
+│   ├── tasks
+│   ├── views
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   └── urls.py
+├── blog
+│   ├── service
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── serializer.py
+│   ├── tests.py
+│   └── views.py
+├── core
+│   ├── ai_prompts
+│   ├── templates
+│   ├── utility
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── plan_limits.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── twitter_bot.py
+│   ├── twitter_integration.py
+│   ├── unified_twitter_integration.py
+│   ├── urls.py
+│   ├── utlis.py
+│   └── views.py
+├── emails
+│   ├── templates
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── services.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── features
+│   ├── admin.py
+│   ├── apps.py
+
+########## PLAYTHROUGHEDITOR ##########
+/home/jol3xd3v/Apps/playthrougheditor/backend
+├── alerts
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── authentication
+│   ├── helpers
+│   ├── management
+│   ├── payment
+│   ├── services
+│   ├── utlis
+│   ├── adapters.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── middleware.py
+│   ├── models.py
+│   ├── paddle.py
+│   ├── permissions.py
+│   ├── plan_config.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── communication
+│   ├── templates
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── scheduler.py
+│   ├── services.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── config
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── core
+│   ├── feature_flags
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── cron_triggers
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── urls.py
+│   └── views.py
+
+/home/jol3xd3v/Apps/playthrougheditor/frontend
+├── app
+│   ├── api
+│   ├── (authenticated)
+│   ├── fonts
+│   ├── (landing)
+│   ├── logout
+│   ├── [...not-found]
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── error.tsx
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── manifest.ts
+│   ├── opengraph-image.jpg
+│   ├── robots.ts
+│   ├── sitemap.ts
+│   └── twitter-image.jpg
+├── components
+│   ├── auth
+│   ├── billing
+│   ├── dashboard
+│   ├── editor
+│   ├── landing
+│   ├── ui
+│   ├── wrappers
+│   ├── app-layout.tsx
+│   ├── app-sidebar.tsx
+│   ├── paddle-overlay.tsx
+│   └── providers.tsx
+├── config
+│   ├── keywords.ts
+│   └── site.ts
+├── effects
+│   ├── implementations
+│   ├── index.ts
+
+########## PLAYTHROUGHPROCESSOR ##########
+/home/jol3xd3v/Apps/playthroughprocessor
+├── effects
+│   ├── caption.py
+│   ├── color.py
+│   ├── registry.py
+│   ├── speed.py
+│   ├── watermark.py
+│   └── zoom.py
+├── processor
+│   ├── analyzer.py
+│   ├── final_renderer.py
+│   ├── job_parser.py
+│   ├── segment_renderer.py
+│   └── timeline.py
+├── storage
+│   ├── downloader.py
+│   ├── gdrive.py
+│   ├── gofile.py
+│   └── r2.py
+├── utils
+│   ├── ffmpeg.py
+│   ├── gpu.py
+│   ├── hashing.py
+│   ├── logging.py
+│   ├── retry.py
+│   ├── text.py
+│   └── video.py
+├── config.py
+├── Dockerfile
+├── handler.py
+├── LICENSE
+├── models.py
+└── README.md
+
+5 directories, 28 files
+
+########## SHAMEWHIP ##########
+/home/jol3xd3v/Apps/shamewhip/shamewhip_backend
+├── alerts
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── authentication
+│   ├── helpers
+│   ├── management
+│   ├── payment
+│   ├── services
+│   ├── utlis
+│   ├── adapters.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── middleware.py
+│   ├── models.py
+│   ├── paddle.py
+│   ├── permissions.py
+│   ├── plan_config.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── communication
+│   ├── templates
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── scheduler.py
+│   ├── services.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── config
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── core
+│   ├── feature_flags
+│   ├── admin.py
+│   ├── apps.py
+
+/home/jol3xd3v/Apps/shamewhip/shamewhip_frontend
+├── app
+│   ├── api
+│   ├── auth
+│   ├── (authenticated)
+│   ├── fonts
+│   ├── (landing)
+│   ├── logout
+│   ├── [...not-found]
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── error.tsx
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── opengraph-image.jpg
+│   ├── site.webmanifest
+│   └── twitter-image.jpg
+├── components
+│   ├── auth
+│   ├── billing
+│   ├── desktop
+│   ├── ui
+│   ├── wrappers
+│   ├── app-layout.tsx
+│   ├── app-sidebar.tsx
+│   ├── paddle-overlay.tsx
+│   └── providers.tsx
+├── hooks
+│   ├── org-hook.ts
+│   ├── useCommitments.ts
+│   └── use-mobile.tsx
+
+########## VULTI ##########
+/home/jol3xd3v/Apps/side_items/vulti
+├── install.sh
+├── LICENSE
+├── monetization.md
+├── README.md
+├── testing_plan.md
+└── vulti
+
+1 directory, 6 files

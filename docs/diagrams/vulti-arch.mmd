@@ -1,0 +1,8 @@
+graph TD
+    CLI[vulti CLI] --> Cmd[Command Dispatcher]
+    Cmd --> DB[(~/.vulti/commands.db)]
+    Cmd --> Backup[~/.vulti/backups]
+    Cmd --> PM[Package Manager]
+    PM --> Pacman[pacman]
+    PM --> Apt[apt]
+    PM --> Dnf[dnf]

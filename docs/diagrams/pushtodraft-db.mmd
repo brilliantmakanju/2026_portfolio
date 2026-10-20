@@ -1,0 +1,79 @@
+erDiagram
+    direction LR
+    ORGANIZATION ||--o{ USER_ORGANIZATION_ROLE : has
+    USER_ACCOUNT ||--o{ USER_ORGANIZATION_ROLE : holds
+    ORGANIZATION ||--o{ INVITE_CODE : issues
+    ORGANIZATION ||--o{ REPOSITORY : tenant_schema
+    USER_ACCOUNT ||--o{ REPOSITORY : connects
+    REPOSITORY ||--|| REPOSITORY_CONFIG : config
+    REPOSITORY ||--o{ POST : generates
+    REPOSITORY ||--o{ WEBHOOK_DELIVERY_LOG : logs
+    POST_GROUP ||--o{ POST : groups
+    CONNECTED_INTEGRATION }o--o{ REPOSITORY : publishes_to
+    ORGANIZATION {
+        uuid id PK
+        text name
+        uuid owner_id FK
+    }
+    USER_ACCOUNT {
+        uuid id PK
+        text email
+        text plan
+        text billing_interval
+        text subscription_status
+    }
+    USER_ORGANIZATION_ROLE {
+        uuid user_id FK
+        uuid organization_id FK
+        text role
+    }
+    INVITE_CODE {
+        uuid id PK
+        text code
+        text invitee_email
+        text role
+        uuid organization_id FK
+    }
+    REPOSITORY {
+        uuid id PK
+        uuid connected_by_user_id FK
+        text name
+        text full_name
+        text github_repo_id
+        text default_branch
+        bool is_downgraded
+    }
+    REPOSITORY_CONFIG {
+        uuid id PK
+        uuid repository_id FK
+        text tracked_branch
+        text default_tone
+        int post_frequency_limit
+    }
+    CONNECTED_INTEGRATION {
+        uuid id PK
+        uuid connected_by_id FK
+        text platform
+        text encrypted_access_token
+        text encrypted_refresh_token
+    }
+    POST {
+        uuid id PK
+        uuid repository_id FK
+        uuid post_group_id FK
+        text platform
+        text status
+        text content
+    }
+    POST_GROUP {
+        uuid id PK
+        text name
+        text description
+    }
+    WEBHOOK_DELIVERY_LOG {
+        uuid id PK
+        uuid repository_id FK
+        text github_event
+        int http_status
+        text status
+    }

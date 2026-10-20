@@ -1,0 +1,10 @@
+graph TD
+    UI[Next.js UI] --> API[Django DRF API]
+    API --> DB[(PostgreSQL)]
+    API --> Cache[(Redis Cache)]
+    API --> AI[AI Chat Endpoint]
+    API --> RP[RunPod Endpoint]
+    RP --> Worker[PlaythroughProcessor]
+    Worker --> R2[(Cloudflare R2)]
+    Worker --> GF[(GoFile)]
+    Worker --> DB

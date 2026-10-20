@@ -1,0 +1,57 @@
+erDiagram
+    direction LR
+    ORGANIZATION ||--o{ USER_ORGANIZATION_ROLE : has
+    USER_ACCOUNT ||--o{ USER_ORGANIZATION_ROLE : holds
+    ORGANIZATION ||--o{ INVITE_CODE : issues
+    USER_ACCOUNT ||--o{ PROJECT : creates
+    PROJECT ||--o{ EDIT : contains
+    USER_ACCOUNT ||--o{ EXPORT_REQUEST : requests
+    ORGANIZATION ||--o{ EXPORT_REQUEST : owns
+    USER_ACCOUNT {
+        uuid id PK
+        text email
+        text plan
+        text billing_interval
+        text subscription_status
+    }
+    ORGANIZATION {
+        uuid id PK
+        text name
+        uuid owner_id FK
+    }
+    INVITE_CODE {
+        uuid id PK
+        text code
+        text invitee_email
+        uuid organization_id FK
+    }
+    PROJECT {
+        uuid id PK
+        text title
+        text game
+        text video_url
+        float duration
+        json messages
+        json json_config
+        uuid created_by_id FK
+    }
+    EDIT {
+        uuid id PK
+        uuid project_id FK
+        text type
+        float start
+        float end
+        json properties
+        bool is_locked
+        int layer
+    }
+    EXPORT_REQUEST {
+        uuid id PK
+        uuid user_id FK
+        uuid tenant_id FK
+        uuid project_id
+        text quality
+        text speed
+        text status
+        text download_url
+    }
