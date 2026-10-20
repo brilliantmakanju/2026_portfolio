@@ -172,13 +172,32 @@ body {
 
 .mermaid {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   padding: 0.5rem 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mermaid svg {
   max-width: 100%;
   height: auto;
+}
+
+/* Keep Mermaid diagrams readable on phones: render at a legible width and let
+   the panel pan horizontally instead of shrinking labels to a few pixels. */
+.mermaid-hint {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .mermaid svg {
+    min-width: 760px;
+  }
+
+  .mermaid-hint {
+    display: block;
+  }
 }
 
 .subtle-grid {
@@ -802,6 +821,15 @@ body.diagram-expanded {
   flex-direction: column;
   gap: 1.8rem;
   padding-top: 1.8rem;
+}
+
+/* Let wide diagram content scroll inside its panel instead of widening the card. */
+.project-body > * {
+  min-width: 0;
+}
+
+.project-grid > * {
+  min-width: 0;
 }
 
 .block-title {

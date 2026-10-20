@@ -19,7 +19,8 @@ function tabPanels(p: Project) {
         ${
           d.svg
             ? `<div class="diagram-static" data-svg="${d.svg}" aria-label="${p.title} database diagram"></div>`
-            : `<div class="mermaid" data-diagram="${p.id}-${d.key}">\n${d.code}\n        </div>`
+            : `<div class="mermaid" data-diagram="${p.id}-${d.key}">\n${d.code}\n        </div>
+        <p class="zoom-hint mermaid-hint">swipe the diagram sideways to see the full flow</p>`
         }
         <p class="diagram-caption">note: ${d.caption}</p>
       </div>`

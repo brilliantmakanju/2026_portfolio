@@ -29,7 +29,7 @@ function configureMermaid() {
       tertiaryColor: "#0a0a0c",
       fontSize: "13px",
     },
-    flowchart: { curve: "monotoneX", padding: 12 },
+    flowchart: { curve: "monotoneX", padding: 12, nodeSpacing: 34, rankSpacing: 44 },
     sequence: { useMaxWidth: true },
     er: { useMaxWidth: true, diagramPadding: 12, entityPadding: 22, minEntityWidth: 120, minEntityHeight: 48 },
   });

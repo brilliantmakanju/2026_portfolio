@@ -280,25 +280,70 @@ export const playthroughprocessor: Project = {
   repoUrl: "https://github.com/brilliantmakanju/video_processor_gpu_infra",
   related: { label: "PlaythroughEditor", href: "#playthrougheditor" },
   stack: ["Python", "FFmpeg (NVENC)", "RunPod", "Docker"],
-  scope: ["4 active effect modules + CPU/GPU dual paths", "4 quality presets", "2 parallel workers", "R2 + GoFile upload, Google Drive download", "2-hour global timeout", "GPU_MEMORY_FRACTION 0.95"],
+  scope: ["4 active effect modules + CPU/GPU dual paths", "4 output presets + original passthrough", "2 parallel workers with 10-minute segment caps", "R2 + GoFile upload, Google Drive download", "2-hour global timeout", "NVENC CQ 23 with a libx264 CRF 23 fallback"],
   problem:
     "GPU video processing is expensive and easy to misconfigure, especially when quality presets and VRAM budgets must hold under load.",
   built: [
-    "RunPod serverless handler that receives render jobs from PlaythroughEditor and writes results back.",
+    "RunPod serverless handler that validates a job, downloads the source and edit map, and returns a JSON result with the delivery URL, processing time and output size.",
     "NVENC/NVDEC hardware encode and decode with CUDA-accelerated Lanczos scaling.",
-    "VRAM-fraction management (0.95) with per-preset quality adjustment.",
-    "Edit-map interpreter for parallel segment cutting, GPU concatenation, watermark overlay, and caption rendering.",
+    "Disk-aware quality control: source re-compression to 3 Mbps when space is tight and a CQ 26 fallback under 3 GB free.",
+    "Edit-map interpreter that splits the timeline at every edit boundary, drops cut ranges, attaches subtitles and marks ranges that can skip re-encoding.",
+    "Two-worker segment rendering with a 10-minute cap per segment, plus a 2-hour global alarm and structured error payloads.",
     "Hybrid CPU/GPU design that offloads GPU-unsupported filters to the CPU before re-encoding on GPU.",
-    "Smart copy mode that skips re-encoding when the resolution is unchanged.",
+    "Smart copy mode that stream-copies untouched ranges and concatenates with -c copy + faststart.",
+    "Delivery through an R2 presigned PUT, a caller-provided public URL, or GoFile as the fallback.",
   ],
   decisions: [
     "RunPod serverless over a persistent GPU: auto-scaling with zero idle cost.",
     "Worker cap of 2 over unlimited parallelism: prevents VRAM allocation failures on L4.",
     "Smart copy mode over always-reencode: faster for segments that need no processing.",
   ],
-  diagrams: [],
+  diagrams: [
+    {
+      key: "arch",
+      label: "Architecture",
+      caption:
+        "Job in, 2-hour alarm set, input validated. The worker downloads the video and edit map, re-compresses the source when disk is tight, probes it, splits the timeline at every edit boundary (dropping cuts, attaching subtitles and effects), and renders two segments at a time: copyable ranges are stream-copied, the rest go through speed, zoom, subtitle and watermark filters on a CUDA + NVENC path or a libx264 fallback. Parts are joined with -c copy and faststart, then delivered through an R2 presigned PUT, GoFile, or a caller public URL. The handler returns URL, time and size, then deletes its temp files. It never touches the database.",
+      code: `flowchart LR
+    subgraph Ingest["1 · Ingest"]
+        direction TB
+        Job["RunPod serverless job<br/>CUDA 12.8 · FFmpeg 7.1.3"] --> Timeout["Start 2-hour timeout"]
+        Timeout --> Validate["Validate input<br/>video · edit map · resolution · paid flag"]
+        Validate --> Fetch["Download video + edit map<br/>HTTP · Google Drive · inline JSON<br/>3 retries"]
+        Fetch --> Shrink["Disk guard<br/>big file + low space<br/>re-compress to 3 Mbps (NVENC)"]
+    end
+
+    subgraph Plan["2 · Plan"]
+        direction TB
+        Probe["ffprobe metadata<br/>resolution · fps · audio · duration"] --> Parse["Parse edit map<br/>zoom · speed · cut · subtitles"]
+        Parse --> Res["Choose output size<br/>720p · 1080p · 480p · 360p<br/>or original"]
+        Res --> Segments["Build segment plan<br/>split at every edit boundary<br/>drop cuts · attach effects"]
+        Segments --> Quality["Quality guard<br/>CQ 26 when free disk under 3 GB"]
+    end
+
+    subgraph Render["3 · Render"]
+        direction TB
+        Prep["Prepare render<br/>check GPU · watermark for unpaid jobs"] --> Workers["Render segments<br/>2 workers · 10-minute cap each"]
+        Workers --> Copy["Copyable ranges<br/>stream copy"]
+        Workers --> Effects["Apply effects<br/>speed · zoom · subtitles · watermark"]
+        Effects --> Encode["Encode<br/>CUDA + NVENC<br/>CPU hybrid<br/>libx264 fallback"]
+        Copy --> Join["Join segments<br/>-c copy · faststart"]
+        Encode --> Join
+    end
+
+    subgraph Deliver["4 · Deliver"]
+        direction TB
+        Upload["Upload result<br/>R2 presigned PUT if upload_url<br/>GoFile if no URL at all<br/>else reuse public_url"] --> Result["Return JSON<br/>URL · time · output size"]
+        Result --> Cleanup["finally<br/>delete temps · clear timeout"]
+    end
+
+    Ingest --> Plan
+    Plan --> Render
+    Render --> Deliver`,
+    },
+  ],
   folder: `playthroughprocessor/
-├── effects/               # zoom, speed, caption, watermark, color
+├── effects/               # zoom, speed, caption, watermark (color disabled)
 ├── processor/             # analyzer, job parser, renderers
 ├── storage/               # r2, gofile, gdrive, downloader
 ├── utils/                 # ffmpeg, gpu, retry
