@@ -9,6 +9,8 @@ export type Diagram = {
   code?: string;
   /** Path to a pre-rendered SVG in /public — used instead of `code`. */
   svg?: string;
+  /** Initial zoom for static SVGs (1 = fit width). */
+  zoom?: number;
 };
 
 export type Project = {
@@ -41,25 +43,29 @@ export const threadchat: Project = {
   index: "01",
   title: "ThreadChat",
   positioning:
-    "A live SaaS for following specific YouTube comment threads, with reply notifications and edit/deletion history.",
+    "A live SaaS for following specific YouTube comment threads, with live updates and versioned edit and deletion history.",
   status: "Live",
   statusKind: "live",
   liveUrl: "https://threadchat.jolexhive.com",
   stack: ["Rust", "Axum", "Tokio", "SvelteKit", "Svelte 5", "TypeScript", "WebSockets", "PostgreSQL", "Redis", "Tailwind CSS 4"],
-  scope: ["8-crate Rust workspace", "16 tables · 29 migrations · 76 sqlx-verified queries", "30 API routes · 4-tier rate limiting", "Hot/warm/cold polling scheduler (15min / 8h / 7d)", "6 Redis pub/sub channel families"],
+  scope: ["8-crate Rust workspace", "16 tables · 29 migrations · 76 sqlx-prepared queries", "28 route patterns (34 endpoints) · 4-tier rate limiting", "4-tier polling: 30s–6h Pro, 5m–12h free", "6 Redis pub/sub channel families", "100/500 daily write quota (trial/Pro)"],
   problem:
-    "There is no focused way to track specific YouTube comment threads with notifications and a history of edits and deletions.",
+    "There is no focused way to follow a specific YouTube comment thread. YouTube has notifications, but they are unreliable. Sometimes they never arrive. Sometimes you get pinged and the comment isn't even visible when you open the thread. And there is no history of what was edited or deleted.",
   built: [
-    "Rust/Axum REST and WebSocket backend with Redis pub/sub fanout.",
-    "Tokio polling worker that claims due threads from the database and fetches them from the YouTube Data API.",
-    "SvelteKit frontend with no external state libraries.",
-    "Google and YouTube OAuth with AES-encrypted token storage; Paddle billing live for the paid Pro tier (a Dodo Payments client is written but switched off).",
-    "Comment edit and deletion history stored per version in comment_history.",
+    "Rust/Axum REST and WebSocket API on Tokio, with 1-hour JWTs, 30-day refresh tokens and single-use 10-second WebSocket tickets.",
+    "Redis pub/sub fanout across six per-thread channels (new, edit, delete, restore, reaction, thread deleted) that every API instance subscribes to.",
+    "Tokio polling worker that claims due threads with SKIP LOCKED, scales cadence by activity and Pro status, backs off on failures, and throttles against a Redis daily YouTube quota that resets at Pacific midnight.",
+    "Comment sync diffs YouTube against the database to detect new, edited and deleted comments, writing each change to comment_history as a version.",
+    "Google OAuth login and YouTube OAuth link (youtube.force-ssl), with refresh tokens encrypted using AES-256-GCM.",
+    "SvelteKit 5 frontend on Cloudflare with runes, TanStack Query, cookie sessions, and a WebSocket client that patches open threads live.",
+    "Paddle checkout, customer portal and idempotent webhooks (processed_webhook_events) drive the Pro role; the Dodo client exists but its routes are commented out.",
+    "Manifest V3 Chrome side panel that opens the same inbox on YouTube using the shared cookie session.",
   ],
   decisions: [
     "Always wanted to learn Rust, so I picked it over Django and Python to build ThreadChat.",
     "Redis pub/sub over in-process broadcast: fanout survives horizontal scaling across API instances.",
     "Connection pooling and partial indexes over per-tick scans: the scheduler claims only threads whose next_poll_at is due.",
+    "Single-use WebSocket tickets over putting the JWT in the URL: the credential lives 10 seconds, stays in memory, and is consumed atomically.",
   ],
   diagrams: [
     {
@@ -72,23 +78,19 @@ export const threadchat: Project = {
   ],
   folder: `threadchat/
 ├── tw/                          # Rust workspace
-│   ├── crates/
-│   │   ├── tw-api/              # Axum REST + WebSocket API
-│   │   ├── tw-polling/          # YouTube polling worker
-│   │   ├── tw-jobs/
-│   │   ├── tw-domain/
-│   │   ├── tw-core/
-│   │   ├── tw-infrastructure/
-│   │   ├── tw-macros/
-│   │   └── tw-telemetry/
+│   ├── crates/                  # tw-api · tw-polling · tw-core · tw-domain
+│   │                            # tw-infrastructure · tw-jobs · tw-macros · tw-telemetry
 │   ├── migrations/              # 29 SQL migrations
-│   ├── scripts/
+│   ├── .sqlx/                   # 76 offline query caches
+│   ├── scripts/                 # dev.sh
 │   ├── docker-compose.yml
-│   └── Dockerfiles              # twapi · twpolling
-└── frontend/                    # SvelteKit 5 app
-    ├── src/routes/              # (app) auth blog conversations login pricing
-    ├── src/lib/                 # api clients, stores, notifications
-    └── static/`,
+│   ├── Dockerfile.twapi
+│   └── Dockerfile.twpolling
+├── frontend/                    # SvelteKit 5 app (Cloudflare adapter)
+│   ├── src/routes/              # api proxy · (app) · auth · blog · pricing
+│   ├── src/lib/                 # api · state · clients · components
+│   └── static/
+└── extension_2/                 # Manifest V3 Chrome side panel`,
   proves: "Real-time state, background ingestion, and paid access coordinating across Rust, PostgreSQL, and Redis.",
 };
 
@@ -96,58 +98,75 @@ export const pushtodraft: Project = {
   id: "pushtodraft",
   index: "02",
   title: "Push to Draft",
-  positioning: "A multi-tenant SaaS that turns GitHub commits into platform-tailored social posts.",
+  positioning:
+    "A multi-tenant Django/Next.js SaaS built to turn GitHub commits into platform-tailored social posts; its shared backend became the JolexHive SaaS starter kit.",
   status: "Decommissioned",
   statusKind: "off",
   backendUrl: "https://github.com/brilliantmakanju/pushtodraftbackend",
   frontendUrl: "https://github.com/brilliantmakanju/commit-to-post-ui",
-  stack: ["Python", "Django", "DRF", "PostgreSQL", "Next.js 16", "React 19", "Zustand", "TanStack Query", "Tailwind CSS", "Axios"],
-  scope: ["4 platform publishers (Twitter, LinkedIn, Slack, Discord)", "2 OAuth integrations, Twitter with real refresh and health logic", "7-model billing ledger (Dodo)", "5 generations of the base prompt", "django-tenants schema isolation"],
+  stack: ["Python", "Django", "DRF", "PostgreSQL", "django-tenants", "Next.js 16", "React 19", "Zustand", "TanStack Query", "Tailwind CSS 4", "Axios", "Dodo Payments"],
+  scope: [
+    "4 publish handlers (Twitter, LinkedIn, Slack, Discord)",
+    "2 OAuth flows (Twitter, LinkedIn) + Discord webhook; Fernet-encrypted tokens",
+    "Twitter token refresh + health checks",
+    "7-model shared billing app (Dodo) with plan-change history",
+    "5 base prompts, 9 tone presets, per-platform rules",
+    "django-tenants schema isolation",
+    "Starter kit reused by BranchForge, PlaylistDNA and PlaythroughEditor",
+  ],
   problem:
-    "Developers want to share code updates on social media, but writing posts from commits by hand is tedious.",
+    "Developers want to share code updates on social media, but turning a commit into a platform-appropriate post by hand is tedious, so it gets skipped.",
   built: [
-    "Multi-tenant Django SaaS with schema-per-tenant PostgreSQL isolation via django-tenants.",
-    "AI pipeline that converts GitHub commits into platform-tailored posts, with versioned prompt files.",
-    "OAuth integrations for Twitter and LinkedIn with AES-256 encrypted tokens and refresh.",
-    "Dodo Payments billing webhooks with an automated plan-downgrade engine.",
-    "BranchForge runs as a module inside this backend, with its own frontend route.",
+    "Multi-tenant Django SaaS on django-tenants: shared apps in the public schema and product models in per-organization schemas.",
+    "GitHub App install, reconnect and disconnect flows, plus a signed webhook receiver with delivery logs and a 100-call/hour per-organization rate limit.",
+    "Versioned prompt engine with five base-prompt generations, nine tone presets, per-platform rules and a streamed Llama 3 70B completion.",
+    "Post and PostGroup models for drafts, scheduling, media, soft delete and per-integration publish tracking across four platforms.",
+    "Publisher handlers for Twitter, LinkedIn, Slack and Discord; Twitter tokens refresh ahead of expiry and are health-checked.",
+    "OAuth flows for Twitter and LinkedIn plus a Discord webhook connect flow; tokens are Fernet-encrypted at rest.",
+    "Shared JolexHive starter kit for auth (Allauth + Sesame + JWT), tenants/roles/invites, billing, email, alerts, cron and feature flags.",
+    "BranchForge and PlaylistDNA run as tenant apps in the same backend; PlaythroughEditor reuses the starter-kit base with product-specific changes.",
   ],
   decisions: [
     "Schema-per-tenant over row-level isolation: stronger data boundaries and simpler per-tenant queries.",
-    "AES-256 token encryption over plain storage: zero-trust handling of third-party OAuth tokens.",
-    "Automated downgrade engine over manual enforcement: billing state changes pause excess repositories and integrations without human intervention.",
+    "Fernet encryption over plain storage: third-party OAuth tokens and webhook URLs are encrypted before they reach the database.",
+    "A reusable starter kit over copy-paste: shared auth, tenancy, billing, email, alerts and cron live once; each product adds tenant-scoped models.",
+    "Registry-based downgrade handlers over hard-coded billing rules: each app declares what to pause when a plan drops.",
+    "Versioned prompts and external config over one hard-coded prompt: tones and platform rules change without rewriting the generator.",
   ],
   diagrams: [
     {
       key: "db",
       label: "Database",
       caption:
-        "Public schema holds organizations, accounts and roles. Repository data lives in each organization's tenant schema, so the Organization to Repository edge is a tenant boundary, not a shared-schema FK. OAuth token columns are AES-256 encrypted.",
+        "Public schema holds organizations, accounts, roles and billing (seven models in the app; the four core tables are shown). Repository, post and integration tables live in each organization's tenant schema. OAuth token columns are Fernet-encrypted.",
       svg: "/diagrams/pushtodraft-db.svg",
+      zoom: 2.51,
     },
   ],
   folder: `jolexhive/
 ├── backend/
-│   ├── push_draft/              # commit-to-post app
+│   ├── push_draft/              # commit-to-post app (decommissioned)
 │   │   ├── models/              # post, repository, integration, webhook
-│   │   ├── ai_prompts/          # 6 prompt versions
+│   │   ├── ai_prompts/          # 5 base prompts + article prompt
 │   │   ├── serializers/
-│   │   └── views/posting/       # dashboard, stats, shared mixins
-│   ├── branchforge/             # causal simulation module
-│   ├── payment/                 # Dodo webhooks + downgrade engine
-│   ├── tenants/                 # django-tenants config
-│   ├── authentication/
-│   ├── communication/
-│   ├── alerts/
-│   ├── core/
+│   │   └── views/posting/       # posts, OAuth, webhooks, dashboard
+│   ├── branchforge/             # tenant app: causal simulation
+│   ├── playlistdna/             # tenant app
+│   ├── payment/                 # 7-model billing app, Dodo webhooks
+│   ├── tenants/                 # orgs, domains, roles, invites
+│   ├── authentication/          # Allauth + Sesame + JWT
+│   ├── communication/           # email + export requests
+│   ├── alerts/                  # notifications
+│   ├── cron_triggers/
+│   ├── core/                    # feature flags, Studio apps
 │   └── config/
 └── frontend/                    # Next.js 16 app
-    ├── app/                     # dashboard, forge, settings, checkout
+    ├── app/                     # dashboard, forge, playlistdna, settings, checkout
     ├── components/
     ├── hooks/
     ├── lib/
     └── zustand/`,
-  proves: "Tenant isolation, encrypted third-party credentials, and billing state that changes application behavior.",
+  proves: "Tenant isolation, encrypted third-party credentials, and a reusable SaaS foundation that later products build on.",
 };
 
 export const branchforge: Project = {
@@ -155,148 +174,193 @@ export const branchforge: Project = {
   index: "03",
   title: "BranchForge",
   positioning:
-    "A causal simulation engine that grounds counterfactual scenarios in curated facts and a directed acyclic graph.",
-  status: "Decommissioned",
-  statusKind: "off",
-  stack: ["Python", "Django", "DRF", "PostgreSQL"],
-  scope: ["7 pipeline stages", "5 branchforge models + 2 core models", "Confidence threshold 0.30", "SHA-256 branch hashing"],
+    "A causal what-if engine that builds a seven-stage scenario from curated facts and stores a trace for every step.",
+  status: "Waitlist",
+  statusKind: "open",
+  stack: [
+    "Python",
+    "Django",
+    "DRF",
+    "PostgreSQL",
+    "django-tenants",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "React Flow",
+    "TanStack Query",
+    "OpenRouter",
+  ],
+  scope: [
+    "7-stage LLM pipeline",
+    "5 tenant models + 2 shared models",
+    "4 causal link types",
+    "0.30 prompt-level confidence threshold",
+    "SHA-256 branch identity",
+  ],
   problem:
-    "Standard LLM scenario generation drifts into speculation and cannot show which facts or causal links produced a conclusion.",
+    "Ask an LLM a what-if question and it usually answers in free text: no fact inventory, no explicit cause-effect graph, and no record of which source supported which step.",
   built: [
-    "Seven-stage LLM and causal simulation pipeline that builds directed acyclic graphs from curated facts.",
-    "Topological sort to detect and break feedback loops before propagation.",
-    "Counterfactual interventions propagated along typed causal edges with time-decay fact weighting.",
-    "Confidence gate that halts runs below a 0.30 threshold, plus schema validation on inputs and parsed JSON.",
-    "SHA-256 branch hashing for Git-style scenario versioning, per-stage traces, and an append-only audit log.",
+    "Seven sequential prompt stages: load and inherit, map affected nodes, propose an initial DAG, reflect and augment, propagate and simulate, critique and verify, final synthesis. Stages 3-6 route to the reasoning model; Stages 1, 2 and 7 use the fast model, with settings overrides for both.",
+    "Stage 1's validation prompt checks fact count, intervention grounding, conflicts and schema errors. A false proceed flag marks the branch failed before Stages 2-7; malformed JSON at any stage also fails the branch.",
+    "Every completed stage writes a SimulationStage row with parsed JSON, raw output, token count and the last prompt message, plus an AuditEntry. Fork, halt, completion and error events also write audit rows.",
+    "GroundedFact rows carry source URL, publication date, confidence, half-life, entities and affected variables. The runner computes an exponential half-life weight for every fact and injects the fact inventory, immediate parent summary and intervention into each prompt.",
+    "Stage 3's prompt specifies a topological sort and weakest-edge cycle breaking; Stage 3 and Stage 4 DAG edges are persisted as CausalLink rows with link type (direct, confounder, mediator, collider), strength, sign, lag, effect magnitude, source fact IDs and confidence.",
+    "Stage 5's prompt applies a do-operator: sever incoming edges to the intervention, propagate effects through the refined DAG and produce outcome ranges. Stage 6 is an adversarial critique; Stage 7 synthesizes narrative, outcomes, risks and sources.",
+    "BranchNode is a self-referencing tree with parent, depth, scenario and root flags. Its SHA-256 hash is derived from parent hash, intervention and creation time and stored once; origin_stage and origin_audit_entry record what spawned a fork.",
+    "DRF API: branch CRUD, get-or-create-root, fork-from-scenario and fork-from-parent. The pipeline runs synchronously inside the fork request.",
+    "Next.js and React Flow frontend: scenario dashboard, branch canvas with a fork modal, 1s/3s polling while a branch is pending or simulating, and a side panel for narrative, outcomes, causal chain, sources and risks.",
+    "Runs as a tenant app on the shared JolexHive django-tenants base. Scenario and GroundedFact live in the shared schema; the five BranchForge tables live in each tenant schema.",
   ],
   decisions: [
-    "Seven explicit stages over one prompt: each stage is auditable and can be retried independently.",
-    "Confidence gate over always-complete output: low-confidence results never reach the user.",
-    "DAG-first over free-text reasoning: the structural causal model forces cause-effect commitment.",
+    "Seven explicit stages over one prompt: every stage leaves a stored trace and a clear failure point instead of one opaque answer.",
+    "Prompt-level 0.30 confidence checks, with Stage 1's proceed flag enforced by the runner; later stages return halt or error payloads rather than stopping the loop.",
+    "DAG-first prompting over free-text reasoning: Stages 3 and 4 must commit to typed edges, strengths, signs and lags.",
+    "Reasoning-model routing for Stages 3-6 and fast-model routing for Stages 1, 2 and 7, with settings overrides for each class.",
+    "Synchronous pipeline over a task queue: simpler request flow and immediate serialization, at the cost of long-running HTTP requests.",
   ],
   diagrams: [
     {
       key: "db",
       label: "Database",
       caption:
-        "BranchNode is a self-referencing tree (parent, SET_NULL); origin_stage and origin_audit_entry are nullable FKs that record which stage or audit event spawned a fork.",
+        "Five tenant tables plus shared User, Scenario and GroundedFact. BranchNode is a self-referencing tree (parent, SET_NULL); origin_stage and origin_audit_entry are nullable FKs that record which stage or audit event spawned a fork. source_fact_ids is JSON, not a foreign key.",
       svg: "/diagrams/branchforge-db.svg",
+      zoom: 1.74,
     },
     {
       key: "arch",
       label: "Architecture",
-      caption: "The DRF API drives seven named stages left to right; each stage writes its trace to Postgres.",
+      caption:
+        "Compact view. The DRF fork action runs all seven stages synchronously; Stages 2-4 map nodes, propose the DAG and refine it. Stage 1 can stop the run when its proceed flag is false. Each stage writes a trace to Postgres, and Stages 3/4 also write typed CausalLinks. The 0.30 confidence threshold is in the prompts; only Stage 1's flag is enforced by the runner.",
       code: `graph LR
-    Req[Scenario Request] --> API[DRF API]
-    API --> S1[1 Load and Inherit]
-    S1 --> S2[2 Map Affected Nodes]
-    S2 --> S3[3 Propose Initial DAG]
-    S3 --> S4[4 Reflect and Augment]
-    S4 --> S5[5 Propagate and Simulate]
-    S5 --> S6[6 Critique and Verify]
-    S6 --> S7[7 Final Synthesis]
-    S7 --> Gate{Confidence >= 0.30}
-    Gate -->|Pass| DB[(PostgreSQL)]
-    Gate -->|Halt| DB`,
+    API[DRF fork] --> S1[1 Validate]
+    S1 -->|proceed| S2[2-4 Build DAG]
+    S1 -->|stop| Fail[Mark failed]
+    S2 --> S5[5 Propagate]
+    S5 --> S6[6 Critique]
+    S6 --> S7[7 Synthesize]
+    S7 --> DB[(Postgres trace)]`,
     },
   ],
-  folder: `branchforge/
-├── models/                # branch_node, causal_link, intervention,
-│                          # simulation_stage, audit_entry
-├── services/simulation.py # 7-stage pipeline
-├── views/
-├── serializers/
-├── prompts/
-├── utils/ai/
-├── permissions/
-├── middleware/
-├── management/
-└── admin/`,
-  proves: "A multi-stage LLM system with explicit failure boundaries, auditability, and versioned state.",
+  folder: `jolexhive/
+├── backend/branchforge/
+│   ├── models/                # 5 tenant models
+│   ├── services/simulation.py # 7-stage runner
+│   ├── prompts/v1/stages/     # one prompt per stage
+│   ├── views/                 # branch CRUD + fork actions
+│   ├── serializers/
+│   ├── utils/ai/              # prompt loader
+│   ├── admin/
+│   └── migrations/
+└── frontend/
+    ├── app/app/branchforge/   # landing + waitlist
+    ├── app/(authenticated)/forge/[forgeid]/
+    └── components/apps/branchforge/
+        ├── branch/            # React Flow canvas, fork modal, side panel
+        ├── dashboard/
+        └── landing/`,
+  proves:
+    "Multi-stage LLM orchestration with a stored trace per stage, typed causal links and a forkable branch tree on a shared multi-tenant base.",
 };
 
 export const playthrougheditor: Project = {
   id: "playthrougheditor",
   index: "04",
   title: "PlaythroughEditor",
-  positioning: "A web app that lets creators edit gameplay footage by typing instructions in a chat.",
+  positioning: "A browser editor that turns chat instructions into timeline edits, then hands the render to a GPU worker.",
   status: "Decommissioned",
   statusKind: "off",
   processorUrl: "https://github.com/brilliantmakanju/video_processor_gpu_infra",
   related: { label: "PlaythroughProcessor", href: "#playthroughprocessor" },
-  stack: ["Python", "Django", "DRF", "Next.js", "React", "Zustand", "PostgreSQL", "Redis", "RunPod"],
-  scope: ["19 database tables across 5 apps", "6 edit types (zoom, speed, text, shake, callout, cut)", "2 unified billing providers (Paddle + Dodo)", "RunPod export pipeline (submit → poll → signed delivery)"],
+  stack: ["Python", "Django 5.2", "DRF", "Next.js 15.4", "React 19", "Zustand", "PostgreSQL", "Redis", "Cloudflare R2", "RunPod"],
+  scope: [
+    "20 Django models across 6 apps",
+    "6 edit types, 4 creatable through chat",
+    "30-second debounced autosave",
+    "RunPod export with presigned R2 source upload and output PUT",
+    "Dodo checkout and signed webhooks; Paddle handler retained",
+  ],
   problem:
     "Video creators need to edit gameplay footage through natural language instructions without learning timeline-based editing software.",
   built: [
-    "Next.js 15 frontend with an editor workspace, chat panel, edit stack, subtitle blocks and an export modal.",
-    "Django/DRF backend that stores Project and Edit rows and streams chat responses into an edited JSON config.",
-    "Export requests are created server-side and dispatched to a RunPod endpoint via RUNPOD_API_KEY; Redis (django_redis) drives the cache layer behind payment-event dedupe and email throttling.",
-    "PostgreSQL tenant schema for Project and Edit; a shared ExportRequest model tracks render status.",
-    "Dual billing stack unified behind PaymentProvider/PaymentCustomer models: Paddle (subscription management with signature-verified webhooks) and Dodo (checkout), plus a plan-downgrade engine, on a django-tenants base.",
+    "Next.js 15.4 editor with a video canvas, timeline, chat panel, edit stack, subtitle blocks and export modal.",
+    "Server-side /api/ai/chat proxy streams OpenAI-compatible completions, neutralizes prompt-injection patterns, and applies a 20-per-minute rate limit, 4,000-character message cap and 60-second timeout.",
+    "Zustand owns the edit list, subtitles and chat history; chat JSON is merged only when it does not overlap an existing edit, then autosaved as a full project snapshot after 30 seconds.",
+    "Django/DRF Project and Edit models keep raw edit properties in JSON; a project PATCH replaces the Edit rows from the editor snapshot and rebuilds editor-facing refs when the project is read back.",
+    "New-project wizard checks 16:9 and a 4,900-second duration constant (its error copy still says 30 minutes), uploads the source and thumbnail through presigned R2 PUTs, and caches the source locally in IndexedDB for preview.",
+    "RunPod export proxy creates a 2-hour presigned R2 output PUT, submits video URL, edit JSON, paid flag and target resolution, then polls RunPod every 5 seconds for up to 40 minutes.",
+    "Per-user querysets plus TenantAccessPermission tie projects and edits to both the authenticated account and the tenant domain.",
+    "Billing scaffolding remains in the tree: Dodo checkout route, signed webhook handler, payment models and a Paddle webhook.",
   ],
   decisions: [
-    "Django and DRF over FastAPI: reuse a battle-tested SaaS foundation for auth, billing, and tenants.",
-    "RunPod serverless over self-hosted GPU: pay only for GPU seconds with no idle cost.",
-    "Chat edits merged into a JSON config over a manual timeline: removes the learning curve of traditional editors.",
+    "Next.js over server-rendered Django pages: the timeline, local video preview and streaming chat all need client-side state.",
+    "Keep the AI key behind a server route: validation, prompt-injection filtering and per-IP rate limiting stay out of the browser.",
+    "Let chat add edits, not rewrite them: the assistant can create zoom, speed, cut and text, but cannot modify or delete existing timeline items.",
+    "Store a JSON snapshot alongside normalized Edit rows: the snapshot loads the editor quickly, while the rows keep the timeline queryable; each save replaces the row set.",
   ],
   diagrams: [
     {
       key: "db",
       label: "Database",
       caption:
-        "Project and Edit live in the tenant schema; ExportRequest stores project_id as a plain UUID reference, not a database FK.",
+        "Selected tables: Project and Edit live in the tenant schema; ExportRequest stores project_id as a plain UUID reference, not a database FK.",
       svg: "/diagrams/playthrougheditor-db.svg",
     },
   ],
   folder: `playthrougheditor/
 ├── backend/
-│   ├── authentication/          # JWT + payment (paddle.py)
-│   ├── communication/           # ExportRequest
-│   ├── tenant_core/             # Project, Edit
-│   ├── tenants/
-│   ├── core/
-│   ├── alerts/
+│   ├── authentication/          # JWT, billing, downgrade service
+│   ├── communication/           # ExportRequest, email
+│   ├── tenant_core/             # Project, Edit, export views
+│   ├── tenants/                 # organizations, domains, roles
+│   ├── alerts/                  # notifications
+│   ├── core/                    # feature flags
 │   ├── cron_triggers/
 │   └── config/
 ├── frontend/
-│   ├── app/                     # Next.js routes
-│   ├── components/editor/       # chat, edits, export
+│   ├── app/api/ai/chat/         # server-side streaming proxy
+│   ├── app/(authenticated)/editor/
+│   ├── components/editor/       # chat, timeline, edits, export
+│   ├── hooks/                   # autosave, export, upload
 │   ├── zustand/                 # editor store
-│   ├── hooks/
-│   ├── lib/
-│   ├── store/
-│   └── types/`,
-  proves: "A product that coordinates uploads, LLM interpretation, a render job, and signed storage delivery.",
+│   └── lib/                     # AI, R2, API client`,
+  proves: "Server-streamed AI editing, a typed editor state machine, tenant-scoped persistence and a deferred GPU render handoff.",
 };
 
 export const playthroughprocessor: Project = {
   id: "playthroughprocessor",
   index: "05",
   title: "PlaythroughProcessor",
-  positioning: "The GPU worker that renders PlaythroughEditor jobs with NVENC/NVDEC on RunPod serverless.",
+  positioning: "The RunPod worker built to turn PlaythroughEditor timeline JSON into an MP4 with NVENC.",
   status: "Decommissioned",
   statusKind: "off",
   repoUrl: "https://github.com/brilliantmakanju/video_processor_gpu_infra",
   related: { label: "PlaythroughEditor", href: "#playthrougheditor" },
-  stack: ["Python", "FFmpeg (NVENC)", "RunPod", "Docker"],
-  scope: ["4 active effect modules + CPU/GPU dual paths", "4 output presets + original passthrough", "2 parallel workers with 10-minute segment caps", "R2 + GoFile upload, Google Drive download", "2-hour global timeout", "NVENC CQ 23 with a libx264 CRF 23 fallback"],
+  stack: ["Python", "FFmpeg 7.1.3", "NVENC/NVDEC", "CUDA 12.8", "RunPod", "Docker"],
+  scope: [
+    "4 effects: zoom, speed, subtitles, watermark",
+    "4 output sizes: 360p, 480p, 720p, 1080p",
+    "2 concurrent segments; 10-minute segment and concat caps",
+    "2-hour global job alarm",
+    "HTTP + Google Drive input; R2 + GoFile + public-URL output",
+    "NVENC CQ 23; libx264 CRF 23 fallback path",
+  ],
   problem:
     "GPU video processing is expensive and easy to misconfigure, especially when quality presets and VRAM budgets must hold under load.",
   built: [
-    "RunPod serverless handler that validates a job, downloads the source and edit map, and returns a JSON result with the delivery URL, processing time and output size.",
-    "NVENC/NVDEC hardware encode and decode with CUDA-accelerated Lanczos scaling.",
-    "Disk-aware quality control: source re-compression to 3 Mbps when space is tight and a CQ 26 fallback under 3 GB free.",
-    "Edit-map interpreter that splits the timeline at every edit boundary, drops cut ranges, attaches subtitles and marks ranges that can skip re-encoding.",
-    "Two-worker segment rendering with a 10-minute cap per segment, plus a 2-hour global alarm and structured error payloads.",
-    "Hybrid CPU/GPU design that offloads GPU-unsupported filters to the CPU before re-encoding on GPU.",
-    "Smart copy mode that stream-copies untouched ranges and concatenates with -c copy + faststart.",
-    "Delivery through an R2 presigned PUT, a caller-provided public URL, or GoFile as the fallback.",
+    "RunPod handler validates a job, starts a 2-hour SIGALRM, downloads the source and edit map, and returns a JSON result with the delivery URL, processing time and output size.",
+    "Timeline planner splits at every edit and cut boundary, drops cut ranges, attaches overlapping subtitles and marks untouched same-resolution ranges as stream-copy candidates.",
+    "Two-thread segment renderer stream-copies clean ranges and otherwise uses CUDA decode, scale_cuda Lanczos, h264_nvenc VBR at CQ 23, spatial and temporal AQ, and a 32-surface limit.",
+    "Hybrid path keeps drawtext and watermark filters on the CPU, then uploads frames back to CUDA for NVENC; unpaid jobs get a watermark when WATERMARK_URL is set.",
+    "Disk guards: a source over 500 MB with less than 6 GB free is recompressed to 3 Mbps with NVENC; under 3 GB free, CQ rises to 26.",
+    "Final assembly uses the concat demuxer, stream copy and faststart; output goes to a presigned R2 PUT, GoFile as the no-URL fallback, or the caller's public URL.",
+    "Docker builds FFmpeg 7.1.3 from source with NVENC, NVDEC and CUDA on a CUDA 12.8.1 base, targeting sm_89; the handler deletes temp files and clears its alarm in finally.",
   ],
   decisions: [
     "RunPod serverless over a persistent GPU: auto-scaling with zero idle cost.",
-    "Worker cap of 2 over unlimited parallelism: prevents VRAM allocation failures on L4.",
-    "Smart copy mode over always-reencode: faster for segments that need no processing.",
+    "Cap at 2 concurrent segments instead of unlimited parallelism: the config comments and L4 surface limits favour predictable VRAM use over maximum throughput.",
+    "Stream-copy untouched ranges instead of re-encoding everything: faster, and avoids a generation of quality loss.",
+    "Join with -c copy instead of a final encode: near-instant assembly, but it assumes every segment shares codec, resolution and timebase.",
   ],
   diagrams: [
     {
@@ -309,14 +373,14 @@ export const playthroughprocessor: Project = {
         direction TB
         Job["RunPod serverless job<br/>CUDA 12.8 · FFmpeg 7.1.3"] --> Timeout["Start 2-hour timeout"]
         Timeout --> Validate["Validate input<br/>video · edit map · resolution · paid flag"]
-        Validate --> Fetch["Download video + edit map<br/>HTTP · Google Drive · inline JSON<br/>3 retries"]
+        Validate --> Fetch["Download video + edit map<br/>HTTP · Google Drive · inline JSON<br/>3 attempts"]
         Fetch --> Shrink["Disk guard<br/>big file + low space<br/>re-compress to 3 Mbps (NVENC)"]
     end
 
     subgraph Plan["2 · Plan"]
         direction TB
         Probe["ffprobe metadata<br/>resolution · fps · audio · duration"] --> Parse["Parse edit map<br/>zoom · speed · cut · subtitles"]
-        Parse --> Res["Choose output size<br/>720p · 1080p · 480p · 360p<br/>or original"]
+        Parse --> Res["Choose output size<br/>360p · 480p · 720p · 1080p<br/>or original"]
         Res --> Segments["Build segment plan<br/>split at every edit boundary<br/>drop cuts · attach effects"]
         Segments --> Quality["Quality guard<br/>CQ 26 when free disk under 3 GB"]
     end
@@ -344,13 +408,13 @@ export const playthroughprocessor: Project = {
   ],
   folder: `playthroughprocessor/
 ├── effects/               # zoom, speed, caption, watermark (color disabled)
-├── processor/             # analyzer, job parser, renderers
-├── storage/               # r2, gofile, gdrive, downloader
-├── utils/                 # ffmpeg, gpu, retry
+├── processor/             # analyzer, timeline, segment + final renderers
+├── storage/               # R2, GoFile, Google Drive, downloader
+├── utils/                 # FFmpeg, GPU detection, retries
 ├── handler.py             # RunPod serverless entry
-├── config.py
-└── Dockerfile`,
-  proves: "GPU resource control, hardware-accelerated media processing, and failure handling in a serverless worker.",
+├── config.py              # encoder, timeouts, resolutions, watermark
+└── Dockerfile             # CUDA 12.8 + FFmpeg 7.1.3`,
+  proves: "Timeline segmentation, hardware-accelerated encoding, disk and VRAM limits, and storage handoff in a serverless GPU worker.",
 };
 
 export const vulti: Project = {

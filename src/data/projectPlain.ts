@@ -20,18 +20,19 @@ export const projectPlain: Record<string, PlainProject> = {
     oneLine: "A working app that follows a YouTube comment thread for you.",
     numbers: [
       "16 database tables",
-      "30 API routes",
+      "28 API routes",
       "8 separate Rust packages",
       "76 database queries checked at compile time",
     ],
     problem:
-      "YouTube doesn't make it easy to follow one specific conversation. If you care about a comment thread, you have to keep checking it yourself to see if someone replied, or if a comment was edited or deleted.",
+      "There is no focused way to follow a specific YouTube comment thread. YouTube has notifications, but they are unreliable. Sometimes they never arrive. Sometimes you get pinged and the comment isn't even visible when you open the thread. And there is no history of what was edited or deleted.",
     built: [
-      "A web app that watches a specific YouTube thread and tells you when something changes.",
-      "Messages arrive live while you're on the page, without reloading.",
-      "A background job checks YouTube on a schedule and pulls in new replies.",
-      "Sign in with Google, plus a paid Pro plan through Paddle.",
-      "Every edit and deletion is kept as a separate version, so you can see what changed.",
+      "A web app that follows one YouTube conversation and shows new replies, edits, and deletions as they happen while the page is open.",
+      "A background checker runs on a schedule: as often as every 30 seconds for active Pro threads, less often as a thread goes quiet, and it stays inside YouTube's daily data limit.",
+      "Sign in with Google, connect a YouTube account, and pay for Pro through Paddle. New accounts get a 14-day trial.",
+      "Every version of a comment is kept, so you can see what it said before an edit or deletion. History is part of Pro and the trial.",
+      "Comments posted from the app go through YouTube, with a daily write limit of 100 on the trial and 500 on Pro.",
+      "A Chrome side panel opens the same inbox next to YouTube using the same sign-in.",
     ],
     decisions: [
       {
@@ -39,34 +40,41 @@ export const projectPlain: Record<string, PlainProject> = {
         body: "I wanted to build something real while learning a new language, so I chose a scope I could actually finish and shipped it.",
       },
       {
-        title: "Used Redis for live updates instead of keeping connections in one server.",
+        title: "Used Redis to pass live updates between servers instead of assuming one server holds every connection.",
         body: "That way, if the app grows to several servers, people still get their messages.",
       },
       {
         title: "Only checked threads that were due.",
         body: "Instead of scanning every thread every minute, the scheduler only picks up threads whose next check time has passed.",
       },
+      {
+        title: "Used a throwaway pass for live connections.",
+        body: "The browser gets a single-use ticket that expires in 10 seconds, so a leaked connection link cannot be reused.",
+      },
     ],
     takeaway:
-      "A working paid app that handles live messages, background data fetching, and subscriptions at the same time.",
+      "A working paid app that handles live messages, background checking, and subscriptions at the same time.",
   },
 
   pushtodraft: {
-    oneLine: "A web app that turns a code commit into a social post.",
+    oneLine:
+      "A multi-company app for turning code commits into social posts, whose shared foundation became the base for later products.",
     numbers: [
-      "4 platforms supported",
-      "2 sign-in integrations",
-      "7 database tables for billing",
-      "5 versions of the AI prompt",
+      "4 publishing targets",
+      "2 OAuth sign-ins + Discord webhook",
+      "7 billing tables",
+      "5 base prompts, 9 tones",
+      "3 apps on the same starter kit",
     ],
     problem:
       "Developers want to share what they ship, but writing a separate post for each platform by hand is tedious. Nobody does it consistently.",
     built: [
       "A web app where each company gets its own separate space. One company's data is never visible to another, and this is enforced at the database level, not by remembering to filter.",
-      "It takes a GitHub commit and writes a post for each platform, with the wording adjusted per platform.",
-      "Connected accounts for Twitter and LinkedIn, with the access keys stored encrypted; Twitter's keys also refresh automatically, so the connection doesn't silently break.",
-      "Payments through Dodo, with a system that automatically reduces a customer's plan when they stop paying.",
-      "BranchForge (below) runs as a module inside this same system.",
+      "The AI layer has five versions of its base prompt, nine tone presets, and separate rules for each platform.",
+      "Accounts can be connected for Twitter and LinkedIn, or a Discord webhook. The keys are encrypted, and Twitter's keys refresh before they expire.",
+      "A shared billing app covers Dodo payments with seven tables for customers, subscriptions, plan changes, failures, and downgrade logs.",
+      "Repositories, posts, post groups, connected accounts, and webhook delivery logs are all stored per company.",
+      "The shared foundation became the JolexHive starter kit: BranchForge and PlaylistDNA run inside the same backend, and PlaythroughEditor reuses the same base with its own changes.",
     ],
     decisions: [
       {
@@ -78,120 +86,144 @@ export const projectPlain: Record<string, PlainProject> = {
         body: "If the database ever leaked, the third-party logins would still be useless.",
       },
       {
-        title: "Automatic downgrade instead of manual.",
-        body: "When a payment fails, the system reduces what the customer can access on its own, so nothing has to be chased by hand.",
+        title: "A reusable starter kit instead of rebuilding the same pieces for every app.",
+        body: "Login, company separation, billing, email, alerts, and scheduled jobs live once, so a new product only adds its own tables and screens.",
       },
     ],
     takeaway:
-      "Handling multiple companies in one app without them seeing each other, keeping outside logins secure, and letting billing actually change what the product does.",
+      "Handling multiple companies in one app without them seeing each other, keeping outside logins secure, and turning that shared foundation into a starter kit for later products.",
   },
 
   branchforge: {
-    oneLine: "A tool that answers \u201cwhat if?\u201d questions and refuses when it isn't sure.",
+    oneLine:
+      "A tool that answers \u201cwhat if?\u201d questions with a traceable chain of facts and causes, and can stop when the evidence is too thin.",
     numbers: [
-      "7 steps in the chain",
-      "5 database tables + 2 shared base models",
-      "confidence cut-off at 0.30",
-      "unique fingerprint per version",
+      "7 separate steps",
+      "5 product tables + 2 shared tables",
+      "4 kinds of cause-and-effect link",
+      "0.30 confidence cut-off in the prompts",
+      "unique fingerprint per branch",
     ],
     problem:
-      "Ask an AI model \u201cwhat if this happened?\u201d and it will usually just guess confidently. It won't show which facts it used, it can't tell you how one thing led to another, and it won't say when it doesn't actually know.",
+      "Ask an AI model \u201cwhat if this happened?\u201d and it will usually answer in confident free text. It will not show which facts it used, it will not lay out what caused what, and it will not stop when the evidence is thin.",
     built: [
-      "A tool that takes a set of established facts and works out what follows if you change one of them.",
-      "It maps out which facts affect which, then traces the effect of a change through that map.",
-      "It runs in seven separate steps, and each step is saved, so you can see exactly where a conclusion came from.",
-      "It stops and returns nothing when its confidence is too low, rather than guessing.",
-      "Older facts count for less over time, so a stale fact can't drive a confident answer.",
-      "Every version of a scenario gets its own fingerprint, so you can compare two versions and see what changed.",
+      "A tool that takes a curated set of facts and walks through a what-if question in seven separate steps, from checking the facts to writing the final answer.",
+      "Step one can stop the run. It checks that the change is backed by facts, that the fact set is consistent and that there are enough sources. If it fails, the branch is marked failed and the other steps do not run.",
+      "Each step is saved with its parsed result, raw output, token count and the last prompt message. Completing a step, forking, stopping and failing all write an audit entry.",
+      "Facts carry a source link, publication date, confidence score and half-life. Older facts get a smaller weight in the prompt using a half-life decay formula.",
+      "The middle steps build a cause-and-effect map and store each link as direct, confounder, mediator or collider, with its strength, direction, delay, effect size, source fact IDs and confidence.",
+      "The simulation step tells the model to treat the change as forced: cut the links that normally feed the changed variable, then push the effect through the remaining map.",
+      "The critique step asks for a pass or fail and a final confidence score. The last step turns the result into a narrative, outcome ranges, risks and sources.",
+      "Each branch has a parent, a depth and a unique fingerprint built from the parent fingerprint, the change and the creation time. The fingerprint is stored once.",
+      "The API can create a root branch, fork from a scenario or fork from an existing branch. It runs the whole chain inside that request.",
+      "The frontend has a scenario list and a canvas. You can fork a branch from a node and open a side panel with the narrative, outcomes, causal chain, sources and risks.",
+      "It runs as one of the apps on the shared JolexHive base. The scenario and fact tables are shared; the BranchForge tables live in each company's own database space.",
     ],
     decisions: [
       {
         title: "Seven separate steps instead of one big prompt.",
-        body: "Each step can be checked and re-run on its own. A single prompt gives you one answer and no way to inspect it.",
+        body: "Each step leaves a saved trace and a clear place to fail. You can see where a conclusion came from instead of getting one opaque answer.",
       },
       {
-        title: "A cut-off instead of always answering.",
-        body: "A confident wrong answer is worse than no answer, especially for anything someone might act on.",
+        title: "A confidence cut-off instead of always answering.",
+        body: "The prompts use 0.30 as the cut-off. Only the first step's stop flag is enforced by the runner; later steps ask the model to return a stop or error result.",
       },
       {
-        title: "Mapping cause and effect up front instead of letting the model write free-form reasoning.",
-        body: "It forces the system to commit to what affects what, instead of hand-waving.",
+        title: "Map cause and effect before writing the answer.",
+        body: "The model has to commit to links, strengths and delays instead of writing free-form reasoning with no structure.",
+      },
+      {
+        title: "Send the hard steps to a reasoning model.",
+        body: "Steps 3 to 6 use the reasoning model; steps 1, 2 and 7 use the faster model. Both can be changed in settings.",
+      },
+      {
+        title: "Run the whole chain in the request instead of a background queue.",
+        body: "The flow is simpler and the API can return the finished branch right away, but a long simulation holds the request open.",
       },
     ],
     takeaway:
-      "A chain of AI steps with clear places to stop, a full record of what happened, and versioned results.",
+      "A multi-step AI system that keeps a record of every step, stores cause-and-effect links as data, and gives each branch its own fingerprint.",
   },
 
   playthrougheditor: {
-    oneLine: "A web app where you describe a video edit in a chat and it happens.",
+    oneLine: "A web app where you describe a cut in chat and see it appear on a timeline.",
     numbers: [
-      "19 database tables",
       "6 kinds of edit",
-      "2 payment providers",
-      "full export pipeline from upload to download",
+      "4 the assistant can add",
+      "30-second autosave",
+      "5-second export check",
     ],
     problem:
-      "Editing gameplay footage means learning a timeline editor, which is a lot of work for something simple. Most creators just want to describe what they want and have it happen.",
+      "Editing gameplay footage means learning a timeline editor, which is a lot of work for a simple cut. Most creators would rather describe what they want and check the result.",
     built: [
-      "A web app with a video workspace, a chat panel, and a list of edits you've made.",
-      "You type something like \u201ccut the slow parts, add captions, zoom in on the kills\u201d and the app turns that into a set of edits.",
-      "Six kinds of edit: zoom, speed, text, shake, callout, and cut.",
-      "Export sends the job off to be rendered, tracks its progress, and gives you a download link when it's done.",
-      "Two payment providers behind one interface, plus an automatic plan reduction when a payment fails.",
-      "The video processing itself runs on a separate service (PlaythroughProcessor).",
+      "A browser editor with a video player, timeline, chat panel, edit list and subtitle blocks.",
+      "You type a change, and the assistant streams back a reply plus a structured edit. It can add zoom, speed, cut and text. It cannot change or remove something already on the timeline.",
+      "Six edit types exist in the data model: zoom, speed, text, shake, callout and cut. Shake and callout can live in a project, but the chat does not create them.",
+      "The editor saves itself after 30 seconds, so a refresh does not lose the timeline or the chat.",
+      "Projects and timeline items are stored per user and per organisation, so one account cannot load another account's work.",
+      "Uploads go straight to file storage with a temporary write link. A new project has to be 16:9. The length check allows 4,900 seconds, even though its error message says 30 minutes.",
+      "Export sends the edit list to the GPU worker, checks progress every 5 seconds, and returns a download link.",
     ],
     decisions: [
       {
-        title: "Used a well-known web framework instead of a lightweight one.",
-        body: "It already had login, billing, and per-company separation built and tested, so I didn't rebuild those.",
+        title: "Build a real browser app instead of server-rendered pages.",
+        body: "The timeline, video preview and streaming chat all need to react immediately in the browser.",
       },
       {
-        title: "Rented GPUs by the second instead of owning one.",
-        body: "A GPU sitting idle still costs money. This way you only pay while a video is actually rendering.",
+        title: "Keep the AI key on the server.",
+        body: "The browser talks to one endpoint that checks the request, limits how often it can be called, and forwards it to the model.",
       },
       {
-        title: "Chat turned into a list of edits instead of a manual timeline.",
-        body: "You can still see and adjust every edit, but you don't have to learn the tool first.",
+        title: "Let chat add edits, not rewrite them.",
+        body: "The assistant is limited to new zoom, speed, cut and text effects. Anything already on the timeline is changed by hand, which stops the model from silently undoing your work.",
+      },
+      {
+        title: "Save both a snapshot and the individual edits.",
+        body: "The snapshot loads the editor quickly. The individual rows keep the timeline searchable. The tradeoff is that every save replaces the rows for that project.",
       },
     ],
     takeaway:
-      "A product that ties together an upload, an AI reading your instructions, a render job, and a download link, all in one flow.",
+      "A prototype of chat-driven video editing where autosave, upload limits, tenant isolation and a deferred render job are treated as part of the product.",
   },
 
   playthroughprocessor: {
-    oneLine: "The part of the video editor that does the actual work, on rented graphics cards.",
+    oneLine: "The GPU worker built to turn a timeline of edits into a finished video on rented hardware.",
     numbers: [
-      "4 edit types handled here",
-      "4 quality presets",
-      "2 jobs at a time",
-      "2-hour limit per job",
+      "4 effects rendered",
+      "4 output sizes",
+      "2 parts at a time",
+      "2-hour job limit",
     ],
     problem:
-      "Processing video needs a graphics card, and renting one all day when you only need it for a few minutes is expensive. It's also easy to set up badly, so jobs fail or come out looking wrong.",
+      "Rendering video needs a graphics card. Renting one all day for a few minutes of work is wasteful, and a long job can run out of disk or memory halfway through.",
     built: [
-      "A worker that receives a video job, does the editing, and sends the result back.",
-      "Uses the graphics card's built-in video encoder, which is much faster than the general-purpose processor for this kind of work.",
-      "Handles zoom, speed, captions, and watermarks.",
-      "Picks a quality setting per job and manages how much graphics memory each job is allowed, so jobs don't crash into each other.",
-      "Some effects the graphics card can't do well, so those are done on the regular processor first, then the result goes back to the graphics card.",
-      "Skips re-encoding entirely when a clip doesn't need to change, which makes those jobs much faster.",
+      "A RunPod worker that accepts a video, an edit list and a target size, downloads the source, renders it and hands back a link.",
+      "Splits the video at every edit boundary and skips re-encoding for stretches with no changes.",
+      "Runs two parts at once, with a 10-minute cap on each part and a 2-hour cap on the whole job.",
+      "Uses the graphics card to decode, scale and encode. Text and watermarks take a trip through the normal processor for that step.",
+      "If the source is over 500 MB and free disk is under 6 GB, it recompresses first. Under 3 GB free, it lowers quality again.",
+      "Uploads the result through a temporary write link to file storage, or falls back to GoFile.",
     ],
     decisions: [
       {
-        title: "Rented, on-demand GPUs instead of one always-on machine.",
+        title: "Rent a GPU for the job, not for the day.",
         body: "No cost when nothing is rendering.",
       },
       {
-        title: "Limited to 2 jobs at a time instead of unlimited.",
-        body: "Running too many at once exhausted the graphics memory and caused failures. A hard limit is more reliable than hoping it doesn't happen.",
+        title: "Two parts at a time instead of as many as possible.",
+        body: "Running too many at once exhausted graphics memory and caused failures. A hard limit is more reliable than hoping it does not happen.",
       },
       {
-        title: "Skip re-encoding when possible.",
-        body: "If a clip comes out the same as it went in, re-encoding it wastes time and slightly degrades the picture for no reason.",
+        title: "Copy untouched video instead of re-encoding it.",
+        body: "If a clip already looks the way it should, re-encoding wastes time and slightly degrades the picture.",
+      },
+      {
+        title: "Join without a final re-encode.",
+        body: "This keeps assembly fast and avoids another quality loss, but every part has to use the same codec, size and timing.",
       },
     ],
     takeaway:
-      "Controlling an expensive shared resource, using the hardware properly, and handling failure cleanly on a machine that only exists while it's working.",
+      "What it takes to turn a timeline into video on a rented GPU: split the work, leave clean footage alone, watch disk and memory, and hand the result to storage.",
   },
 
   vulti: {

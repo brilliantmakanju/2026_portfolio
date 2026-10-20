@@ -17,10 +17,13 @@ type Stage = {
   label: HTMLElement;
   svg: SVGSVGElement;
   base: Box;
+  defaultScale: number;
 };
 
-const MIN_SCALE = 0.6;
+const MIN_SCALE = 0.25;
 const MAX_SCALE = 8;
+/** Open the database diagrams slightly zoomed in for readable labels. */
+const DEFAULT_SCALE = 1.32;
 const STAGE_MAX = 620;
 const PAD = 10;
 
@@ -77,9 +80,12 @@ function applyZoom(s: Stage, st: ZoomState) {
   st.scale = clamp(st.scale, MIN_SCALE, MAX_SCALE);
   const { k, w: cw, h: ch } = contentSize(s, st);
 
-  // Keep the diagram from being dragged completely out of the stage.
-  st.tx = clamp(st.tx, Math.min(0, sw - cw), 0);
-  st.ty = clamp(st.ty, Math.min(0, sh - ch), 0);
+  // Centre the diagram while it is smaller than the stage; once it overflows,
+  // keep it within reach so it cannot be dragged completely out of view.
+  const freeX = sw - cw;
+  const freeY = sh - ch;
+  st.tx = freeX >= 0 ? freeX / 2 : clamp(st.tx, freeX, 0);
+  st.ty = freeY >= 0 ? freeY / 2 : clamp(st.ty, freeY, 0);
 
   // Window onto the diagram, in user units. Matching the viewBox aspect to the
   // stage means no letterboxing, and vector-crisp rendering at every scale.
@@ -105,13 +111,19 @@ function zoomAt(s: Stage, st: ZoomState, cx: number, cy: number, factor: number)
 }
 
 function wireStage(host: HTMLElement, s: Stage) {
-  const st: ZoomState = { scale: 1, tx: 0, ty: 0 };
+  const st: ZoomState = { scale: s.defaultScale, tx: 0, ty: 0 };
   const { shell, lens } = s;
 
   fitStage(host, s);
   applyZoom(s, st);
 
   const center = () => ({ cx: shell.clientWidth / 2, cy: shell.clientHeight / 2 });
+  const reset = () => {
+    st.scale = s.defaultScale;
+    st.tx = 0;
+    st.ty = 0;
+    applyZoom(s, st);
+  };
 
   const expandBtn = host.querySelector<HTMLButtonElement>('[data-zoom="expand"]');
   const setExpanded = (on: boolean) => {
@@ -147,10 +159,7 @@ function wireStage(host: HTMLElement, s: Stage) {
         const c = center();
         zoomAt(s, st, c.cx, c.cy, 1 / 1.35);
       } else if (kind === "reset") {
-        st.scale = 1;
-        st.tx = 0;
-        st.ty = 0;
-        applyZoom(s, st);
+        reset();
       } else if (kind === "expand") {
         setExpanded(!host.classList.contains("zoom-expanded"));
       }
@@ -244,11 +253,8 @@ function wireStage(host: HTMLElement, s: Stage) {
   shell.addEventListener("pointercancel", endPointer);
 
   shell.addEventListener("dblclick", () => {
-    if (st.scale > 1.05) {
-      st.scale = 1;
-      st.tx = 0;
-      st.ty = 0;
-      applyZoom(s, st);
+    if (st.scale > s.defaultScale * 1.05) {
+      reset();
     } else {
       const c = center();
       zoomAt(s, st, c.cx, c.cy, 1.6);
@@ -264,10 +270,7 @@ function wireStage(host: HTMLElement, s: Stage) {
     } else if (e.key === "-") {
       zoomAt(s, st, c.cx, c.cy, 1 / 1.3);
     } else if (e.key === "0") {
-      st.scale = 1;
-      st.tx = 0;
-      st.ty = 0;
-      applyZoom(s, st);
+      reset();
     } else if (e.key === "ArrowLeft") {
       st.tx += step;
       applyZoom(s, st);
@@ -311,13 +314,19 @@ export function initDiagramZoom() {
     if (host.dataset.zoomInit) return;
     host.dataset.zoomInit = "1";
     const path = host.dataset.svg!;
+    const requestedZoom = Number(host.dataset.zoomDefault);
+    const defaultScale = clamp(
+      Number.isFinite(requestedZoom) && requestedZoom > 0 ? requestedZoom : DEFAULT_SCALE,
+      MIN_SCALE,
+      MAX_SCALE
+    );
     host.innerHTML = `
       <div class="zoom-shell" tabindex="0" role="application" aria-label="Interactive database diagram: drag to pan, ctrl plus scroll or pinch to zoom, arrow keys also pan">
         <div class="zoom-lens"></div>
       </div>
       <div class="zoom-controls">
         <button type="button" class="zoom-btn" data-zoom="out" aria-label="Zoom out">&#8722;</button>
-        <span class="zoom-level" aria-live="polite">100%</span>
+        <span class="zoom-level" aria-live="polite">${Math.round(defaultScale * 100)}%</span>
         <button type="button" class="zoom-btn" data-zoom="in" aria-label="Zoom in">+</button>
         <button type="button" class="zoom-btn" data-zoom="reset" aria-label="Reset zoom">reset</button>
         <button type="button" class="zoom-btn" data-zoom="expand" aria-label="Expand diagram" aria-pressed="false">expand</button>
@@ -359,7 +368,7 @@ export function initDiagramZoom() {
             svg.style.height = "100%";
             svg.style.display = "block";
             svg.setAttribute("viewBox", `${base.x} ${base.y} ${base.w} ${base.h}`);
-            wireStage(host, { shell, lens, label, svg, base });
+            wireStage(host, { shell, lens, label, svg, base, defaultScale });
           });
         })
         .catch(() => {

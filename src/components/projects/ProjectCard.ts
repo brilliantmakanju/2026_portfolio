@@ -18,7 +18,7 @@ function tabPanels(p: Project) {
       <div class="diagram-panel${i === 0 ? "" : " hidden"}" data-panel="${d.key}" id="panel-${p.id}-${d.key}" role="tabpanel" aria-labelledby="tab-${p.id}-${d.key}">
         ${
           d.svg
-            ? `<div class="diagram-static" data-svg="${d.svg}" aria-label="${p.title} database diagram"></div>`
+            ? `<div class="diagram-static" data-svg="${d.svg}"${d.zoom ? ` data-zoom-default="${d.zoom}"` : ""} aria-label="${p.title} database diagram"></div>`
             : `<div class="mermaid" data-diagram="${p.id}-${d.key}">\n${d.code}\n        </div>
         <p class="zoom-hint mermaid-hint">swipe the diagram sideways to see the full flow</p>`
         }
