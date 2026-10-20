@@ -20,6 +20,8 @@ export type Project = {
   positioning: string;
   status: string;
   statusKind: "live" | "off" | "open";
+  timeframe?: string;
+  demo?: { src: string; caption: string; label?: string; length?: string };
   liveUrl?: string;
   backendUrl?: string;
   frontendUrl?: string;
@@ -46,6 +48,13 @@ export const threadchat: Project = {
     "A live SaaS for following specific YouTube comment threads, with live updates and versioned edit and deletion history.",
   status: "Live",
   statusKind: "live",
+  timeframe: "Jun 2026 - Jul 2026",
+  demo: {
+    src: "https://threadchat.jolexhive.com/demo.mp4",
+    label: "Watch the 20-second demo",
+    length: "20s",
+    caption: "A short look at the live inbox and threaded replies.",
+  },
   liveUrl: "https://threadchat.jolexhive.com",
   stack: ["Rust", "Axum", "Tokio", "SvelteKit", "Svelte 5", "TypeScript", "WebSockets", "PostgreSQL", "Redis", "Tailwind CSS 4"],
   scope: ["8-crate Rust workspace", "16 tables · 29 migrations · 76 sqlx-prepared queries", "28 route patterns (34 endpoints) · 4-tier rate limiting", "4-tier polling: 30s–6h Pro, 5m–12h free", "6 Redis pub/sub channel families", "100/500 daily write quota (trial/Pro)"],
@@ -60,6 +69,7 @@ export const threadchat: Project = {
     "SvelteKit 5 frontend on Cloudflare with runes, TanStack Query, cookie sessions, and a WebSocket client that patches open threads live.",
     "Paddle checkout, customer portal and idempotent webhooks (processed_webhook_events) drive the Pro role; the Dodo client exists but its routes are commented out.",
     "Manifest V3 Chrome side panel that opens the same inbox on YouTube using the shared cookie session.",
+    "Dockerized the Axum API and Tokio polling worker as separate images; the SvelteKit frontend runs as a Cloudflare Worker on threadchat.jolexhive.com.",
   ],
   decisions: [
     "Always wanted to learn Rust, so I picked it over Django and Python to build ThreadChat.",
@@ -102,6 +112,7 @@ export const pushtodraft: Project = {
     "A multi-tenant Django/Next.js SaaS built to turn GitHub commits into platform-tailored social posts; its shared backend became the JolexHive SaaS starter kit.",
   status: "Decommissioned",
   statusKind: "off",
+  timeframe: "Jan 2025 - Jan 2026",
   backendUrl: "https://github.com/brilliantmakanju/pushtodraftbackend",
   frontendUrl: "https://github.com/brilliantmakanju/commit-to-post-ui",
   stack: ["Python", "Django", "DRF", "PostgreSQL", "django-tenants", "Next.js 16", "React 19", "Zustand", "TanStack Query", "Tailwind CSS 4", "Axios", "Dodo Payments"],
@@ -177,6 +188,7 @@ export const branchforge: Project = {
     "A causal what-if engine that builds a seven-stage scenario from curated facts and stores a trace for every step.",
   status: "Waitlist",
   statusKind: "open",
+  timeframe: "Dec 2025 - Jan 2026",
   stack: [
     "Python",
     "Django",
@@ -270,9 +282,11 @@ export const playthrougheditor: Project = {
   positioning: "A browser editor that turns chat instructions into timeline edits, then hands the render to a GPU worker.",
   status: "Decommissioned",
   statusKind: "off",
+  timeframe: "Dec 2025 - Jan 2026",
+  repoUrl: "https://github.com/brilliantmakanju/playthrougheditor",
   processorUrl: "https://github.com/brilliantmakanju/video_processor_gpu_infra",
   related: { label: "PlaythroughProcessor", href: "#playthroughprocessor" },
-  stack: ["Python", "Django 5.2", "DRF", "Next.js 15.4", "React 19", "Zustand", "PostgreSQL", "Redis", "Cloudflare R2", "RunPod"],
+  stack: ["Python", "Django 5.2", "DRF", "Next.js 15.5", "React 19", "Zustand", "PostgreSQL", "Redis", "Cloudflare R2", "RunPod"],
   scope: [
     "20 Django models across 6 apps",
     "6 edit types, 4 creatable through chat",
@@ -283,14 +297,15 @@ export const playthrougheditor: Project = {
   problem:
     "Video creators need to edit gameplay footage through natural language instructions without learning timeline-based editing software.",
   built: [
-    "Next.js 15.4 editor with a video canvas, timeline, chat panel, edit stack, subtitle blocks and export modal.",
-    "Server-side /api/ai/chat proxy streams OpenAI-compatible completions, neutralizes prompt-injection patterns, and applies a 20-per-minute rate limit, 4,000-character message cap and 60-second timeout.",
+    "Next.js 15.5 editor with a video canvas, timeline, chat panel, edit stack, subtitle blocks and export modal.",
+    "Server-side /api/ai/chat proxy streams OpenAI-compatible completions, replaces 15 known prompt-injection patterns, strips control characters, and applies a 20-per-minute rate limit, 4,000-character message cap and 60-second timeout.",
     "Zustand owns the edit list, subtitles and chat history; chat JSON is merged only when it does not overlap an existing edit, then autosaved as a full project snapshot after 30 seconds.",
     "Django/DRF Project and Edit models keep raw edit properties in JSON; a project PATCH replaces the Edit rows from the editor snapshot and rebuilds editor-facing refs when the project is read back.",
     "New-project wizard checks 16:9 and a 4,900-second duration constant (its error copy still says 30 minutes), uploads the source and thumbnail through presigned R2 PUTs, and caches the source locally in IndexedDB for preview.",
     "RunPod export proxy creates a 2-hour presigned R2 output PUT, submits video URL, edit JSON, paid flag and target resolution, then polls RunPod every 5 seconds for up to 40 minutes.",
     "Per-user querysets plus TenantAccessPermission tie projects and edits to both the authenticated account and the tenant domain.",
     "Billing scaffolding remains in the tree: Dodo checkout route, signed webhook handler, payment models and a Paddle webhook.",
+    "Published as a single Apache-2.0 monorepo with root setup docs, architecture notes, the database schema diagram, Docker Compose for PostgreSQL and Redis, and CI.",
   ],
   decisions: [
     "Next.js over server-rendered Django pages: the timeline, local video preview and streaming chat all need client-side state.",
@@ -308,6 +323,8 @@ export const playthrougheditor: Project = {
     },
   ],
   folder: `playthrougheditor/
+├── .github/workflows/           # CI: lint, type-check, build, Django check
+├── docs/                        # architecture, database-schema.svg
 ├── backend/
 │   ├── authentication/          # JWT, billing, downgrade service
 │   ├── communication/           # ExportRequest, email
@@ -323,7 +340,11 @@ export const playthrougheditor: Project = {
 │   ├── components/editor/       # chat, timeline, edits, export
 │   ├── hooks/                   # autosave, export, upload
 │   ├── zustand/                 # editor store
-│   └── lib/                     # AI, R2, API client`,
+│   ├── lib/                     # AI, R2, API client
+│   └── config/                  # site metadata and R2 host
+├── docker-compose.yml           # PostgreSQL + Redis
+├── LICENSE                      # Apache-2.0
+└── README.md                    # setup, architecture, GPU worker link`,
   proves: "Server-streamed AI editing, a typed editor state machine, tenant-scoped persistence and a deferred GPU render handoff.",
 };
 
@@ -334,6 +355,7 @@ export const playthroughprocessor: Project = {
   positioning: "The RunPod worker built to turn PlaythroughEditor timeline JSON into an MP4 with NVENC.",
   status: "Decommissioned",
   statusKind: "off",
+  timeframe: "Dec 2025 - Jan 2026",
   repoUrl: "https://github.com/brilliantmakanju/video_processor_gpu_infra",
   related: { label: "PlaythroughEditor", href: "#playthrougheditor" },
   stack: ["Python", "FFmpeg 7.1.3", "NVENC/NVDEC", "CUDA 12.8", "RunPod", "Docker"],
@@ -417,13 +439,54 @@ export const playthroughprocessor: Project = {
   proves: "Timeline segmentation, hardware-accelerated encoding, disk and VRAM limits, and storage handoff in a serverless GPU worker.",
 };
 
+export const hiringradar: Project = {
+  id: "hiringradar",
+  index: "06",
+  title: "HiringRadar",
+  positioning: "A Python CLI that finds companies that are hiring, enriches them with Gemini and exports a clean list.",
+  status: "CLI tool",
+  statusKind: "open",
+  timeframe: "Sep 2025 - Oct 2025",
+  stack: ["Python", "SQLite", "Gemini", "aiohttp", "BeautifulSoup", "Rich", "Tkinter"],
+  scope: [
+    "4 discovery sources: Hacker News, GitHub, search engines and job boards",
+    "SQLite store with company, description, robots and session tables",
+    "Markdown, CSV and PDF exports",
+    "CLI plus a Tkinter desktop GUI",
+  ],
+  problem:
+    "Finding companies that are actually hiring means checking job boards, hiring threads and career pages by hand. The data is inconsistent, duplicated and stale quickly.",
+  built: [
+    "Python CLI with one-shot, scheduled, stats, database-search and export commands.",
+    "Discovers companies from Hacker News hiring threads, GitHub search, search engines and job boards, then resolves domains and checks career pages.",
+    "Stores each company in SQLite, writes a Markdown file per company, and exports daily CSV files and a PDF report.",
+    "Uses Gemini to generate company descriptions and caches the generated text in SQLite.",
+    "Checks robots.txt, rotates user agents and applies delays and exponential backoff between requests.",
+  ],
+  decisions: [
+    "SQLite over a server database: one portable file that runs on a small droplet and is easy to copy.",
+    "Multiple discovery sources over one job board: each source finds companies the others miss.",
+    "Keep the data portable: SQLite, Markdown and CSV all carry the same records.",
+  ],
+  diagrams: [],
+  folder: `hiringradar/
+├── hiringradar/          # discovery, careers, storage, AI, HTTP, database
+├── companies_md/         # one Markdown file per company
+├── exports/              # daily and master CSV files
+├── main.py               # CLI entry
+├── gui.py                # Tkinter GUI
+└── requirements.txt`,
+  proves: "A small data pipeline: discover, enrich, deduplicate, store and export.",
+};
+
 export const vulti: Project = {
   id: "vulti",
-  index: "06",
+  index: "07",
   title: "Vulti",
   positioning: "A single-file Bash CLI that remembers terminal commands and rebuilds a machine after a reinstall.",
   status: "Open Source",
   statusKind: "open",
+  timeframe: "Dec 2025",
   repoUrl: "https://github.com/brilliantmakanju/vulti",
   stack: ["Bash", "Linux", "Git"],
   scope: ["12 distro IDs across 3 package-manager families", "9 subcommands in a zero-dependency single file", "Zip restore with dry-run mode"],

@@ -67,6 +67,7 @@ export function renderCard(p: Project, showRelated: boolean) {
         <div class="project-file-row">
           <span class="project-file">work/<strong>${p.id}</strong>/</span>
           <span class="status-pill ${statusClass}">${p.status}</span>
+          ${p.timeframe ? `<span class="project-timeframe">${p.timeframe}</span>` : ""}
           <div class="project-links">${linkRow(p)}</div>
         </div>
         <h3 class="project-title">${p.title}</h3>
@@ -75,12 +76,31 @@ export function renderCard(p: Project, showRelated: boolean) {
       </div>
     </header>
 
-    ${plain ? plainBody(plain) : techBody(p)}
+    ${demoBlock(p)}
+    ${plain ? plainBody(plain, p.id) : techBody(p)}
   </article>`;
 }
 
-/** Plain-English card body: numbers -> problem -> built -> decisions -> takeaway. */
-function plainBody(plain: (typeof projectPlain)[string]) {
+/** Optional short demo, collapsed so it stays out of the way until wanted. */
+function demoBlock(p: Project) {
+  if (!p.demo) return "";
+  return `
+    <details class="project-demo">
+      <summary>
+        <span class="demo-label">${p.demo.label ?? "Watch demo"}</span>
+        ${p.demo.length ? `<span class="demo-length">${p.demo.length}</span>` : ""}
+        <span class="demo-chevron" aria-hidden="true">▸</span>
+      </summary>
+      <div class="project-demo-body">
+        <video controls preload="metadata" playsinline src="${p.demo.src}" aria-label="${p.title} demo"></video>
+        <p>${p.demo.caption}</p>
+      </div>
+    </details>`;
+}
+
+/** Plain-English card body: a short summary, with the full detail behind Read more. */
+function plainBody(plain: (typeof projectPlain)[string], projectId: string) {
+  const moreId = `plain-more-${projectId}`;
   return `
     <div class="plain-body">
       <section class="block">
@@ -95,24 +115,31 @@ function plainBody(plain: (typeof projectPlain)[string]) {
         <p>${plain.problem}</p>
       </section>
 
-      <section class="block">
-        <h4 class="block-title">What I built</h4>
-        <ul class="bullet-list">
-          ${plain.built.map((b) => `<li>${b}</li>`).join("")}
-        </ul>
-      </section>
+      <button class="plain-more-toggle" type="button" aria-expanded="false" aria-controls="${moreId}">
+        <span class="plain-more-label">Read more</span>
+        <span class="plain-more-icon" aria-hidden="true">+</span>
+      </button>
 
-      <section class="block">
-        <h4 class="block-title">Design decisions</h4>
-        <ul class="plain-decisions">
-          ${plain.decisions.map((d) => `<li><strong>${d.title}</strong> ${d.body}</li>`).join("\n          ")}
-        </ul>
-      </section>
+      <div class="plain-more" id="${moreId}" hidden>
+        <section class="block">
+          <h4 class="block-title">What I built</h4>
+          <ul class="bullet-list">
+            ${plain.built.map((b) => `<li>${b}</li>`).join("")}
+          </ul>
+        </section>
 
-      <footer class="project-foot">
-        <span class="block-title">Takeaway</span>
-        <p>${plain.takeaway}</p>
-      </footer>
+        <section class="block">
+          <h4 class="block-title">Design decisions</h4>
+          <ul class="plain-decisions">
+            ${plain.decisions.map((d) => `<li><strong>${d.title}</strong> ${d.body}</li>`).join("\n            ")}
+          </ul>
+        </section>
+
+        <footer class="project-foot">
+          <span class="block-title">Takeaway</span>
+          <p>${plain.takeaway}</p>
+        </footer>
+      </div>
     </div>`;
 }
 

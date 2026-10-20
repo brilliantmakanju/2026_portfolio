@@ -1,5 +1,5 @@
 import type { Project } from "../../data/projects";
-import { threadchat, pushtodraft, branchforge, playthrougheditor, playthroughprocessor, vulti } from "../../data/projects";
+import { threadchat, pushtodraft, branchforge, playthrougheditor, playthroughprocessor, hiringradar, vulti } from "../../data/projects";
 import { renderCard } from "./ProjectCard";
 import { SECTIONS } from "../../data/sections";
 
@@ -11,6 +11,7 @@ export function renderProjects() {
     branchforge,
     playthrougheditor,
     playthroughprocessor,
+    hiringradar,
     vulti,
   ];
 
@@ -74,6 +75,30 @@ export function initProjectDiagrams(run: (root: HTMLElement) => void) {
     // Activate the first tab visually; rendering is staggered elsewhere.
     const first = tabs[0]?.dataset.tab;
     if (first) activate(first, false);
+  });
+}
+
+/** Expand or collapse the full plain-English detail for each project. */
+export function initPlainReadMore() {
+  const root = document.getElementById("projects");
+  if (!root || root.dataset.plainMoreBound) return;
+  root.dataset.plainMoreBound = "1";
+
+  root.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    const btn = target?.closest<HTMLButtonElement>(".plain-more-toggle");
+    if (!btn || !root.contains(btn)) return;
+
+    const panel = document.getElementById(btn.getAttribute("aria-controls") ?? "");
+    if (!panel) return;
+
+    const open = panel.hidden;
+    panel.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+    const label = btn.querySelector<HTMLElement>(".plain-more-label");
+    if (label) label.textContent = open ? "Show less" : "Read more";
+    const icon = btn.querySelector<HTMLElement>(".plain-more-icon");
+    if (icon) icon.textContent = open ? "\u2212" : "+";
   });
 }
 

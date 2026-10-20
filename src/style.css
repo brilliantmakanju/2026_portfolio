@@ -240,6 +240,84 @@ body {
     0 30px 90px -30px rgba(255, 255, 255, 0.13);
 }
 
+.featured-project {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 42rem;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 2px solid rgba(134, 239, 172, 0.55);
+  border-radius: 0.45rem;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
+  text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.featured-project:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  border-left-color: rgba(134, 239, 172, 0.85);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+}
+
+.featured-kicker {
+  flex-shrink: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #86efac;
+}
+
+.featured-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.featured-main strong {
+  color: #f4f4f5;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.featured-main span {
+  color: #a1a1aa;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.featured-arrow {
+  flex-shrink: 0;
+  color: #71717a;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.featured-project:hover .featured-arrow {
+  color: #f4f4f5;
+  transform: translateX(2px);
+}
+
+@media (max-width: 640px) {
+  .featured-project {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.65rem;
+  }
+
+  .featured-kicker {
+    width: 100%;
+  }
+
+  .featured-arrow {
+    display: none;
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* Section headers (terminal command shell)                            */
 /* ------------------------------------------------------------------ */
@@ -689,6 +767,86 @@ body.diagram-expanded {
 
 .related a:hover {
   color: #ffffff;
+}
+
+.project-timeframe {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  color: #a1a1aa;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  padding-left: 0.7rem;
+  white-space: nowrap;
+}
+
+/* Optional demo disclosure ------------------------------------------- */
+
+.project-demo {
+  margin-top: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 0.55rem;
+  background: #08080a;
+  overflow: hidden;
+}
+
+.project-demo summary {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 0.9rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  color: #d4d4d8;
+  cursor: pointer;
+  list-style: none;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.project-demo summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-demo summary:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.demo-label {
+  flex: 1;
+}
+
+.demo-length {
+  color: #71717a;
+  font-size: 0.62rem;
+}
+
+.demo-chevron {
+  color: #71717a;
+  transition: transform 160ms ease;
+}
+
+.project-demo[open] .demo-chevron {
+  transform: rotate(90deg);
+}
+
+.project-demo-body {
+  padding: 0 0.9rem 0.9rem;
+}
+
+.project-demo video {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  border-radius: 0.35rem;
+  background: #000;
+}
+
+.project-demo-body p {
+  margin-top: 0.6rem;
+  color: #71717a;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.66rem;
+  line-height: 1.55;
 }
 
 /* Status pills ------------------------------------------------------ */
@@ -1303,6 +1461,77 @@ button:focus-visible {
   gap: 1.6rem;
 }
 
+.plain-more-toggle {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-left: 1.15rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #d4d4d8;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.plain-more-toggle:hover {
+  color: #fafafa;
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.plain-more-toggle:focus-visible {
+  outline: 2px solid #a1a1aa;
+  outline-offset: 3px;
+}
+
+.plain-more-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0.9rem;
+  color: #a1a1aa;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.plain-more {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.plain-more[hidden] {
+  display: none;
+}
+
+.plain-more:not([hidden]) {
+  animation: plain-more-in 220ms ease-out;
+}
+
+@keyframes plain-more-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plain-more:not([hidden]) {
+    animation: none;
+  }
+}
+
 /* No rule between card header and "By the numbers" in plain mode */
 .project-card:has(.plain-body) .project-head {
   border-bottom: none;
@@ -1383,4 +1612,69 @@ button:focus-visible {
   padding-left: 0.85rem;
   line-height: 1.6;
   max-width: 58ch;
+}
+
+/* Contact availability and channels -------------------------------- */
+
+.contact-availability {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: #a1a1aa;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+
+.contact-availability span {
+  flex-shrink: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: #86efac;
+  box-shadow: 0 0 0 4px rgba(134, 239, 172, 0.12);
+}
+
+.contact-channel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+  background: #050505;
+}
+
+.contact-channel-label {
+  flex-shrink: 0;
+  color: #94a3b8;
+}
+
+.contact-channel-link,
+.contact-channel-value {
+  min-width: 0;
+  color: #ffffff;
+  overflow-wrap: anywhere;
+}
+
+.contact-channel-link {
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.contact-channel-link:hover {
+  color: #d4d4d8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .contact-channel {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
 }

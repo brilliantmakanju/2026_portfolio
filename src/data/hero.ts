@@ -10,13 +10,20 @@ export const heroData = {
   /** Cycled by the typewriter in the hero (see initHeroTyper). */
   roles: ["Full-Stack Developer", "Applied AI & LLM Integration"],
   intro: "I build multi-tenant SaaS backends and LLM pipelines for teams shipping applied AI products.",
-  note: "Based in Nigeria, remote worldwide. Self-taught, roughly two years of professional experience.",
+  note: "Based in Nigeria (WAT, UTC+1), remote worldwide. Open to full-time remote roles with US/EU overlap. Self-taught, roughly two years of professional experience.",
+  featured: {
+    kicker: "Featured AI project",
+    name: "BranchForge",
+    href: "#branchforge",
+    note: "A seven-stage LLM pipeline for causal scenarios, with confidence gates and branch hashing.",
+  },
   terminal: {
     prompt: "brilliant@arch:~",
     command: "brilliant --status",
     /** Display-ready values (quotes/brackets included). */
     status: [
-      { key: "location", value: `"Nigeria · Remote Worldwide"` },
+      { key: "location", value: `"Nigeria · WAT (UTC+1)"` },
+      { key: "availability", value: `"full-time remote · US/EU overlap"` },
       { key: "stack", value: `["Python", "TypeScript", "Rust", "Django", "Axum", "FastAPI"]` },
       { key: "ai", value: `"RAG · LLM pipelines · multi-tenant SaaS"` },
       { key: "gpu", value: `"RTX 5090 / L4 NVENC · RunPod serverless"` },
@@ -28,7 +35,7 @@ export const heroData = {
     sub: "I build the parts of a web app people don't see.",
     body:
       "I build the database, the APIs, the login system, the billing, and the AI features that sit on top. Some of what I've built is live and some isn't, and each project below says which.",
-    smallLine: "Based in Nigeria, working remotely. Self-taught, about two years of professional experience.",
+    smallLine: "Based in Nigeria (WAT, UTC+1), working remotely. Open to full-time roles with US/EU overlap. Self-taught, about two years of professional experience.",
     nameNote: "“Number-One” is my real middle name: it's on the birth certificate, not a ranking.",
   },
 };

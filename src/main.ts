@@ -1,7 +1,7 @@
 import "./style.css";
 import { renderNav, initNav, initScrollSpy } from "./components/nav";
 import { renderHero, initHeroTyper } from "./components/hero";
-import { renderProjects, initProjectDiagrams, initFolderToggles } from "./components/projects";
+import { renderProjects, initProjectDiagrams, initFolderToggles, initPlainReadMore } from "./components/projects";
 import { initDiagramZoom } from "./components/projects/diagramZoom";
 import { onModeChange, getMode } from "./data/mode";
 import { renderModeOverlay, initModeOverlay } from "./components/mode-toggle";
@@ -154,6 +154,7 @@ function mountProjects() {
   renderProjects();
   initProjectDiagrams((panel) => runMermaidIn(panel));
   initFolderToggles();
+  initPlainReadMore();
   initDiagramZoom();
   renderVisiblePanels();
 }

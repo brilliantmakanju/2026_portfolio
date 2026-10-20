@@ -3,7 +3,7 @@ import { SECTIONS } from "../data/sections";
 
 export function renderContact() {
   const el = document.getElementById("contact")!;
-  const { email, resumePath, location, channels } = contactData;
+  const { email, resumePath, location, availability, channels } = contactData;
 
   el.innerHTML = `
   <div class="border-t border-white/10 pt-16">
@@ -30,19 +30,21 @@ export function renderContact() {
         </button>
       </div>
 
+      <p class="contact-availability"><span aria-hidden="true"></span>${availability}</p>
+
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 font-mono text-xs">
         ${channels
           .map(
             (channel) => `
-        <div class="p-3.5 rounded bg-[#050505] border border-white/10 flex items-center justify-between">
-          <span class="text-slate-400">${channel.label}</span>
-          <a href="${channel.url}" target="_blank" rel="noopener" class="text-white hover:underline">${channel.display} &rarr;</a>
+        <div class="contact-channel">
+          <span class="contact-channel-label">${channel.label}</span>
+          <a href="${channel.url}" target="_blank" rel="noopener" class="contact-channel-link">${channel.display} &rarr;</a>
         </div>`
           )
           .join("\n")}
-        <div class="p-3.5 rounded bg-[#050505] border border-white/10 flex items-center justify-between">
-          <span class="text-slate-400">Location</span>
-          <span class="text-white">${location}</span>
+        <div class="contact-channel">
+          <span class="contact-channel-label">Location</span>
+          <span class="contact-channel-value">${location}</span>
         </div>
       </div>
     </div>

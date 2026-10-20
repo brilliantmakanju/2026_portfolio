@@ -58,6 +58,8 @@ function renderTechHero() {
         ${intro}
       </p>
 
+      ${featuredCallout()}
+
       <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-mono">
         ${note}
       </p>
@@ -118,6 +120,8 @@ function renderPlainHero() {
       ${plain.body}
     </blockquote>
 
+    ${featuredCallout()}
+
     <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-mono">
       ${plain.smallLine}
     </p>
@@ -134,6 +138,19 @@ export function renderHero() {
 function contactEmail() {
   // Imported lazily to keep contact data in one place without a circular dep.
   return "brilliantmakanju10@gmail.com";
+}
+
+function featuredCallout() {
+  const { featured } = heroData;
+  return `
+      <a class="featured-project" href="${featured.href}">
+        <span class="featured-kicker">${featured.kicker}</span>
+        <span class="featured-main">
+          <strong>${featured.name}</strong>
+          <span>${featured.note}</span>
+        </span>
+        <span class="featured-arrow" aria-hidden="true">&rarr;</span>
+      </a>`;
 }
 
 let typerEpoch = 0;

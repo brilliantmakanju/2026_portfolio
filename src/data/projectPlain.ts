@@ -163,6 +163,7 @@ export const projectPlain: Record<string, PlainProject> = {
       "Projects and timeline items are stored per user and per organisation, so one account cannot load another account's work.",
       "Uploads go straight to file storage with a temporary write link. A new project has to be 16:9. The length check allows 4,900 seconds, even though its error message says 30 minutes.",
       "Export sends the edit list to the GPU worker, checks progress every 5 seconds, and returns a download link.",
+      "The code is public as one Apache-2.0 repo with setup docs, a database diagram, Docker Compose for PostgreSQL and Redis, and CI.",
     ],
     decisions: [
       {
@@ -171,7 +172,7 @@ export const projectPlain: Record<string, PlainProject> = {
       },
       {
         title: "Keep the AI key on the server.",
-        body: "The browser talks to one endpoint that checks the request, limits how often it can be called, and forwards it to the model.",
+        body: "The browser talks to one endpoint that filters common prompt-injection phrases, limits how often it can be called, and forwards it to the model.",
       },
       {
         title: "Let chat add edits, not rewrite them.",
@@ -224,6 +225,41 @@ export const projectPlain: Record<string, PlainProject> = {
     ],
     takeaway:
       "What it takes to turn a timeline into video on a rented GPU: split the work, leave clean footage alone, watch disk and memory, and hand the result to storage.",
+  },
+
+  hiringradar: {
+    oneLine: "A job-hunting tool that finds companies that are hiring and turns them into a clean list.",
+    numbers: [
+      "4 discovery sources",
+      "4 SQLite tables",
+      "Markdown, CSV and PDF exports",
+      "CLI plus a desktop GUI",
+    ],
+    problem:
+      "Job hunting means checking the same boards and career pages over and over. The information is scattered, duplicated and often out of date.",
+    built: [
+      "A command-line tool that searches Hacker News, GitHub, search engines and job boards for companies that are hiring.",
+      "It finds likely career pages, checks them, and stores each company in a local database.",
+      "It writes one Markdown file per company and exports the list as CSV or PDF.",
+      "It asks Gemini to write a short description for each company and saves the result so it does not pay for the same description twice.",
+      "It checks robots.txt, changes its browser identity and slows down between requests.",
+    ],
+    decisions: [
+      {
+        title: "A single database file instead of a hosted database.",
+        body: "The whole tool fits on a small server and the data is easy to copy or back up.",
+      },
+      {
+        title: "Several sources instead of one job board.",
+        body: "Each source finds companies the others miss, which makes the list more useful.",
+      },
+      {
+        title: "Keep the data portable.",
+        body: "The same records can leave as Markdown, CSV or a PDF report without locking anyone into the tool.",
+      },
+    ],
+    takeaway:
+      "A small data pipeline that finds information, cleans it up, stores it and gives it back in a form someone can use.",
   },
 
   vulti: {
