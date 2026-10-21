@@ -4,7 +4,7 @@ export function renderNav() {
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between font-mono text-xs">
     <a href="#hero" class="flex items-center gap-2.5 group">
       <div class="w-6 h-6 rounded bg-white text-black font-bold flex items-center justify-center text-xs">b</div>
-      <span class="text-slate-200 font-semibold tracking-tight group-hover:text-white">brilliant.systems</span>
+      <span class="text-slate-200 font-semibold tracking-tight group-hover:text-white">jolex.vercel.app</span>
     </a>
 
     <nav aria-label="Primary" class="hidden md:flex items-center gap-6 text-slate-400">

@@ -95,7 +95,7 @@ function renderPlainHero() {
       ${plain.body}
     </blockquote>
 
-    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-mono">
+    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-mono pt-4">
       ${plain.smallLine}
     </p>
 

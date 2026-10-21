@@ -95,7 +95,6 @@ export const projectPlain: Record<string, PlainProject> = {
       "A tool that answers \u201cwhat if?\u201d questions with a traceable chain of facts and causes, and can stop when the evidence is too thin.",
     numbers: [
       "7 separate steps",
-      "5 product tables + 2 shared tables",
       "4 kinds of cause-and-effect link",
       "0.30 confidence cut-off in the prompts",
       "unique fingerprint per branch",
@@ -144,10 +143,9 @@ export const projectPlain: Record<string, PlainProject> = {
   playthrougheditor: {
     oneLine: "A web app where you describe a cut in chat and see it appear on a timeline.",
     numbers: [
-      "6 kinds of edit",
-      "4 the assistant can add",
+      "15 prompt-injection patterns filtered",
+      "20 requests/minute rate limit",
       "30-second autosave",
-      "5-second export check",
     ],
     problem:
       "Editing gameplay footage means learning a timeline editor, which is a lot of work for a simple cut. Most creators would rather describe what they want and check the result.",
@@ -186,8 +184,8 @@ export const projectPlain: Record<string, PlainProject> = {
   playthroughprocessor: {
     oneLine: "The GPU worker built to turn a timeline of edits into a finished video on rented hardware.",
     numbers: [
-      "4 effects rendered",
-      "4 output sizes",
+      "Stream-copy for untouched ranges",
+      "500 MB / 6 GB disk guard",
       "2 parts at a time",
       "2-hour job limit",
     ],

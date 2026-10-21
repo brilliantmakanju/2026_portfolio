@@ -1,0 +1,52 @@
+# Brilliant Makanju
+
+> Full-stack engineer focused on applied AI and LLM integration. I build multi-tenant SaaS backends and LLM pipelines, mostly in Python and Rust. Based in Nigeria. Open to full-time or contract roles: full-stack, backend, applied AI. Remote, US/EU overlap.
+
+## About
+
+Brilliant (Number-One) Makanju is a full-stack engineer. Number-One is his middle name, not a rank. His work covers multi-tenant SaaS backends, RAG on AWS Bedrock, real-time systems in Rust, and LLM pipelines. The portfolio has a Plain English view and a Technical view.
+
+## Main page
+
+- [Portfolio](https://jolex.vercel.app/): Selected work, skills, experience, certifications, and contact.
+- [Selected work](https://jolex.vercel.app/#projects)
+- [Skills](https://jolex.vercel.app/#skills)
+- [Experience](https://jolex.vercel.app/#experience)
+- [Certifications](https://jolex.vercel.app/#certifications)
+- [Contact](https://jolex.vercel.app/#contact)
+
+## Projects
+
+- [ThreadChat](https://threadchat.jolexhive.com): Live paid app that follows a specific YouTube comment thread and tracks edits and deletions.
+- [Push to Draft](https://github.com/brilliantmakanju/pushtodraftbackend): Multi-tenant app that turns code commits into social posts. Frontend: https://github.com/brilliantmakanju/commit-to-post-ui
+- [BranchForge](https://jolex.vercel.app/#branchforge): Causal what-if engine that builds a seven-stage scenario from curated facts and stores a trace.
+- [PlaythroughProcessor](https://github.com/brilliantmakanju/video_processor_gpu_infra): RunPod GPU worker that turns PlaythroughEditor timeline JSON into an MP4 with NVENC.
+- [PlaythroughEditor](https://github.com/brilliantmakanju/playthrougheditor): Browser editor for timeline edits with a deferred GPU render handoff.
+- [HiringRadar](https://jolex.vercel.app/#hiringradar): Python CLI and desktop GUI that finds companies that are hiring and exports a clean list.
+- [Vulti](https://github.com/brilliantmakanju/vulti): Single-file Bash CLI that remembers terminal commands and rebuilds a Linux machine.
+
+## Views
+
+- [Plain English view](https://jolex.vercel.app/?view=plain)
+- [Technical view](https://jolex.vercel.app/?view=technical)
+
+## Technical highlights
+
+- **ThreadChat**: Rust, Axum, Tokio, SvelteKit, Svelte 5, TypeScript, WebSockets, PostgreSQL, Redis, Tailwind CSS 4. 76 sqlx queries checked at compile time, four-tier rate limiting and polling.
+- **Push to Draft**: Python, Django, DRF, PostgreSQL, django-tenants, Next.js 16, React 19, Zustand, TanStack Query, Tailwind CSS 4, Dodo Payments. Schema-per-tenant isolation, Fernet-encrypted OAuth tokens, publisher handlers for Twitter, LinkedIn, Slack and Discord, automated plan downgrades.
+- **BranchForge**: Python, Django, DRF, PostgreSQL, django-tenants, Next.js, React, TypeScript, React Flow, TanStack Query, OpenRouter. Seven-stage LLM pipeline, four causal link types, 0.30 prompt-level confidence threshold, SHA-256 branch identity.
+- **PlaythroughProcessor**: Python, FFmpeg 7.1.3, NVENC/NVDEC, CUDA 12.8, RunPod, Docker. Stream-copy for untouched ranges, 500 MB source / 6 GB free disk guard, two concurrent segments, two-hour job limit, NVENC CQ 23 with libx264 fallback.
+- **PlaythroughEditor**: Python, Django 5.2, DRF, Next.js 15.5, React 19, Zustand, PostgreSQL, Redis, Cloudflare R2, Cloudinary for profile images, RunPod. 15 prompt-injection patterns filtered, 20 requests/minute rate limit, 30-second autosave, presigned R2 uploads.
+- **HiringRadar**: Python, SQLite, Gemini, aiohttp, BeautifulSoup, Rich, Tkinter. Four discovery sources: Hacker News, GitHub, search engines and job boards. Markdown, CSV and PDF exports. CLI plus a Tkinter desktop GUI.
+- **Vulti**: Bash, Linux, Git. 12 Linux versions supported, zero dependencies, zip restore with dry-run mode.
+
+## Contact
+
+- Email: brilliantmakanju10@gmail.com
+- GitHub: https://github.com/brilliantmakanju
+- LinkedIn: https://linkedin.com/in/brilliantmakanju
+
+## Notes
+
+- This is a single-page static portfolio. The initial HTML is prerendered, so the page content is available without executing JavaScript.
+- The Technical view adds stack and scope details. The Plain English view explains the same work without jargon.

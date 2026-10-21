@@ -149,8 +149,8 @@ function mountHero() {
   renderHero();
 }
 
-function mountProjects() {
-  renderProjects();
+/** Attach behavior to the project cards that are already in the DOM. */
+function initProjects() {
   initProjectDiagrams((panel) => runMermaidIn(panel));
   initFolderToggles();
   initPlainReadMore();
@@ -158,25 +158,45 @@ function mountProjects() {
   renderVisiblePanels();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+/** Render every section. Used when the static HTML is absent or was generated
+ *  for the other reading mode. */
+function renderAll() {
   renderNav();
-  initNav();
   renderModeOverlay();
-  initModeOverlay();
   mountHero();
-  mountProjects();
+  renderProjects();
   renderSkills();
   renderExperience();
   renderCertifications();
   renderContact();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // `scripts/prerender.mjs` writes the full page into dist/index.html and
+  // records which mode it rendered. Reuse that HTML when it matches the
+  // visitor's mode, so the browser only attaches behavior instead of
+  // replacing every section after load.
+  const reusePrerender = document.body.dataset.prerenderedMode === getMode();
+
+  if (!reusePrerender) {
+    renderAll();
+  } else if (!document.getElementById("mode-float")) {
+    // Defensive: an older prerender may predate the mode toggle.
+    renderModeOverlay();
+  }
+
+  initNav();
+  initModeOverlay();
+  initProjects();
   initContact();
   initScrollSpy();
   initMermaid();
 
   onModeChange(() => {
     mountHero();
-    mountProjects();
+    renderProjects();
     renderExperience();
+    initProjects();
     if (getMode() === "technical") loadMermaid();
   });
 });
