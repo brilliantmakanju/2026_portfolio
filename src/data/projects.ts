@@ -29,7 +29,7 @@ export type Project = {
   processorUrl?: string;
   related?: { label: string; href: string };
   stack: string[];
-  scope: string[];
+  scope?: string[];
   problem: string;
   built: string[];
   decisions: string[];
@@ -58,7 +58,7 @@ export const threadchat: Project = {
   // },
   liveUrl: "https://threadchat.jolexhive.com",
   stack: ["Rust", "Axum", "Tokio", "SvelteKit", "Svelte 5", "TypeScript", "WebSockets", "PostgreSQL", "Redis", "Tailwind CSS 4"],
-  scope: ["8-crate Rust workspace", "16 tables · 29 migrations · 76 sqlx-prepared queries", "28 route patterns (34 endpoints) · 4-tier rate limiting", "4-tier polling: 30s–6h Pro, 5m–12h free", "6 Redis pub/sub channel families", "100/500 daily write quota (trial/Pro)"],
+  scope: ["76 sqlx queries checked at compile time", "4-tier rate limiting", "4-tier polling: 30s–6h Pro, 5m–12h free", "6 Redis pub/sub channel families", "100/500 daily write quota (trial/Pro)"],
   problem:
     "There is no focused way to follow a specific YouTube comment thread. YouTube has notifications, but they are unreliable. Sometimes they never arrive. Sometimes you get pinged and the comment isn't even visible when you open the thread. And there is no history of what was edited or deleted.",
   built: [
@@ -118,21 +118,19 @@ export const pushtodraft: Project = {
   frontendUrl: "https://github.com/brilliantmakanju/commit-to-post-ui",
   stack: ["Python", "Django", "DRF", "PostgreSQL", "django-tenants", "Next.js 16", "React 19", "Zustand", "TanStack Query", "Tailwind CSS 4", "Axios", "Dodo Payments"],
   scope: [
-    "4 publish handlers (Twitter, LinkedIn, Slack, Discord)",
-    "2 OAuth flows (Twitter, LinkedIn) + Discord webhook; Fernet-encrypted tokens",
+    "Multi-provider billing with an automated plan-downgrade engine",
+    "Fernet-encrypted OAuth tokens and webhook URLs",
     "Twitter token refresh + health checks",
-    "7-model shared billing app (Dodo) with plan-change history",
-    "5 base prompts, 9 tone presets, per-platform rules",
     "django-tenants schema isolation",
-    "Starter kit reused by BranchForge, PlaylistDNA and PlaythroughEditor",
+    "Starter kit reused by 3 apps: BranchForge, PlaylistDNA and PlaythroughEditor",
   ],
   problem:
     "Developers want to share code updates on social media, but turning a commit into a platform-appropriate post by hand is tedious, so it gets skipped.",
   built: [
     "Multi-tenant Django SaaS on django-tenants: shared apps in the public schema and product models in per-organization schemas.",
     "GitHub App install, reconnect and disconnect flows, plus a signed webhook receiver with delivery logs and a 100-call/hour per-organization rate limit.",
-    "Versioned prompt engine with five base-prompt generations, nine tone presets, per-platform rules and a streamed Llama 3 70B completion.",
-    "Post and PostGroup models for drafts, scheduling, media, soft delete and per-integration publish tracking across four platforms.",
+    "Versioned prompt engine with per-platform rules and a streamed Llama 3 70B completion.",
+    "Post and PostGroup models for drafts, scheduling, media, soft delete and per-integration publish tracking across Twitter, LinkedIn, Slack and Discord.",
     "Publisher handlers for Twitter, LinkedIn, Slack and Discord; Twitter tokens refresh ahead of expiry and are health-checked.",
     "OAuth flows for Twitter and LinkedIn plus a Discord webhook connect flow; tokens are Fernet-encrypted at rest.",
     "Shared JolexHive starter kit for auth (Allauth + Sesame + JWT), tenants/roles/invites, billing, email, alerts, cron and feature flags.",
@@ -150,7 +148,7 @@ export const pushtodraft: Project = {
       key: "db",
       label: "Database",
       caption:
-        "Public schema holds organizations, accounts, roles and billing (seven models in the app; the four core tables are shown). Repository, post and integration tables live in each organization's tenant schema. OAuth token columns are Fernet-encrypted.",
+        "Public schema holds organizations, accounts, roles and billing. Repository, post and integration tables live in each organization's tenant schema. OAuth token columns are Fernet-encrypted.",
       svg: "/diagrams/pushtodraft-db.svg",
       zoom: 2.51,
     },
@@ -159,12 +157,12 @@ export const pushtodraft: Project = {
 ├── backend/
 │   ├── push_draft/              # commit-to-post app (decommissioned)
 │   │   ├── models/              # post, repository, integration, webhook
-│   │   ├── ai_prompts/          # 5 base prompts + article prompt
+│   │   ├── ai_prompts/          # base prompts + article prompt
 │   │   ├── serializers/
 │   │   └── views/posting/       # posts, OAuth, webhooks, dashboard
 │   ├── branchforge/             # tenant app: causal simulation
 │   ├── playlistdna/             # tenant app
-│   ├── payment/                 # 7-model billing app, Dodo webhooks
+│   ├── payment/                 # billing app, Dodo webhooks
 │   ├── tenants/                 # orgs, domains, roles, invites
 │   ├── authentication/          # Allauth + Sesame + JWT
 │   ├── communication/           # email + export requests
@@ -278,7 +276,7 @@ export const branchforge: Project = {
 
 export const playthrougheditor: Project = {
   id: "playthrougheditor",
-  index: "04",
+  index: "05",
   title: "PlaythroughEditor",
   positioning: "A browser editor that turns chat instructions into timeline edits, then hands the render to a GPU worker.",
   status: "Decommissioned",
@@ -287,7 +285,7 @@ export const playthrougheditor: Project = {
   repoUrl: "https://github.com/brilliantmakanju/playthrougheditor",
   processorUrl: "https://github.com/brilliantmakanju/video_processor_gpu_infra",
   related: { label: "PlaythroughProcessor", href: "#playthroughprocessor" },
-  stack: ["Python", "Django 5.2", "DRF", "Next.js 15.5", "React 19", "Zustand", "PostgreSQL", "Redis", "Cloudflare R2", "RunPod"],
+  stack: ["Python", "Django 5.2", "DRF", "Next.js 15.5", "React 19", "Zustand", "PostgreSQL", "Redis", "Cloudflare R2", "Cloudinary (images)", "RunPod"],
   scope: [
     "20 Django models across 6 apps",
     "6 edit types, 4 creatable through chat",
@@ -302,7 +300,7 @@ export const playthrougheditor: Project = {
     "Server-side /api/ai/chat proxy streams OpenAI-compatible completions, replaces 15 known prompt-injection patterns, strips control characters, and applies a 20-per-minute rate limit, 4,000-character message cap and 60-second timeout.",
     "Zustand owns the edit list, subtitles and chat history; chat JSON is merged only when it does not overlap an existing edit, then autosaved as a full project snapshot after 30 seconds.",
     "Django/DRF Project and Edit models keep raw edit properties in JSON; a project PATCH replaces the Edit rows from the editor snapshot and rebuilds editor-facing refs when the project is read back.",
-    "New-project wizard checks 16:9 and a 4,900-second duration constant (its error copy still says 30 minutes), uploads the source and thumbnail through presigned R2 PUTs, and caches the source locally in IndexedDB for preview.",
+    "New-project wizard checks 16:9 and a duration limit, uploads the source and thumbnail through presigned R2 PUTs, and caches the source locally in IndexedDB for preview.",
     "RunPod export proxy creates a 2-hour presigned R2 output PUT, submits video URL, edit JSON, paid flag and target resolution, then polls RunPod every 5 seconds for up to 40 minutes.",
     "Per-user querysets plus TenantAccessPermission tie projects and edits to both the authenticated account and the tenant domain.",
     "Billing scaffolding remains in the tree: Dodo checkout route, signed webhook handler, payment models and a Paddle webhook.",
@@ -351,7 +349,7 @@ export const playthrougheditor: Project = {
 
 export const playthroughprocessor: Project = {
   id: "playthroughprocessor",
-  index: "05",
+  index: "04",
   title: "PlaythroughProcessor",
   positioning: "The RunPod worker built to turn PlaythroughEditor timeline JSON into an MP4 with NVENC.",
   status: "Decommissioned",
@@ -360,14 +358,6 @@ export const playthroughprocessor: Project = {
   repoUrl: "https://github.com/brilliantmakanju/video_processor_gpu_infra",
   related: { label: "PlaythroughEditor", href: "#playthrougheditor" },
   stack: ["Python", "FFmpeg 7.1.3", "NVENC/NVDEC", "CUDA 12.8", "RunPod", "Docker"],
-  scope: [
-    "4 effects: zoom, speed, subtitles, watermark",
-    "4 output sizes: 360p, 480p, 720p, 1080p",
-    "2 concurrent segments; 10-minute segment and concat caps",
-    "2-hour global job alarm",
-    "HTTP + Google Drive input; R2 + GoFile + public-URL output",
-    "NVENC CQ 23; libx264 CRF 23 fallback path",
-  ],
   problem:
     "GPU video processing is expensive and easy to misconfigure, especially when quality presets and VRAM budgets must hold under load.",
   built: [
@@ -451,7 +441,6 @@ export const hiringradar: Project = {
   stack: ["Python", "SQLite", "Gemini", "aiohttp", "BeautifulSoup", "Rich", "Tkinter"],
   scope: [
     "4 discovery sources: Hacker News, GitHub, search engines and job boards",
-    "SQLite store with company, description, robots and session tables",
     "Markdown, CSV and PDF exports",
     "CLI plus a Tkinter desktop GUI",
   ],
@@ -490,7 +479,7 @@ export const vulti: Project = {
   timeframe: "Dec 2025",
   repoUrl: "https://github.com/brilliantmakanju/vulti",
   stack: ["Bash", "Linux", "Git"],
-  scope: ["12 distro IDs across 3 package-manager families", "9 subcommands in a zero-dependency single file", "Zip restore with dry-run mode"],
+  scope: ["12 Linux versions supported", "No dependencies at all", "Zip restore with dry-run mode"],
   problem:
     "Reinstalling a Linux machine means re-remembering dozens of install commands and package lists.",
   built: [

@@ -1,6 +1,6 @@
 import "./style.css";
 import { renderNav, initNav, initScrollSpy } from "./components/nav";
-import { renderHero, initHeroTyper } from "./components/hero";
+import { renderHero } from "./components/hero";
 import { renderProjects, initProjectDiagrams, initFolderToggles, initPlainReadMore } from "./components/projects";
 import { initDiagramZoom } from "./components/projects/diagramZoom";
 import { onModeChange, getMode } from "./data/mode";
@@ -144,10 +144,9 @@ function loadMermaid() {
   document.head.appendChild(s);
 }
 
-/** Hero is mode-aware; re-rendering restarts the typer safely (epoch guard). */
+/** Hero is mode-aware; re-render it when the reading mode changes. */
 function mountHero() {
   renderHero();
-  initHeroTyper();
 }
 
 function mountProjects() {

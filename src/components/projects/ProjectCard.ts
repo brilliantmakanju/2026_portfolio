@@ -106,7 +106,7 @@ function plainBody(plain: (typeof projectPlain)[string], projectId: string) {
       <section class="block">
         <h4 class="block-title">By the numbers</h4>
         <div class="plain-nums">
-          ${plain.numbers.map((n) => `<span>${n}</span>`).join("")}
+          ${plain.numbers.map((n) => `<span>${n}</span>`).join(`<span class="plain-num-sep">·</span>`)}
         </div>
       </section>
 
@@ -151,10 +151,14 @@ function techBody(p: Project) {
         <dt>Stack</dt>
         <dd>${p.stack.map((s) => `<span class="chip chip-sm">${s}</span>`).join("")}</dd>
       </div>
-      <div>
+      ${
+        p.scope
+          ? `<div>
         <dt>Scope</dt>
         <dd class="scope-list">${p.scope.map((s) => `<span>${s}</span>`).join("")}</dd>
-      </div>
+      </div>`
+          : ""
+      }
     </dl>
 
     <div class="project-body">

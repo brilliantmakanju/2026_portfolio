@@ -7,29 +7,26 @@
 export const heroData = {
   name: "Brilliant (Number-One) Makanju.",
   pill: "full-stack-engineer-applied-ai",
-  /** Cycled by the typewriter in the hero (see initHeroTyper). */
-  roles: ["Full-Stack Engineer", "Applied AI & LLM Integration"],
-  intro: "I build multi-tenant SaaS backends and LLM pipelines for teams shipping applied AI products.",
-  note: "Based in Nigeria (WAT, UTC+1), remote worldwide. Open to full-time remote roles with US/EU overlap. Self-taught, roughly two years of professional experience.",
+  role: "Full-stack engineer working on applied AI and LLM integration.",
+  intro: "I build multi-tenant SaaS backends and LLM pipelines, mostly in Python and Rust.",
+  note: "Based in Nigeria (WAT, UTC+1). Open to full-time or contract roles: full-stack, backend, applied AI. Remote, US/EU overlap. Self-taught, roughly two years of professional experience.",
   terminal: {
     prompt: "brilliant@arch:~",
     command: "brilliant --status",
     /** Display-ready values (quotes/brackets included). */
     status: [
       { key: "location", value: `"Nigeria · WAT (UTC+1)"` },
-      { key: "availability", value: `"full-time remote · US/EU overlap"` },
+      { key: "availability", value: `"full-time or contract · remote · US/EU overlap"` },
       { key: "stack", value: `["Python", "TypeScript", "Rust", "Django", "Axum"]` },
       { key: "ai", value: `"RAG · LLM pipelines · multi-tenant SaaS"` },
       { key: "gpu", value: `"RTX 5090 / L4 NVENC · RunPod serverless"` },
     ],
   },
   plain: {
-    /** Friendlier titles cycled by the typewriter in Plain-English mode. */
-    plainRoles: ["full-stack engineer", "AI builder"],
-    sub: "I build the parts of a web app people don't see.",
+    role: "I'm a full-stack engineer focused on applied AI and LLM integration.",
     body:
-      "I build the database, the APIs, the login system, the billing, and the AI features that sit on top. Some of what I've built is live and some isn't, and each project below says which.",
-    smallLine: "Based in Nigeria (WAT, UTC+1), working remotely. Open to full-time roles with US/EU overlap. Self-taught, about two years of professional experience.",
-    nameNote: "“Number-One” is my real middle name: it's on the birth certificate, not a ranking.",
+      "I build the database, the APIs, the login system, the billing, and the AI features on top. Some of what I've built is live and some isn't, and each project below says which.",
+    smallLine: "Based in Nigeria (WAT, UTC+1). Open to full-time or contract roles: full-stack, backend, applied AI. Remote, US/EU overlap. Self-taught, about two years of professional experience.",
+    nameNote: "Number-One is my middle name. Not a rank, but hey, cool parents.",
   },
 };

@@ -9,8 +9,8 @@ export function renderProjects() {
     threadchat,
     pushtodraft,
     branchforge,
-    playthrougheditor,
     playthroughprocessor,
+    playthrougheditor,
     hiringradar,
     vulti,
   ];

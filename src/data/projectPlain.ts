@@ -19,9 +19,7 @@ export const projectPlain: Record<string, PlainProject> = {
   threadchat: {
     oneLine: "A working app that follows a YouTube comment thread for you.",
     numbers: [
-      "16 database tables",
-      "28 API routes",
-      "8 separate Rust packages",
+      "1 live paid app",
       "76 database queries checked at compile time",
     ],
     problem:
@@ -60,19 +58,17 @@ export const projectPlain: Record<string, PlainProject> = {
     oneLine:
       "A multi-company app for turning code commits into social posts, whose shared foundation became the base for later products.",
     numbers: [
-      "4 publishing targets",
-      "2 OAuth sign-ins + Discord webhook",
-      "7 billing tables",
-      "5 base prompts, 9 tones",
       "3 apps on the same starter kit",
+      "Schema-per-tenant isolation",
+      "Automated plan downgrades",
     ],
     problem:
       "Developers want to share what they ship, but writing a separate post for each platform by hand is tedious. Nobody does it consistently.",
     built: [
       "A web app where each company gets its own separate space. One company's data is never visible to another, and this is enforced at the database level, not by remembering to filter.",
-      "The AI layer has five versions of its base prompt, nine tone presets, and separate rules for each platform.",
+      "The AI layer has a versioned base prompt, tone presets, and separate rules for each platform.",
       "Accounts can be connected for Twitter and LinkedIn, or a Discord webhook. The keys are encrypted, and Twitter's keys refresh before they expire.",
-      "A shared billing app covers Dodo payments with seven tables for customers, subscriptions, plan changes, failures, and downgrade logs.",
+      "A shared billing app covers Dodo payments, plan changes, failures, and downgrade logs.",
       "Repositories, posts, post groups, connected accounts, and webhook delivery logs are all stored per company.",
       "The shared foundation became the JolexHive starter kit: BranchForge and PlaylistDNA run inside the same backend, and PlaythroughEditor reuses the same base with its own changes.",
     ],
@@ -161,7 +157,7 @@ export const projectPlain: Record<string, PlainProject> = {
       "Six edit types exist in the data model: zoom, speed, text, shake, callout and cut. Shake and callout can live in a project, but the chat does not create them.",
       "The editor saves itself after 30 seconds, so a refresh does not lose the timeline or the chat.",
       "Projects and timeline items are stored per user and per organisation, so one account cannot load another account's work.",
-      "Uploads go straight to file storage with a temporary write link. A new project has to be 16:9. The length check allows 4,900 seconds, even though its error message says 30 minutes.",
+      "Uploads go straight to file storage with a temporary write link. A new project has to be 16:9 and within the duration limit.",
       "Export sends the edit list to the GPU worker, checks progress every 5 seconds, and returns a download link.",
       "The code is public as one Apache-2.0 repo with setup docs, a database diagram, Docker Compose for PostgreSQL and Redis, and CI.",
     ],
@@ -231,7 +227,6 @@ export const projectPlain: Record<string, PlainProject> = {
     oneLine: "A job-hunting tool that finds companies that are hiring and turns them into a clean list.",
     numbers: [
       "4 discovery sources",
-      "4 SQLite tables",
       "Markdown, CSV and PDF exports",
       "CLI plus a desktop GUI",
     ],
@@ -266,9 +261,7 @@ export const projectPlain: Record<string, PlainProject> = {
     oneLine: "A small command-line tool that remembers your terminal commands and helps you rebuild a Linux machine.",
     numbers: [
       "12 Linux versions supported",
-      "3 package managers handled",
-      "9 commands",
-      "no dependencies at all",
+      "No dependencies at all",
     ],
     problem:
       "Reinstalling Linux means re-remembering dozens of install commands and package lists that you set up over months and never wrote down.",

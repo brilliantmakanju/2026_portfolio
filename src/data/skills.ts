@@ -2,6 +2,7 @@ export type Skill = string | { name: string; note?: string };
 
 export type SkillGroup = {
   title: string;
+  note?: string;
   skills: Skill[];
 };
 
@@ -41,12 +42,13 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "AI & Platforms",
+    note: "Professional experience, under NDA.",
     skills: [
       { name: "OpenAI API", note: "PlaythroughEditor" },
       { name: "Gemini API", note: "HiringRadar" },
-      { name: "AWS Bedrock", note: "NDA" },
-      { name: "GCP Vertex AI", note: "NDA" },
-      { name: "RAG", note: "NDA" },
+      { name: "AWS Bedrock", note: "Professional experience" },
+      { name: "GCP Vertex AI", note: "Professional experience" },
+      { name: "RAG", note: "Professional experience" },
       { name: "LLM orchestration", note: "BranchForge" },
       { name: "RunPod", note: "PlaythroughEditor · PlaythroughProcessor" },
     ],
@@ -59,7 +61,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "Git", note: "All projects" },
       { name: "GitHub", note: "All projects" },
       { name: "Linux", note: "Vulti · PlaythroughProcessor" },
-      { name: "Jest", note: "NDA" },
+      { name: "Jest", note: "Professional experience" },
       { name: "Vercel", note: "Portfolio" },
       { name: "Railway", note: "Push to Draft" },
       { name: "Cloudflare", note: "ThreadChat · PlaythroughEditor" },

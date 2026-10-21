@@ -31,13 +31,13 @@ export const experienceData: ExperienceEntry[] = [
     bullets: [
       "Built responsive interfaces in React and Next.js, maintaining a 90+ Core Web Vitals average across pages.",
       "Standardized the codebase with 15+ reusable components and integrated 5+ third-party REST APIs, including authentication flows.",
-      "Contributed to early AI feature development.",
+      "Became the team's primary AI engineer. Shipped RAG on AWS Bedrock through a Python/FastAPI service layer on Lambda.",
       "Contributed to technical decisions on frontend architecture and component structure.",
     ],
     plainBullets: [
       "Built the app's screens in React and Next.js, and kept them loading fast: a 90+ average on Google's Core Web Vitals across pages.",
       "Cleaned up how the code was organized, ending up with 15 or more building blocks that got reused instead of rewritten, and connected the app to 5 or more outside services, including the login system.",
-      "Worked on the company's early AI features.",
+      "Became the team's main AI engineer, building retrieval-augmented generation (RAG) on AWS Bedrock through a Python/FastAPI service on Lambda.",
       "Helped decide how the frontend was built and how the building blocks were organized.",
     ],
   },

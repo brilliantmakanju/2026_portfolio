@@ -19,25 +19,8 @@ function ctaRow() {
       </div>`;
 }
 
-/** Technical hero: name + typewriter + status terminal. *//** Typewriter line, shared by both hero modes. */
-function typerRow() {
-  const rolesText = [
-    ...(heroData.roles ?? []),
-    ...(heroData.plain.plainRoles ?? []),
-  ]
-    .filter((v, i, a) => a.indexOf(v) === i)
-    .join(", ");
-  return `
-      <div class="flex items-center gap-2.5 font-mono text-base sm:text-lg" aria-hidden="true">
-        <span class="text-emerald-400">&gt;</span>
-        <span id="hero-typer" class="text-white whitespace-nowrap"></span>
-        <span class="w-2 h-4 sm:h-5 bg-white inline-block animate-pulse"></span>
-      </div>
-      <span class="sr-only">${rolesText}</span>`;
-}
-
 function renderTechHero() {
-  const { pill, intro, note, terminal } = heroData;
+  const { pill, role, intro, note, terminal } = heroData;
 
   return `
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -50,12 +33,8 @@ function renderTechHero() {
         ${heroData.name}
       </h1>
 
-      <p class="name-note">${heroData.plain.nameNote}</p>
-
-      ${typerRow()}
-
       <p class="text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-        ${intro}
+        ${role} ${intro}
       </p>
 
       <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-mono">
@@ -108,10 +87,8 @@ function renderPlainHero() {
 
     <p class="name-note">${plain.nameNote}</p>
 
-    ${typerRow()}
-
     <p class="text-lg sm:text-xl text-slate-200 leading-relaxed">
-      ${plain.sub}
+      ${plain.role}
     </p>
 
     <blockquote class="plain-hero-body">
@@ -134,58 +111,4 @@ export function renderHero() {
 function contactEmail() {
   // Imported lazily to keep contact data in one place without a circular dep.
   return "brilliantmakanju10@gmail.com";
-}
-
-let typerEpoch = 0;
-
-export function initHeroTyper() {
-  const el = document.getElementById("hero-typer");
-  if (!el) return;
-
-  typerEpoch++;
-  const epoch = typerEpoch;
-
-  // Plain mode cycles friendlier titles; technical cycles the engineering ones.
-  const roles =
-    getMode() === "plain"
-      ? heroData.plain.plainRoles ?? heroData.roles
-      : heroData.roles;
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    el.textContent = roles[0];
-    return;
-  }
-
-  const alive = () => epoch === typerEpoch;
-
-  let role = 0;
-  let chars = 0;
-  let deleting = false;
-
-  const tick = () => {
-    if (!alive()) return;
-    const word = roles[role];
-    if (!deleting) {
-      chars++;
-      el.textContent = word.slice(0, chars);
-      if (chars === word.length) {
-        deleting = true;
-        setTimeout(tick, 2000); // hold the full role before erasing
-        return;
-      }
-      setTimeout(tick, 55 + Math.random() * 45);
-      return;
-    }
-    chars--;
-    el.textContent = word.slice(0, chars);
-    if (chars === 0) {
-      deleting = false;
-      role = (role + 1) % roles.length;
-      setTimeout(tick, 450);
-      return;
-    }
-    setTimeout(tick, 28);
-  };
-
-  tick();
 }

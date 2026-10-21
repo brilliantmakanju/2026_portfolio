@@ -1319,6 +1319,14 @@ button:focus-visible {
   border-radius: 999px;
 }
 
+.skill-group-note {
+  margin: -0.35rem 0 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem;
+  line-height: 1.5;
+  color: #71717a;
+}
+
 .skill-list {
   display: flex;
   flex-direction: column;
@@ -1528,10 +1536,8 @@ button:focus-visible {
   color: #a1a1aa;
 }
 
-.plain-nums span + span::before {
-  content: "\00B7";
+.plain-num-sep {
   color: #3f3f46;
-  margin-right: 0.75rem;
 }
 
 .plain-decisions {

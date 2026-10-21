@@ -28,6 +28,7 @@ function groupToCard(group: SkillGroup) {
           <span>// ${escapeAmps(group.title)}</span>
           <span class="skill-count">${group.skills.length}</span>
         </div>
+        ${group.note ? `<p class="skill-group-note">${group.note}</p>` : ""}
         <div class="skill-list">
           ${group.skills.map(skillRow).join("\n          ")}
         </div>
